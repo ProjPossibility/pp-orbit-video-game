@@ -8,8 +8,8 @@ public class Planet extends SpaceObject {
 		super();
 	}
 
-	public Planet(Vector2 p,Vector2 v,Vector2 a,String sprite,Rect bounds,double mass,double radius) {
-		super(p,v,a,sprite,bounds,mass);
+	public Planet(Vector2 p,Vector2 v,Vector2 a,String sprite,double mass,double radius) {
+		super(p,v,a,sprite,radius*2,radius*2,mass);
 		this.radius = radius;
 	}
 
