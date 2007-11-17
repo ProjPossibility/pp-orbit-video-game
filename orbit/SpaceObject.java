@@ -58,6 +58,33 @@ public class SpaceObject {
 		return new ImageIcon("media/spaceship.jpg").getImage();
 	}
 
+	/*
+	 * =======ANIMATION CODE BELOW HERE=====================================
+	 */
+
+	private int currentFrame = 0;
+	private int timePerFrame =0;
+	private int elapsedTime =0;
+	private int numFrames = 0;
+	private boolean looping = false;
+
+    public void animate(int msSinceLastTime) {
+    	if (!looping) return;
+
+    	elapsedTime+=msSinceLastTime;
+    	if(elapsedTime>timePerFrame)
+    	{
+    		//This code here loops the animation
+    		if(currentFrame==numFrames-1) {
+            	currentFrame = 0;
+    		}
+    		else {
+    			currentFrame++;
+    		}
+    		elapsedTime=0; //start counting from 0
+    	}
+    }
+
 }
 
 
