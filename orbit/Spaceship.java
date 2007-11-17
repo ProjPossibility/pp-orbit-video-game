@@ -11,6 +11,7 @@ import java.util.*;
 public class Spaceship extends SpaceObject {
 
 	private boolean thrusting;
+	private static final double thrustSize = 30;
 
 	public Spaceship() {
 		thrusting = false;
@@ -56,9 +57,12 @@ public class Spaceship extends SpaceObject {
 		if (thrusting) {
 			double angle = getAngle();
 			Vector2 thrust = new Vector2(Math.cos(angle),Math.sin(angle));
+			thrust = thrust.scale(thrustSize);
+
+			a.addVector(thrust);
 		}
 
-		vel = vel.addVector(accel.scale((double)timeElapsed));
+		vel = vel.addVector(a.scale((double)timeElapsed));
 		pos = pos.addVector(vel.scale((double)timeElapsed));
 	}
 
