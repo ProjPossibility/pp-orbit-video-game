@@ -31,6 +31,9 @@ public class ScrollingScreen extends JPanel
 		for(SpaceObject so:world.getSpaceObjects())
 			drawSpaceObject(g,so);
 	}
+	/** Draw an individual SpaceObject
+	 *
+	 **/
 	private void drawSpaceObject(Graphics2D g,SpaceObject so)
 	{
 		System.out.println("Drawing object");
