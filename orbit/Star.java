@@ -7,6 +7,10 @@ public class Star extends SpaceObject {
 		super();
 		this.layer = layer;
 
+		//randomly generate its position
+		pos.x = Math.random()*800;
+		pos.y = Math.random()*600;
+
 		vel.x = 0; //there's no horizontal speed
 
 		//based on the layer, calculate the speed at which it should be going
