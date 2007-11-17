@@ -9,6 +9,7 @@ import javax.swing.*;
 public class ResourceManager {
 
 	private static HashMap<String, BufferedImage> imageMap;
+	private static ResourceManager instance = new ResourceManager();
 
 	public ResourceManager() {
 		imageMap = new HashMap<String, BufferedImage>();
