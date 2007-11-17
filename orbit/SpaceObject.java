@@ -32,6 +32,12 @@ public class SpaceObject {
 		accel = new Vector2();
 		sprite = new String("null");
 		width = height = radius = 0.0;
+
+		currentFrame = 0;
+		numFrames = 0;
+		elapsedTime = 0;
+		timePerFrame = 0;
+		looping = false;
 	}
 
 	public SpaceObject(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height) {
@@ -42,6 +48,7 @@ public class SpaceObject {
 		this.width = width;
 		this.height = height;
 		this.radius = Math.min(width,height)/2.0;
+
 	}
 
 	public Vector2 getPos() { return pos; }
@@ -54,8 +61,7 @@ public class SpaceObject {
 
 	public Image getFrame()
 	{
-		//return null;
-		return new ImageIcon("media/spaceship.jpg").getImage();
+		return ResourceManager.getImage(sprite,currentFrame);
 	}
 
 	/*
@@ -67,6 +73,20 @@ public class SpaceObject {
 	private int elapsedTime =0;
 	private int numFrames = 0;
 	private boolean looping = false;
+
+	/**
+	 * This sets the initial animation properties
+	 * @param timePerFrame	the number of milliseconds per frame
+	 * @param numFrames		The total number of frames present
+	 * @param looping		Set this to true if you want the animation to repeatedly loop
+	 */
+	public void setAnimationProperties(int timePerFrame,int numFrames,boolean looping) {
+		this.timePerFrame = timePerFrame;
+		this.numFrames = numFrames;
+		this.looping = looping;
+		currentFrame = 0;
+		elapsedTime = 0;
+	}
 
     public void animate(int msSinceLastTime) {
     	if (!looping) return;
@@ -84,6 +104,16 @@ public class SpaceObject {
     		elapsedTime=0; //start counting from 0
     	}
     }
+
+    public void setLooping(boolean loop) {
+    	looping = loop;
+    }
+
+    public void setFrame(int f) {
+    	if (f < numFrames && f >= 0)
+    		currentFrame = f;
+    }
+
 
 }
 
