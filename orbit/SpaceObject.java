@@ -115,6 +115,9 @@ public class SpaceObject {
     		currentFrame = f;
     }
 
+    public void update(long timeElapsed) {
+    	
+    }
 
 }
 
