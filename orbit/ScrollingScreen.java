@@ -22,6 +22,7 @@ public class ScrollingScreen extends JPanel
 	}
 	public void paintComponent(Graphics g1)
 	{
+		super.paintComponent(g1);
 		Graphics2D g=(Graphics2D)g1;
 		
 	}
