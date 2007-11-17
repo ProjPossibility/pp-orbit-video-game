@@ -8,11 +8,11 @@ public class OrbitGame
 	public static void main(String[] args)
 	{
 		JFrame frame=new JFrame();
-		Rect screen=new Rect(0,0,500,400);
+		Rect screen=new Rect(0,0,800,600);
 		frame.setSize((int)screen.width,(int)screen.height);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		
+		frame.setResizable(false);
 		Rect viewport=new Rect(0,0,1000,800);
 		
 		World world=new World();

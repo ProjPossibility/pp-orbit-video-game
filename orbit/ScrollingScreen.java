@@ -46,7 +46,10 @@ public class ScrollingScreen extends JPanel
 		Image image=so.getFrame();
 		if(image==null)
 			return;
-		g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
+		System.out.println("Drawing object - in view, has image");
+		g.setColor(Color.blue);
+		g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
+		//g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
 	}
 	
 	public Vector2 transformScale(Vector2 vec)
