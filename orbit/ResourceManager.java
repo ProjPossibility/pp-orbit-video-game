@@ -8,13 +8,13 @@ import javax.swing.*;
 
 public class ResourceManager {
 
-	private HashMap<String, BufferedImage> imageMap;
+	private static HashMap<String, BufferedImage> imageMap;
 
 	public ResourceManager() {
 		imageMap = new HashMap<String, BufferedImage>();
 	}
 
-	private BufferedImage toBufferedImage(Image image) {
+	private static BufferedImage toBufferedImage(Image image) {
         if (image instanceof BufferedImage) {
             return (BufferedImage)image;
         }
@@ -46,7 +46,7 @@ public class ResourceManager {
         return bimage;
     }
 
-	public void addImageSequence(String imagePath, int numImages, String sequenceName) {
+	public static void addImageSequence(String imagePath, int numImages, String sequenceName) {
 		Image loadedImage = Toolkit.getDefaultToolkit().getImage(imagePath);
 		BufferedImage globalImg = toBufferedImage(loadedImage);
 		int parseWidth = globalImg.getWidth() / numImages;
