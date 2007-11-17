@@ -4,9 +4,9 @@
 
 */
 
-import java.Math.*;
-
 package orbit;
+
+import java.math.*;
 
 public class Vector2 {
 
