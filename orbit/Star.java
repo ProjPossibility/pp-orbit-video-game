@@ -1,9 +1,11 @@
-public class Planet extends SpaceObject {
-	
+package orbit;
+
+public class Star extends SpaceObject {
+
 	public Star() {
-		this.super();
+		super();
 	}
-	
-	
-	
+
+
+
 }
