@@ -1,15 +1,13 @@
 package orbit;
 
 public class Star extends SpaceObject {
-	private int layer;
 
 	public Star(int layer) {
 		super();
-		this.layer = layer;
 
 		//randomly generate its position
-		pos.x = Math.random()*800;
-		pos.y = Math.random()*600;
+		pos.x = Math.random();
+		pos.y = Math.random();
 
 		vel.x = 0; //there's no horizontal speed
 
@@ -20,11 +18,11 @@ public class Star extends SpaceObject {
 			break;
 		}
 		case 1: {
-			vel.y = 1;
+			vel.y = 0.01;
 			break;
 		}
 		case 2: {
-			vel.y = 2;
+			vel.y = 0.02;
 			break;
 		}
 		}
@@ -41,15 +39,15 @@ public class Star extends SpaceObject {
 
 		//update its position
 		if (vel.x < 0) {
-			vel.x = 800;
+			vel.x = 1.0;
 		}
 
 		if (vel.y < 0) {
-			vel.y = 600;
+			vel.y = 1.0;
 		}
 
-		if (vel.x > 800) vel.x = 0;
-		if (vel.y > 600) vel.y = 0;
+		if (vel.x > 1.0) vel.x = 0;
+		if (vel.y > 1.0) vel.y = 0;
 	}
 
 

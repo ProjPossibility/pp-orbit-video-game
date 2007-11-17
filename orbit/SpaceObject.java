@@ -17,10 +17,9 @@ public class SpaceObject {
 	protected Vector2 vel;
 	protected  Vector2 accel;
 
-	protected  double mass;
-
 	protected  String sprite;
 
+	//this is used for image drawing and collision detection
 	protected  double width;
 	protected  double height;
 
@@ -31,11 +30,10 @@ public class SpaceObject {
 		vel = new Vector2();
 		accel = new Vector2();
 		sprite = new String("null");
-		mass = 0.0;
 		width = height = radius = 0.0;
 	}
 
-	public SpaceObject(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height,double mass) {
+	public SpaceObject(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height) {
 		pos = p;
 		vel = v;
 		accel = a;
@@ -48,12 +46,11 @@ public class SpaceObject {
 	public Vector2 getPos() { return pos; }
 	public Vector2 getVel() { return vel; }
 	public Vector2 getAccel() { return vel; }
-	public double getMass() { return mass; }
 	public String getSprite() { return sprite; }
 	public double getWidth() { return width; }
 	public double getHeight() { return height; }
 	public double getRadius() { return radius; }
-	
+
 	public Image getFrame()
 	{
 		return null;
