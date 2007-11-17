@@ -54,7 +54,7 @@ public class ResourceManager {
 		int height = globalImg.getHeight();
 		for(int x=0; x < numImages; x++) {
 			BufferedImage i = globalImg.getSubimage(x*parseWidth, 0, parseWidth, height);
-			imageMap.put(imagePath+x, i);
+			imageMap.put(sequenceName+x, i);
 		}
 	}
 
