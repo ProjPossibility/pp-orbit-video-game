@@ -61,6 +61,7 @@ public class SpaceObject {
 
 	public Image getFrame()
 	{
+		//return new ImageIcon("build/media/spaceship.jpg").getImage();
 		return ResourceManager.getImage(sprite,currentFrame);
 	}
 

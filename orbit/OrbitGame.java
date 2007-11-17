@@ -13,10 +13,11 @@ public class OrbitGame
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
+		frame.setLocation(200,100);
 		Rect viewport=new Rect(0,0,1000,800);
 		
 		World world=new World();
-		SpaceObject so=new SpaceObject(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"pic",30,30);
+		SpaceObject so=new SpaceObject(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"pic",50,50);
 		world.getSpaceObjects().add(so);
 		
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
