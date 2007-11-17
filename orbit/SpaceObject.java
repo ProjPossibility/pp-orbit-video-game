@@ -8,6 +8,8 @@
 
 package orbit;
 
+import java.awt.Image;
+
 public class SpaceObject {
 
 	//for mechanics
@@ -51,6 +53,11 @@ public class SpaceObject {
 	public double getWidth() { return width; }
 	public double getHeight() { return height; }
 	public double getRadius() { return radius; }
+	
+	public Image getFrame()
+	{
+		return null;
+	}
 
 }
 
