@@ -13,7 +13,7 @@ public class Rect {
 		left = right = top = bottom = width = height = 0.0;
 	}
 
-	public Rect(double left,double right,double top,double bottom) {
+	public Rect(double left,double top,double right,double bottom) {
 		this.left = left;
 		this.right = right;
 		this.top = top;
