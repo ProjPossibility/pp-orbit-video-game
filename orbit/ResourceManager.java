@@ -1,3 +1,5 @@
+package orbit;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.image.*;
@@ -7,7 +9,7 @@ import javax.swing.*;
 public class ResourceManager {
 
 	private HashMap<String, BufferedImage> imageMap;
-	
+
 	public ResourceManager() {
 		imageMap = new HashMap<String, BufferedImage>();
 	}
@@ -16,10 +18,10 @@ public class ResourceManager {
         if (image instanceof BufferedImage) {
             return (BufferedImage)image;
         }
-    
+
         // This code ensures that all the pixels in the image are loaded
         image = new ImageIcon(image).getImage();
-    
+
         // Create a buffered image with a format that's compatible with the screen
         BufferedImage bimage = null;
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -30,20 +32,20 @@ public class ResourceManager {
             bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), Transparency.OPAQUE);
         } catch (HeadlessException e) {
         	e.printStackTrace();
-        }    
+        }
         if (bimage == null) {
             bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_RGB);
         }
-    
+
         // Copy image to buffered image
         Graphics g = bimage.createGraphics();
-    
+
         // Paint the image onto the buffered image
         g.drawImage(image, 0, 0, null);
         g.dispose();
         return bimage;
     }
-	
+
 	public void addImageSequence(String imagePath, int numImages, String sequenceName) {
 		Image loadedImage = Toolkit.getDefaultToolkit().getImage(imagePath);
 		BufferedImage globalImg = toBufferedImage(loadedImage);
@@ -54,11 +56,11 @@ public class ResourceManager {
 			imageMap.put(imagePath+x, i);
 		}
 	}
-	
-	public Image getImage(String key, int frame) {
+
+	public static Image getImage(String key, int frame) {
 		String hashKey = key + frame;
 		return imageMap.get(hashKey);
 	}
-	
-	
+
+
 }
