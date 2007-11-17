@@ -19,15 +19,21 @@ public class ScrollingScreen extends JPanel
 		this.screen=screen;
 		this.viewport=view;
 		this.world=world;
+		setPreferredSize(new Dimension((int)screen.width,(int)screen.height));
 	}
 	public void paintComponent(Graphics g1)
 	{
 		super.paintComponent(g1);
+		System.out.println("Drawing everything");
 		Graphics2D g=(Graphics2D)g1;
-		
+		g.setColor(Color.black);
+		g.fillRect(0,0,(int)screen.width,(int)screen.height);
+		for(SpaceObject so:world.getSpaceObjects())
+			drawSpaceObject(g,so);
 	}
 	private void drawSpaceObject(Graphics2D g,SpaceObject so)
 	{
+		System.out.println("Drawing object");
 		Vector2 pos=so.getPos();
 		double radius=so.getRadius();
 		Vector2 screenPos=transformVector(pos);

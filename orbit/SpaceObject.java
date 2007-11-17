@@ -9,6 +9,7 @@
 package orbit;
 
 import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class SpaceObject {
 
@@ -53,7 +54,8 @@ public class SpaceObject {
 
 	public Image getFrame()
 	{
-		return null;
+		//return null;
+		return new ImageIcon("media/spaceship.jpg").getImage();
 	}
 
 }
