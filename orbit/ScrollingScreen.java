@@ -12,11 +12,13 @@ public class ScrollingScreen extends JPanel
 	/**	Make a rendering scroll screen.
 	 *	@param screen The Rect representing the actual screen's width,height
 	 *	@param view The Rect representing the portal through which the player sees the world
+	 *	@param world The world to draw
 	 **/
-	public ScrollingScreen(Rect screen,Rect view)
+	public ScrollingScreen(Rect screen,Rect view,World world)
 	{
 		this.screen=screen;
 		this.viewport=view;
+		this.world=world;
 	}
 	public void paintComponent(Graphics g1)
 	{

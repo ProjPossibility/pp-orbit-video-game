@@ -21,6 +21,6 @@ public class Rect {
 		this.width = right-left;
 		this.height = bottom-top;
 	}
-
+	
 
 }
