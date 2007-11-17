@@ -6,8 +6,6 @@
 
 package orbit;
 
-import java.math.*;
-
 public class Vector2 {
 
 	public double x;
