@@ -11,18 +11,18 @@ package orbit;
 public class SpaceObject {
 
 	//for mechanics
-	public Vector2 pos;
-	public Vector2 vel;
-	public Vector2 accel;
+	protected Vector2 pos;
+	protected Vector2 vel;
+	protected  Vector2 accel;
 
-	public double mass;
+	protected  double mass;
 
-	public String sprite;
+	protected  String sprite;
 
-	public double width;
-	public double height;
+	protected  double width;
+	protected  double height;
 
-	public double radius;
+	protected  double radius;
 
 	public SpaceObject() {
 		pos = new Vector2();
@@ -40,10 +40,17 @@ public class SpaceObject {
 		this.sprite = sprite;
 		this.width = width;
 		this.height = height;
-		this.radius = Math.sqrt(width*width + height*height)/2.0;
+		this.radius = Math.min(width,height)/2.0;
 	}
 
-
+	public Vector2 getPos() { return pos; }
+	public Vector2 getVel() { return vel; }
+	public Vector2 getAccel() { return vel; }
+	public double getMass() { return mass; }
+	public String getSprite() { return sprite; }
+	public double getWidth() { return width; }
+	public double getHeight() { return height; }
+	public double getRadius() { return radius; }
 
 }
 
