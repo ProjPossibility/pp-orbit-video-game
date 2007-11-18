@@ -19,7 +19,7 @@ public class OrbitGame
 		World world=new World();
 		SpaceObject so=new SpaceObject(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
 		world.getSpaceObjects().add(so);
-		ResourceManager.addImageSequence("build/media/spaceship0.jpg",1,"spaceship");
+		ResourceManager.addImageSequence("media/spaceship0.jpg",1,"spaceship");
 		
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
 		frame.setContentPane(scroll);

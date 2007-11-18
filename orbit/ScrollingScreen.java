@@ -21,6 +21,9 @@ public class ScrollingScreen extends JPanel
 		this.world=world;
 		setPreferredSize(new Dimension((int)screen.width,(int)screen.height));
 	}
+	/** Override the paint 
+	 *
+	 **/
 	public void paintComponent(Graphics g1)
 	{
 		super.paintComponent(g1);
@@ -28,10 +31,15 @@ public class ScrollingScreen extends JPanel
 		Graphics2D g=(Graphics2D)g1;
 		g.setColor(Color.black);
 		g.fillRect(0,0,(int)screen.width,(int)screen.height);
+		
+		for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
+			for(Star star:starfield)
+				drawSpaceObject(g,star);
+		
 		for(SpaceObject so:world.getSpaceObjects())
 			drawSpaceObject(g,so);
 	}
-	/** Draw an individual SpaceObject
+	/** Draw an individual SpaceObject.
 	 *
 	 **/
 	private void drawSpaceObject(Graphics2D g,SpaceObject so)
@@ -54,7 +62,10 @@ public class ScrollingScreen extends JPanel
 		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 		g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
 	}
-	
+	private void drawStarfield(Graphics2D g,Starfield stars)
+	{
+		
+	}
 	public Vector2 transformScale(Vector2 vec)
 	{
 		return new Vector2(vec.x*screen.width/viewport.width,vec.y*screen.height/viewport.height);
