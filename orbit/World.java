@@ -134,7 +134,7 @@ public class World
 		//This ensures that there is a certain number of asteroids in the universe
 		////////////////////////////////////////////////////////////////////////////////////
 		if (asteroids.size() < numAsteroids) {
-			generateAsteroid(new Random(game.getLevelSeed()));
+			generateAsteroid(null);
 		}
 
 		for (SpaceObject obj : spaceObjects) {
@@ -312,7 +312,10 @@ public class World
 		}
 	}
 
-	public void generateAsteroid(Random rand) {
+	public void generateAsteroid(Random rand)
+	{
+		if(rand==null)
+			rand=new Random((int)(Math.random()*500));
 		double randomTheta = rand.nextDouble()*6.18;
 		double velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
 		double velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
