@@ -39,7 +39,7 @@ class ParticleEffect extends SpaceObject
 	public ParticleEffect(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height)
 	{
 		super(p,v,a,sprite,width,height);
-		setAnimationProperties(160,6,true);
+		setAnimationProperties(90,6,true);
 	}
 	public void update(int millis)
 	{
