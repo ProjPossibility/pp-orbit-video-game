@@ -13,14 +13,16 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	private World world;
 	private BinaryInput binaryInput;
 	private MiniMap miniMap;
+	private Game game;
 
 	/**	Make a rendering scroll screen.
 	 *	@param screen The Rect representing the actual screen's width,height
 	 *	@param view The Rect representing the portal through which the player sees the world
 	 *	@param world The world to draw
 	 **/
-	public ScrollingScreen(Rect screen,Rect view,World world)
+	public ScrollingScreen(Game game,Rect screen,Rect view,World world)
 	{
+		this.game=game;
 		this.screen=screen;
 		this.viewport=view;
 		this.world=world;
@@ -56,12 +58,14 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			for(SpaceObject so:parts)
 				drawSpaceObject(g,so);
 		}
+
 		ArrayList<SpaceObject> objs=world.getSpaceObjects();
 		synchronized(objs)
 		{
 			for(SpaceObject so:objs)
 				drawSpaceObject(g,so);
-		}	
+		}
+
 		try
 		{
 			ArrayList<Explosion> expls=world.getExplosions();
@@ -71,7 +75,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 					drawSpaceObject(g,so);
 			}
 		}catch(ConcurrentModificationException e){}
-		
+
 		miniMap.centerViewportAbout(world.getSpaceship().getPos());
 		miniMap.paintComponent(g);
 
@@ -98,6 +102,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		graphics.fillRect(0,580,width,20);
 		graphics.setComposite(comp);
 
+		if (game.getState() == Game.DIED_SEQUENCE) {
+			PrintManager.getInstance().print("huge","You Died!",400,300,Color.RED);
+		}
 	}
 
 	/** Draw an individual SpaceObject.
@@ -128,8 +135,6 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			transform=AffineTransform.getTranslateInstance(screenPos.x-screenScale.x*.455,screenPos.y-screenScale.y*.255);
 			transform.concatenate(AffineTransform.getRotateInstance(((Spaceship)so).getAngle()+Math.PI/2,screenScale.x/2,screenScale.y/4));
 			transform.concatenate(AffineTransform.getScaleInstance(screenScale.x/image.getWidth(null),screenScale.y/image.getHeight(null)));
-
-
 
 			g.drawImage(image,transform,null);
 		}
