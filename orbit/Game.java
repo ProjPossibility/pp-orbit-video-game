@@ -178,6 +178,7 @@ public class Game extends JFrame {
 			new TimedScreenOverlay(
 					g2d,
 					Color.RED,
+					0,0,
 					(int)screen.width,
 					(int)screen.height,
 					3000,

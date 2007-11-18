@@ -72,7 +72,31 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		
 		miniMap.paintComponent(g);
 
+		//print the headsup display
+		drawHUD(g);
+
 	}
+	/**
+	 * draws the headsup display
+	 */
+	private void drawHUD(Graphics2D graphics) {
+
+		Composite comp = graphics.getComposite();
+
+		Spaceship ship = world.getSpaceship();
+
+		//draw a rectangle
+		graphics.setComposite(
+				AlphaComposite.getInstance(AlphaComposite.SRC_OVER,.50f));
+
+		graphics.setColor(Color.RED);
+		int width = (int)(800*ship.getHealth()/100.0);
+
+		graphics.fillRect(0,580,width,20);
+		graphics.setComposite(comp);
+
+	}
+
 	/** Draw an individual SpaceObject.
 	 *
 	 **/
