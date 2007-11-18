@@ -39,20 +39,21 @@ public class Star extends SpaceObject {
 	 * after adding the velocity to the position
 	 */
 	public void update(long timeElapsed) {
-		pos.x += vel.x*timeElapsed;
-		pos.y += vel.y*timeElapsed;
+		pos.x += vel.x*timeElapsed*0.02;
+		pos.y += vel.y*timeElapsed*0.02;
 
 		//update its position
-		if (vel.x < 0) {
-			vel.x = 1.0;
+		if (pos.x < 0) {
+			pos.x = 1.0;
 		}
 
-		if (vel.y < 0) {
-			vel.y = 1.0;
+		if (pos.y < 0) {
+			pos.y = 1.0;
 		}
 
-		if (vel.x > 1.0) vel.x = 0;
-		if (vel.y > 1.0) vel.y = 0;
+		if (pos.x > 1.0) pos.x = 0;
+		if (pos.y > 1.0) pos.y = 0;
+		
 	}
 
 

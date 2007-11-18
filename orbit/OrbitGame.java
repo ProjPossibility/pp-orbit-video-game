@@ -20,6 +20,7 @@ public class OrbitGame
 		SpaceObject so=new SpaceObject(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
 		world.getSpaceObjects().add(so);
 		ResourceManager.addImageSequence("media/spaceship0.jpg",1,"spaceship");
+		ResourceManager.addImageSequence("media/star.gif",4,"star");
 		
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
 		
@@ -31,5 +32,18 @@ public class OrbitGame
 		frame.pack();
 		frame.validate();
 		frame.repaint();
+		
+		long start=System.currentTimeMillis();
+		while(true)
+		{
+			long curr=System.currentTimeMillis();
+			long millis=curr-start;
+			start=curr;
+			world.update(millis);
+			frame.repaint();
+			try{
+				Thread.sleep(15);
+			}catch(Exception e){}
+		}
 	}
 }

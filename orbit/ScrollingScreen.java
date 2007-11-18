@@ -36,14 +36,14 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	public void paintComponent(Graphics g1)
 	{
 		super.paintComponent(g1);
-		System.out.println("Drawing everything");
+		//System.out.println("Drawing everything");
 		Graphics2D g=(Graphics2D)g1;
 		g.setColor(Color.black);
 		g.fillRect(0,0,(int)screen.width,(int)screen.height);
 
 		for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
 			for(Star star:starfield)
-				drawSpaceObject(g,star);
+				drawStarfield(g,star);
 
 		for(SpaceObject so:world.getSpaceObjects())
 			drawSpaceObject(g,so);
@@ -53,7 +53,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	 **/
 	private void drawSpaceObject(Graphics2D g,SpaceObject so)
 	{
-		System.out.println("Drawing object");
+		//System.out.println("Drawing object");
 		Vector2 pos=so.getPos();
 		double radius=so.getRadius();
 		Vector2 screenPos=transformVector(pos);
@@ -66,10 +66,21 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		Image image=so.getFrame();
 		if(image==null)
 			return;
-		System.out.println("Drawing object - in view, has image");
+		//System.out.println("Drawing object - in view, has image");
 		g.setColor(Color.blue);
 		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 		g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
+	}
+	private void drawStarfield(Graphics2D g,Star so)
+	{
+		Image image=so.getFrame();
+		if(image==null)
+			return;
+		Vector2 pos=so.getPos();
+		Vector2 screenScale=transformScale(new Vector2(so.getWidth(),so.getHeight()));
+		g.drawImage(image,(int)(pos.x*screen.width-screenScale.x/2),
+			(int)(pos.y*screen.height-screenScale.y/2),
+			(int)screenScale.x,(int)screenScale.y,null);
 	}
 	public Vector2 transformScale(Vector2 vec)
 	{
