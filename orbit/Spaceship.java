@@ -115,7 +115,9 @@ public class Spaceship extends SpaceObject {
 	public void setThrusting(boolean t) {
 		thrusting = t;
 	}
-
-
+	public boolean isThrusting()
+	{
+		return thrusting;
+	}
 
 }
