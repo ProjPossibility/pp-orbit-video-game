@@ -8,7 +8,7 @@ public class ScrollingScreen extends JPanel
 	private Rect screen;//in pixels of screen space
 	private Rect viewport;//in world space
 	private World world;
-	
+
 	/**	Make a rendering scroll screen.
 	 *	@param screen The Rect representing the actual screen's width,height
 	 *	@param view The Rect representing the portal through which the player sees the world
@@ -21,7 +21,7 @@ public class ScrollingScreen extends JPanel
 		this.world=world;
 		setPreferredSize(new Dimension((int)screen.width,(int)screen.height));
 	}
-	/** Override the paint 
+	/** Override the paint
 	 *
 	 **/
 	public void paintComponent(Graphics g1)
@@ -31,11 +31,11 @@ public class ScrollingScreen extends JPanel
 		Graphics2D g=(Graphics2D)g1;
 		g.setColor(Color.black);
 		g.fillRect(0,0,(int)screen.width,(int)screen.height);
-		
+
 		for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
 			for(Star star:starfield)
 				drawSpaceObject(g,star);
-		
+
 		for(SpaceObject so:world.getSpaceObjects())
 			drawSpaceObject(g,so);
 	}
@@ -66,7 +66,7 @@ public class ScrollingScreen extends JPanel
 	{
 		return new Vector2(vec.x*screen.width/viewport.width,vec.y*screen.height/viewport.height);
 	}
-	
+
 	/** given a vector2 in world space, transform it to screen coordinates
 	 * @param vec The Vector2 of an object in world space
 	 *	@return The Vector2 in screen space
@@ -83,5 +83,5 @@ public class ScrollingScreen extends JPanel
 	{
 		return (value-viewRangeFrom)*(screenLength)/(viewRangeTo-viewRangeFrom);
 	}
-	
+
 }

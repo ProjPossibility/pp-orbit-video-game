@@ -31,18 +31,16 @@ public class Spaceship extends SpaceObject {
 	 * provides (these are the planets within a certain range).
 	 * @param planets
 	 */
-	public void interact(List<Planet> planets) {
+	public void interact(Planet p) {
 
 		//do the gravity calculations
-		for (Planet p : planets) {
-			//get the distance
-			Vector2 R = p.getPos().subVector(pos);
-			double dist = R.getLength();
-			R = R.getNormalized();
-			Vector2 v = R.scale(p.getMass()/(dist*dist));
+		//get the distance
+		Vector2 R = p.getPos().subVector(pos);
+		double dist = R.getLength();
+		R = R.getNormalized();
+		Vector2 v = R.scale(p.getMass()/(dist*dist));
 
-			accel = accel.addVector(v);
-		}
+		accel = accel.addVector(v);
 
 	}
 
@@ -51,7 +49,7 @@ public class Spaceship extends SpaceObject {
 	 * there will be an extra large acceleration in the direction that the
 	 * spaceship is moving.
 	 */
-	public void move(long timeElapsed) {
+	public void update(long timeElapsed) {
 		Vector2 a = accel;
 
 		if (thrusting) {

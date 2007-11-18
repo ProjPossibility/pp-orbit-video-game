@@ -51,8 +51,8 @@ public class Starfield {
 	/**
 	 * This returns the stars in the particular layer, 0-2.
 	 */
-	public ArrayList<Star> getStarLayer(int layer) {
-		return starLayer[layer];
+	public ArrayList<Star>[] getStarLayers() {
+		return starLayer;
 	}
 
 }
