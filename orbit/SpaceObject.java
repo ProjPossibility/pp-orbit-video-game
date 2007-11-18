@@ -133,7 +133,7 @@ public class SpaceObject {
     		elapsedTime=0; //start counting from 0
     	}
     }
-
+    
     
     public void setLooping(boolean loop) {
     	looping = loop;

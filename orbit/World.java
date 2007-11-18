@@ -124,13 +124,12 @@ public class World
 		for (SpaceObject obj : spaceObjects) {
 
 			if (obj instanceof Planet) {
-
 				//check if the planet is within range
 				Planet p = (Planet) obj;
 				obj.animate((int) timeElapsed);
 				Vector2 pos = spaceship.getPos();
 				double dist = p.getPos().subVector(pos).getLength();
-
+				
 				if (spaceship.getAlive()) {
 					if (dist < 10000) {
 						spaceship.interact(p);
@@ -147,8 +146,8 @@ public class World
 					}
 				}
 			}
-
-			if (obj instanceof Spaceship && spaceship.getAlive()) {
+			if (obj instanceof Spaceship && spaceship.getAlive())
+			{
 				Vector2 accel = spaceship.predictAccel();
 				Vector2 vel = spaceship.predictVel(timeElapsed, accel);
 				Vector2 pos = spaceship.predictPos(timeElapsed, vel);
@@ -209,14 +208,16 @@ public class World
 
 		//maximum speed for spaceship
 		Vector2 v = spaceship.getVel();
-		if (v.getLength() > MAX_SHIP_SPEED) {
+		if (v.getLength() > MAX_SHIP_SPEED)
+		{
 			v = v.getNormalized().scale(MAX_SHIP_SPEED);
 			spaceship.setVel(v);
 		}
 
 		if(viewport!=null)
 			viewport.setCenter(spaceship.getPos());
-		for(Explosion e1 : explosions) {
+		for(Explosion e1 : explosions)
+		{
 			if(e1.getAlive()) {
 				e1.animate((int)timeElapsed);
 			}
