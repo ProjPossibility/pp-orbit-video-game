@@ -2,12 +2,15 @@ package orbit;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.awt.event.*;
 
-public class ScrollingScreen extends JPanel
+public class ScrollingScreen extends JPanel implements MouseListener, KeyListener
 {
 	private Rect screen;//in pixels of screen space
 	private Rect viewport;//in world space
 	private World world;
+	private BinaryInput binaryInput;
 
 	/**	Make a rendering scroll screen.
 	 *	@param screen The Rect representing the actual screen's width,height
@@ -20,6 +23,12 @@ public class ScrollingScreen extends JPanel
 		this.viewport=view;
 		this.world=world;
 		setPreferredSize(new Dimension((int)screen.width,(int)screen.height));
+		addMouseListener(this);
+		addKeyListener(this);
+	}
+	public void setBinaryInput(BinaryInput binIn)
+	{
+		binaryInput=binIn;
 	}
 	/** Override the paint
 	 *
@@ -83,5 +92,37 @@ public class ScrollingScreen extends JPanel
 	{
 		return (value-viewRangeFrom)*(screenLength)/(viewRangeTo-viewRangeFrom);
 	}
-
+	
+	///Whenever an event happens, update the binary input
+	
+	public void mousePressed(MouseEvent e)
+	{
+		if(binaryInput!=null)
+			binaryInput.buttonChanged(true);
+		requestFocus();
+	}
+	public void mouseEntered(MouseEvent e){}
+	public void mouseReleased(MouseEvent e)
+	{
+		if(binaryInput!=null)
+			binaryInput.buttonChanged(false);
+	}
+	public void mouseClicked(MouseEvent e){}
+	public void mouseExited(MouseEvent e)
+	{
+		if(binaryInput!=null)
+			binaryInput.buttonChanged(false);
+	}
+	
+	public void keyPressed(KeyEvent e)
+	{
+		if(binaryInput!=null)
+			binaryInput.buttonChanged(true);
+	}
+	public void keyReleased(KeyEvent e)
+	{
+		if(binaryInput!=null)
+			binaryInput.buttonChanged(false);
+	}
+	public void keyTyped(KeyEvent e){}
 }

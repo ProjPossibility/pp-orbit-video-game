@@ -15,13 +15,18 @@ public class OrbitGame
 		frame.setResizable(false);
 		frame.setLocation(200,100);
 		Rect viewport=new Rect(0,0,1000,800);
-		
-		World world=new World();
+		Game game=new Game();
+		World world=new World(game);
 		SpaceObject so=new SpaceObject(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
 		world.getSpaceObjects().add(so);
 		ResourceManager.addImageSequence("media/spaceship0.jpg",1,"spaceship");
 		
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
+		
+		BinaryInput binIn=new BinaryInput();
+		scroll.setBinaryInput(binIn);
+		world.setBinaryInput(binIn);
+		
 		frame.setContentPane(scroll);
 		frame.pack();
 		frame.validate();

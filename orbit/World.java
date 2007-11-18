@@ -10,6 +10,7 @@ public class World
 	private ArrayList<SpaceObject> deadObjects;
 	private Starfield starfield;
 	private Spaceship spaceship;
+	private BinaryInput binaryInput;
 
 	private Game game;
 
@@ -22,6 +23,10 @@ public class World
 		starfield = new Starfield();
 		//create the spaceship
 		spaceship = new Spaceship();
+	}
+	public void setBinaryInput(BinaryInput binIn)
+	{
+		binaryInput=binIn;
 	}
 	public ArrayList<SpaceObject> getSpaceObjects()
 	{
