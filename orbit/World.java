@@ -6,7 +6,7 @@ public class World
 {
 	public final int WORLD_SIZE = 24000;
 	public final double MAX_SHIP_SPEED = 2500;
-
+	public final int NUM_ASTEROIDS_IN_UNIVERSE = 20;
 
 	public static final int SMALL_PLANET = 0;
 	public static final int MEDIUM_PLANET = 1;
@@ -15,13 +15,13 @@ public class World
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
 	private ArrayList<Explosion> explosions;
+	private int numAsteroids;
 	private Starfield starfield;
 	private Spaceship spaceship;
 	private BinaryInput binaryInput;
 	private Rect viewport;
 	private String explosionSprite;
 	private ParticleSystem particleSystem;
-
 	private Game game;
 
 	public World(Game g)
@@ -107,9 +107,11 @@ public class World
 					if (dist < p.getRadius()) {
 						//collision!
 						//splode!
-						System.out.println("EXPLOSION SHOULD OCCUR");
-						Explosion e = new Explosion(spaceship.getPos(), explosionSprite, p.getWidth(), p.getHeight());
-						explosions.add(e);
+						if(explosions.size()==0) {
+							System.out.println("EXPLOSION SHOULD OCCUR");
+							Explosion e = new Explosion(spaceship.getPos(), "explosion", p.getWidth(), p.getHeight());
+							explosions.add(e);
+						}
 					}
 				}
 			}
@@ -156,18 +158,22 @@ public class World
 		if(viewport!=null)
 			viewport.setCenter(spaceship.getPos());
 
-		for(Explosion e : explosions) {
-			if(e.getAlive()) {
-				e.animate((int)timeElapsed);
+		for(Explosion e1 : explosions) {
+			System.out.println(e1);
+			if(e1.getAlive()) {
+				e1.animate((int)timeElapsed);
+				System.out.println("STEP");
 			}
 			else {
-				deadObjects.add(e);
+				deadObjects.add(e1);
 			}
 		}
 
 		//go through the garbage can
 		for (SpaceObject obj : deadObjects) {
 			spaceObjects.remove(obj);
+			if(obj instanceof Explosion)
+				explosions.remove(obj);
 		}
 
 		if (deadObjects.size() > 0)
@@ -195,7 +201,7 @@ public class World
 		int numPlanets = 300+(level*20);
 
 		for(int i=0;i<numPlanets;i++)
-		{
+		{			
 			int type = rand.nextInt(3);
 			int size = 0;
 			int mass = 0;
@@ -246,5 +252,10 @@ public class World
 			SpaceObject so=new Planet(r,new Vector2(0,0),new Vector2(0,0),"planet"+rand.nextInt(3),mass,size);
 			add(so);
 		}
+		
+/*		for(int x=0; x < NUM_ASTEROIDS_IN_UNIVERSE; x++) {
+			Asteroid a = new Asteroid(new Vector2(rand.nextInt))
+		}*/
+		
 	}
 }
