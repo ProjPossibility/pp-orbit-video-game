@@ -26,6 +26,8 @@ public class SpaceObject {
 
 	protected  double radius;
 
+	boolean alive;
+
 	public SpaceObject() {
 		pos = new Vector2();
 		vel = new Vector2();
@@ -38,6 +40,8 @@ public class SpaceObject {
 		elapsedTime = 0;
 		timePerFrame = 0;
 		looping = false;
+
+		alive = false;
 	}
 
 	public SpaceObject(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height) {
@@ -49,7 +53,11 @@ public class SpaceObject {
 		this.height = height;
 		this.radius = Math.min(width,height)/2.0;
 
+		alive = false;
 	}
+
+	public boolean getAlive() { return alive; }
+	public void setAlive(boolean alive) { this.alive = alive; }
 
 	public Vector2 getPos() { return pos; }
 	public Vector2 getVel() { return vel; }
@@ -116,7 +124,7 @@ public class SpaceObject {
     }
 
     public void update(long timeElapsed) {
-    	
+
     }
 
 }

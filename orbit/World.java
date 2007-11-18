@@ -7,6 +7,7 @@ public class World
 	public final int WORLD_SIZE = 6000;
 
 	private ArrayList<SpaceObject> spaceObjects;
+	private ArrayList<SpaceObject> deadObjects;
 	private Starfield starfield;
 	private Spaceship spaceship;
 
@@ -16,6 +17,7 @@ public class World
 	{
 		game = g;
 		spaceObjects=new ArrayList<SpaceObject>();
+		deadObjects = new ArrayList<SpaceObject>();
 		//create the starfield
 		starfield = new Starfield();
 		//create the spaceship
@@ -60,7 +62,15 @@ public class World
 				}
 			}
 
+		} //end for
+
+		//go through the garbage can
+		for (SpaceObject obj : deadObjects) {
+			spaceObjects.remove(obj);
 		}
+
+		if (deadObjects.size() > 0)
+			deadObjects.clear();
 
 	}
 
