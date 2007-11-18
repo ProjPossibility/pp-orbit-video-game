@@ -68,7 +68,10 @@ public class Spaceship extends SpaceObject {
 			thrust = thrust.scale(thrustSize);
 
 			a=a.addVector(thrust);
+			sprite="spaceshipthrust";
 		}
+		else
+			sprite="spaceship";
 
 		vel = vel.addVector(a.scale((double)timeElapsed*0.007));
 		//System.out.println("Velocity: "+vel+" Position: "+pos);
