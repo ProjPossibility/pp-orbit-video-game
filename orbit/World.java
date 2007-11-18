@@ -92,8 +92,8 @@ public class World
 
 				if (dist < 10000) {
 					spaceship.interact(p);
-					System.out.println(dist + "," + p.getRadius());
-					System.out.println(dist);
+					//System.out.println(dist + "," + p.getRadius());
+					//System.out.println(dist);
 					//see if they collide
 					if (dist < p.getRadius()) {
 						//collision!
@@ -176,11 +176,11 @@ public class World
 		add(ship);
 
 		Random rand=new Random();
-		for(int i=0;i<4;i++)
+		for(int i=0;i<550;i++)
 		{
 			int size=rand.nextInt(3)+1;
-			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500),rand.nextInt(1500)),
-				new Vector2(0,0),new Vector2(0,0),"planet"+(size==2?7:size),10000,50+size*1.2);
+			SpaceObject so=new Planet(new Vector2(rand.nextInt(WORLD_SIZE),rand.nextInt(WORLD_SIZE)),
+				new Vector2(0,0),new Vector2(0,0),"planet"+(size==2?7:size),10000,200+size*1.2);
 			add(so);
 		}
 	}
