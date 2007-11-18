@@ -103,7 +103,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		graphics.setComposite(comp);
 
 		if (game.getState() == Game.DIED_SEQUENCE) {
-			PrintManager.getInstance().print("huge","You Died!",400,300,Color.RED);
+			PrintManager.getInstance().print("huge","HAHA",400,300,Color.RED,PrintManager.CENTER);
 		}
 	}
 
