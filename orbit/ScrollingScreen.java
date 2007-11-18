@@ -70,7 +70,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		//g.setColor(Color.blue);
 		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 		g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
-		System.out.println("Screen: "+screenPos);
+		System.out.println("Screen: "+screenPos+", View: "+viewport+", Obj: "+pos);
 		//g.setColor(Color.red);
 		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 	}
