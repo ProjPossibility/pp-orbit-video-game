@@ -26,7 +26,7 @@ public class SpaceObject {
 
 	protected  double radius;
 
-	boolean alive;
+	protected boolean alive;
 
 	public SpaceObject() {
 		pos = new Vector2();
@@ -77,11 +77,11 @@ public class SpaceObject {
 	 * =======ANIMATION CODE BELOW HERE=====================================
 	 */
 
-	private int currentFrame = 0;
-	private int timePerFrame =0;
-	private int elapsedTime =0;
-	private int numFrames = 0;
-	private boolean looping = false;
+	protected int currentFrame = 0;
+	protected int timePerFrame =0;
+	protected int elapsedTime =0;
+	protected int numFrames = 0;
+	protected boolean looping = false;
 
 	/**
 	 * This sets the initial animation properties
