@@ -28,7 +28,7 @@ public class Game extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocation(200,100);
-		Rect viewport=new Rect(0,0,1000,800);
+		Rect viewport=new Rect(0,0,1500,1200);
 		World world=new World(this);
 		//Spaceship so=new Spaceship(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
 		//world.getSpaceObjects().add(so);
