@@ -7,7 +7,7 @@ public class World
 	public final int WORLD_SIZE = 24000;
 	public final double MAX_SHIP_SPEED = 2500;
 	public final int NUM_ASTEROIDS_IN_UNIVERSE = 20;
-	public final int MAX_SPEED_ASTERIOD = 1000;
+	public final int MAX_SPEED_ASTEROID = 1000;
 	public final int ASTEROID_MASS = 2000;
 
 	public static final int SMALL_PLANET = 0;
@@ -288,15 +288,12 @@ public class World
 			add(so);
 		}
 
-		
-		
 		for(int x=0; x < NUM_ASTEROIDS_IN_UNIVERSE; x++) {
-			double randomTheta = rand.nextInt(6.18);
-			double velX = MAX_SPEED_ASTERIOD * Math.cos(randomTheta);
+			double randomTheta = rand.nextDouble()*6.18;
+			double velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
 			double velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
-			Asteroid a = new Asteroid(new Vector2(rand.nextInt(WORLD_SIZE), rand.nextInt(WORLD_SIZE)), new Vector2(velX, velY), new Vector(0,0), ASTERIOD_MASS)
-			
+			Asteroid a = new Asteroid(new Vector2(rand.nextInt(WORLD_SIZE), rand.nextInt(WORLD_SIZE)), new Vector2(velX, velY), new Vector2(0,0), "asteroid", 64, ASTEROID_MASS);
+			spaceObjects.add(a);
 		}
-
 	}
 }
