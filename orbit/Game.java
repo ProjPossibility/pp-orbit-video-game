@@ -16,7 +16,7 @@ public class Game extends JFrame {
 	private World world;
 
 	public Game() {
-		/*
+
 		state = START_SCREEN;
 		currentLevel =0;
 		points =0;
@@ -25,12 +25,11 @@ public class Game extends JFrame {
 		Rect screen=new Rect(0,0,800,600);
 		setSize((int)screen.width,(int)screen.height);
 		setVisible(true);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocation(200,100);
 		Rect viewport=new Rect(0,0,1000,800);
-		Game game=new Game();
-		World world=new World(game);
+		World world=new World(this);
 		//Spaceship so=new Spaceship(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
 		//world.getSpaceObjects().add(so);
 		//world.setSpaceship(so);
@@ -62,7 +61,7 @@ public class Game extends JFrame {
 				Thread.sleep(15);
 			}catch(Exception e){}
 		}
-		*/
+
 	}
 
 	public int getState() {
