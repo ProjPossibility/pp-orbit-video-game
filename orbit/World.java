@@ -59,8 +59,8 @@ public class World
 	public void update(long timeElapsed) {
 
 		//update the starfield
-		starfield.update(timeElapsed);
-		
+		starfield.update(timeElapsed,spaceship.getAngle());
+
 		//apply thrusters
 		if(spaceship!=null)
 		{
@@ -69,7 +69,7 @@ public class World
 				viewport.setCenter(spaceship.getPos());
 			//System.out.println(spaceship.getPos()+" , "+viewport);
 		}
-		
+
 		for (SpaceObject obj : spaceObjects) {
 			obj.update(timeElapsed);
 		}
@@ -113,7 +113,7 @@ public class World
 		//set the ship
 		setSpaceship(ship);
 		add(ship);
-		
+
 		Random rand=new Random();
 		for(int i=0;i<4;i++)
 		{

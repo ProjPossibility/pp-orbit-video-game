@@ -2,6 +2,8 @@ package orbit;
 
 public class Star extends SpaceObject {
 
+	private double speed;
+
 	public Star(int layer) {
 		super();
 
@@ -16,17 +18,17 @@ public class Star extends SpaceObject {
 		//based on the layer, calculate the speed at which it should be going
 		switch (layer) {
 		case 0: {	//this is the stationary layer
-			vel.y = 0.001;
+			speed = 0.001;
 			width = height = 2;
 			break;
 		}
 		case 1: {
-			vel.y = 0.01;
+			speed = 0.01;
 			width = height = 6;
 			break;
 		}
 		case 2: {
-			vel.y = 0.02;
+			speed = 0.02;
 			width = height = 8;
 			break;
 		}
@@ -38,7 +40,12 @@ public class Star extends SpaceObject {
 	 * This is the update method for the stars. Merely checks if it went off the screen,
 	 * after adding the velocity to the position
 	 */
-	public void update(long timeElapsed) {
+	public void update(long timeElapsed,double dir) {
+
+		vel.x = -Math.cos(dir);
+		vel.y = -Math.sin(dir);
+		vel = vel.scale(speed);
+
 		pos.x += vel.x*timeElapsed*0.02;
 		pos.y += vel.y*timeElapsed*0.02;
 
@@ -53,7 +60,7 @@ public class Star extends SpaceObject {
 
 		if (pos.x > 1.0) pos.x = 0;
 		if (pos.y > 1.0) pos.y = 0;
-		
+
 	}
 
 

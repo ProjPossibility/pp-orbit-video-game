@@ -8,6 +8,7 @@ public class OrbitGame
 	public static void main(String[] args)
 	{
 		JFrame frame=new JFrame();
+
 		Rect screen=new Rect(0,0,800,600);
 		frame.setSize((int)screen.width,(int)screen.height);
 		frame.setVisible(true);
@@ -22,19 +23,19 @@ public class OrbitGame
 		//world.setSpaceship(so);
 		world.populate(1);
 		world.setViewport(viewport);
-		
-		
+
+
 		ResourceManager.addImageSequence("media/rocketS.png",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
-		
+
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
-		
+
 		BinaryInput binIn=new BinaryInput();
 		scroll.setBinaryInput(binIn);
 		world.setBinaryInput(binIn);
-		
-		
-		
+
+
+
 		frame.setContentPane(scroll);
 		frame.pack();
 		frame.validate();

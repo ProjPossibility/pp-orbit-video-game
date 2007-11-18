@@ -40,10 +40,10 @@ public class Starfield {
 	/**
 	 * updates the individual stars
 	 */
-	public void update(long timeElapsed) {
+	public void update(long timeElapsed,double dir) {
 		for (int l=0;l<3;l++) {
 			for (Star s : starLayer[l]) {
-				s.update(timeElapsed);
+				s.update(timeElapsed,dir);
 			}
 		}
 	}
