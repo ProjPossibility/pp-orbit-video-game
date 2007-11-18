@@ -118,7 +118,7 @@ public class World
 						//splode!
 						if(explosions.size()==0) {
 							System.out.println("EXPLOSION SHOULD OCCUR");
-							Explosion e = new Explosion(spaceship.getPos(), "explosion", p.getWidth(), p.getHeight());
+							Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
 							explosions.add(e);
 						}
 					}
