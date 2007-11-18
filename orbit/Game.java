@@ -39,6 +39,7 @@ public class Game extends JFrame {
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
 		ResourceManager.addImageSequence("media/planet1.png",1,"planet1");
 		ResourceManager.addImageSequence("media/planet2.png",1,"planet2");
+		ResourceManager.addImageSequence("media/planet7.png",1,"planet7");
 		ResourceManager.addImageSequence("media/explosion.gif", 18, "explosion");
 
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
