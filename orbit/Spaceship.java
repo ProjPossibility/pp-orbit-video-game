@@ -16,6 +16,9 @@ public class Spaceship extends SpaceObject {
 	public Spaceship() {
 		thrusting = false;
 	}
+	public Spaceship(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height) {
+		super(p,v,a,sprite,width,height);
+	}
 
 	/**
 	 * This determines the angle at which the angle is pointed, based
@@ -63,16 +66,16 @@ public class Spaceship extends SpaceObject {
 			Vector2 thrust = new Vector2(Math.cos(angle),Math.sin(angle));
 			thrust = thrust.scale(thrustSize);
 
-			a.addVector(thrust);
+			a=a.addVector(thrust);
 		}
 
-		vel = vel.addVector(a.scale((double)timeElapsed));
-		pos = pos.addVector(vel.scale((double)timeElapsed));
+		vel = vel.addVector(a.scale((double)timeElapsed*0.001));
+		//System.out.println("X: "+vel.x+", Y: "+vel.y);
+		pos = pos.addVector(vel.scale((double)timeElapsed*0.001));
 	}
 
 	public void setThrusting(boolean t) {
 		thrusting = t;
-		System.out.println("thrusters on? "+(t?"y":"n"));
 	}
 
 

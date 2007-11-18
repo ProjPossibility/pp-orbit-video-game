@@ -22,7 +22,11 @@ public class World
 		//create the starfield
 		starfield = new Starfield();
 		//create the spaceship
-		spaceship = new Spaceship();
+		//spaceship = new Spaceship();
+	}
+	public void setSpaceship(Spaceship ship)
+	{
+		spaceship=ship;
 	}
 	public void setBinaryInput(BinaryInput binIn)
 	{
@@ -46,7 +50,8 @@ public class World
 		starfield.update(timeElapsed);
 		
 		//apply thrusters
-		spaceship.setThrusting(binaryInput.getButtonState()==1);
+		if(spaceship!=null)
+			spaceship.setThrusting(binaryInput.getButtonState()==1);
 		
 		for (SpaceObject obj : spaceObjects) {
 			obj.update(timeElapsed);
