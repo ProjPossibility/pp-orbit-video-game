@@ -41,6 +41,7 @@ public class MiniMap
 			}
 		}
 		
+		
 		g.setComposite(comp);
 	}
 	public void centerViewportAbout(Vector2 pos)
