@@ -59,7 +59,7 @@ public class World
 	public void update(long timeElapsed) {
 
 		//update the starfield
-		starfield.update(timeElapsed,spaceship.getAngle());
+		starfield.update(timeElapsed,spaceship.getVel());
 
 		//apply thrusters
 		if(spaceship!=null)
@@ -121,7 +121,7 @@ public class World
 		{
 			int size=rand.nextInt(2)+1;
 			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500)-750,rand.nextInt(1500)-750),
-				new Vector2(0,0),new Vector2(0,0),"planet"+size,1900,50+size*2);
+				new Vector2(0,0),new Vector2(0,0),"planet"+size,2800,50+size*2);
 			add(so);
 		}
 	}
