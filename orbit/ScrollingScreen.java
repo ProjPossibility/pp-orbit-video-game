@@ -45,9 +45,13 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
 			for(Star star:starfield)
 				drawStarfield(g,star);
-
-		for(SpaceObject so:world.getParticleSystem().getParticles())
-			drawSpaceObject(g,so);
+		
+		ArrayList<ParticleEffect> parts=world.getParticleSystem().getParticles();
+		synchronized(parts)
+		{
+			for(SpaceObject so:parts)
+				drawSpaceObject(g,so);
+		}
 		
 		for(SpaceObject so:world.getSpaceObjects())
 			drawSpaceObject(g,so);
