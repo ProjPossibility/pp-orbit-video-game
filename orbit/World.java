@@ -11,6 +11,7 @@ public class World
 	private Starfield starfield;
 	private Spaceship spaceship;
 	private BinaryInput binaryInput;
+	private Rect viewport;
 
 	private Game game;
 
@@ -27,6 +28,10 @@ public class World
 	public void setSpaceship(Spaceship ship)
 	{
 		spaceship=ship;
+	}
+	public void setViewport(Rect view)
+	{
+		viewport=view;
 	}
 	public void setBinaryInput(BinaryInput binIn)
 	{
@@ -58,7 +63,11 @@ public class World
 		
 		//apply thrusters
 		if(spaceship!=null)
+		{
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
+			if(viewport!=null)
+				viewport.setCenter(spaceship.getPos());
+		}
 		
 		for (SpaceObject obj : spaceObjects) {
 			obj.update(timeElapsed);

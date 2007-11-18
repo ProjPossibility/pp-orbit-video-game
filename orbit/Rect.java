@@ -21,6 +21,12 @@ public class Rect {
 		this.width = right-left;
 		this.height = bottom-top;
 	}
-	
-
+	public void setCenter(Vector2 center)
+	{
+		double x=center.x,y=center.y;
+		left=x-width/2;
+		right=x+width/2;
+		top=y-height/2;
+		bottom=y+height/2;
+	}
 }
