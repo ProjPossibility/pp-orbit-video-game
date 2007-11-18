@@ -47,4 +47,9 @@ public class Vector2 {
 	public Vector2 scale(double s) {
 		return new Vector2(x*s,y*s);
 	}
+	
+	public String toString()
+	{
+		return "<"+x+", "+y+">";
+	}
 }

@@ -127,6 +127,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	
 	public void keyPressed(KeyEvent e)
 	{
+		if(e.getKeyCode()==27)///27=esc, 32=space
+			System.exit(0);
+		
 		if(binaryInput!=null)
 			binaryInput.buttonChanged(true);
 	}

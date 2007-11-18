@@ -67,6 +67,7 @@ public class World
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
 			if(viewport!=null)
 				viewport.setCenter(spaceship.getPos());
+			System.out.println(spaceship.getPos()+" , "+viewport);
 		}
 		
 		for (SpaceObject obj : spaceObjects) {
@@ -117,7 +118,7 @@ public class World
 		for(int i=0;i<4;i++)
 		{
 			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500)-750,rand.nextInt(1500)-750),
-				new Vector2(0,0),new Vector2(0,0),"spaceship",50,30);
+				new Vector2(0,0),new Vector2(0,0),"spaceship",600,30);
 			add(so);
 		}
 	}

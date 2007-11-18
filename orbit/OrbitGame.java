@@ -21,6 +21,8 @@ public class OrbitGame
 		//world.getSpaceObjects().add(so);
 		//world.setSpaceship(so);
 		world.populate(1);
+		world.setViewport(viewport);
+		
 		
 		ResourceManager.addImageSequence("media/spaceship0.jpg",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
