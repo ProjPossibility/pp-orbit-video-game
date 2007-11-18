@@ -90,6 +90,7 @@ public class Game extends JFrame {
 		ResourceManager.addImageSequence("media/planet2.png",1,"planet1");
 		ResourceManager.addImageSequence("media/planet7.2.png",1,"planet2");
 		ResourceManager.addImageSequence("media/explosion.gif", 18, "explosion");
+		ResourceManager.addImageSequence("media/smoke.gif", 6, "smoke");
 		ResourceManager.addImageSequence("media/rocketSthrust.png",1,"spaceshipthrust");
 	}
 
