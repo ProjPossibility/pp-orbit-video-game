@@ -26,7 +26,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		this.world=world;
 		setPreferredSize(new Dimension((int)screen.width,(int)screen.height));
 		Rect miniScreen=new Rect(screen.right-screen.width/5,screen.top,screen.right,screen.height/5+screen.top);
-		miniMap=new MiniMap(miniScreen,view,world);
+		miniMap=new MiniMap(miniScreen,new Rect(0,0,3000,2000),world);
 		addMouseListener(this);
 		addKeyListener(this);
 	}
@@ -70,6 +70,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			}
 		}catch(ConcurrentModificationException e){}
 		
+		miniMap.centerViewportAbout(world.getSpaceship().getPos());
 		miniMap.paintComponent(g);
 
 		//print the headsup display
@@ -171,6 +172,10 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	private double transformSingleDimension(double value,double viewRangeFrom,double viewRangeTo,double screenLength)
 	{
 		return (value-viewRangeFrom)*(screenLength)/(viewRangeTo-viewRangeFrom);
+	}
+	public static double transformSingleDimension(double value,double viewRangeFrom,double viewRangeTo,double screenLeft,double screenRight)
+	{
+		return (value-viewRangeFrom)*(screenRight-screenLeft)/(viewRangeTo-viewRangeFrom)+screenLeft;
 	}
 
 	///Whenever an event happens, update the binary input
