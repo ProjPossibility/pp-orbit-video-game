@@ -1,6 +1,6 @@
 package orbit;
 
-public class Asteroid extends SpaceObject {
+public class Asteroid extends Planet {
 		
 	private double mass;
 	
@@ -8,6 +8,7 @@ public class Asteroid extends SpaceObject {
 		super(pos,vel,acc,sprite,radius*2,radius*2);
 		this.mass = mass;
 		this.radius = radius;
+		alive = true;
 		setAnimationProperties(20, 25, true);
 	}
 
