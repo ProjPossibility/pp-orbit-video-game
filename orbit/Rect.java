@@ -29,4 +29,8 @@ public class Rect {
 		top=y-height/2;
 		bottom=y+height/2;
 	}
+	public String toString()
+	{
+		return "<"+(int)left+", "+(int)top+", "+(int)right+", "+(int)bottom+">";
+	}
 }

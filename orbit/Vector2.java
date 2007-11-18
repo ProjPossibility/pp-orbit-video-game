@@ -50,6 +50,6 @@ public class Vector2 {
 	
 	public String toString()
 	{
-		return "<"+x+", "+y+">";
+		return "<"+(int)x+", "+(int)y+">";
 	}
 }
