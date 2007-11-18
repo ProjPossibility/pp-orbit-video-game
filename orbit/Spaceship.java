@@ -94,7 +94,7 @@ public class Spaceship extends SpaceObject {
 		if (health < 100.0) {
 			healthWait += timeElapsed;
 			if (healthWait > 100) {
-				health += 0.1;
+				health += 0.5;
 				healthWait = 0;
 			}
 		}
