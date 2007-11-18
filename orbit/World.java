@@ -7,6 +7,7 @@ public class World
 	public final int WORLD_SIZE = 24000;
 	public final double MAX_SHIP_SPEED = 2500;
 	public final int NUM_ASTEROIDS_IN_UNIVERSE = 20;
+	public final int MAX_SPEED_ASTERIOD = 1000;
 
 	public static final int SMALL_PLANET = 0;
 	public static final int MEDIUM_PLANET = 1;
@@ -116,10 +117,8 @@ public class World
 					if (dist < p.getRadius()) {
 						//collision!
 						//splode!
-						if(explosions.size()==0) {
 							Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
 							explosions.add(e);
-						}
 					}
 				}
 			}
@@ -260,8 +259,11 @@ public class World
 			add(so);
 		}
 		
+		
+		
 /*		for(int x=0; x < NUM_ASTEROIDS_IN_UNIVERSE; x++) {
-			Asteroid a = new Asteroid(new Vector2(rand.nextInt))
+			Asteroid a = new Asteroid(new Vector2(rand.nextInt(WORLD_SIZE), rand.nextInt(WORLD_SIZE)), new Vector2())
+			
 		}*/
 		
 	}
