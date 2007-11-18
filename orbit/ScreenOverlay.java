@@ -25,13 +25,13 @@ public class ScreenOverlay {
 		this.height=(int)area.height;
 	}
 
-	public void paint(float alpha) {
+	public void paint(Graphics2D g,float alpha) {
 		//Composite comp = graphics.getComposite();
 		//graphics.setComposite(
 		//		AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha));
 		
-		graphics.setColor(color);
-		graphics.fillRect((int)area.left,(int)area.top,(int)area.width,(int)area.height);
+		g.setColor(color);
+		g.fillRect((int)area.left,(int)area.top,(int)area.width,(int)area.height);
 		//graphics.setComposite(comp);
 		System.out.println("Paint minimap");
 	}
