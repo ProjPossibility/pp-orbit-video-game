@@ -86,6 +86,17 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 					drawSpaceObject(g,so);
 			}
 		}catch(ConcurrentModificationException e){}
+		
+		/////draw arrows to special planets
+		try
+		{
+			ArrayList<SpaceObject> objs=world.getSpaceObjects();
+			synchronized(objs)
+			{
+				for(SpaceObject so:objs)
+					drawArrowTo(g,so);
+			}
+		}catch(ConcurrentModificationException e){}
 
 		miniMap.centerViewportAbout(world.getSpaceship().getPos());
 		miniMap.paintComponent(g);
@@ -159,6 +170,18 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		{
 			g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
 		}
+	}
+	private void drawArrowTo(Graphics2D g,SpaceObject so)
+	{
+		Vector2 screenPos=transformVector(so.getPos());
+		if(screenPos.x>screen.left&&screenPos.x<screen.right)
+			return;
+		if(screenPos.y>screen.top&&screenPos.y<screen.bottom)
+			return;
+		Vector2 centerScreen=new Vector2((screen.left+screen.right)/2,(screen.top+screen.bottom)/2);
+		Vector2 vector=screenPos.subVector(centerScreen);
+		
+		
 	}
 	private void drawStarfield(Graphics2D g,Star so)
 	{
