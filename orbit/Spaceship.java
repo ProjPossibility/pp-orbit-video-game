@@ -72,6 +72,7 @@ public class Spaceship extends SpaceObject {
 
 	public void setThrusting(boolean t) {
 		thrusting = t;
+		System.out.println("thrusters on? "+(t?"y":"n"));
 	}
 
 

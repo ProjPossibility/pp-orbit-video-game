@@ -44,7 +44,10 @@ public class World
 
 		//update the starfield
 		starfield.update(timeElapsed);
-
+		
+		//apply thrusters
+		spaceship.setThrusting(binaryInput.getButtonState()==1);
+		
 		for (SpaceObject obj : spaceObjects) {
 			obj.update(timeElapsed);
 		}
