@@ -40,7 +40,7 @@ public class MiniMap
 				drawObject(g,so);
 			}
 		}
-		
+		//Vector2 corner0=worldToScreen(playerView.),corner1,corner2,corner3;
 		
 		g.setComposite(comp);
 	}
