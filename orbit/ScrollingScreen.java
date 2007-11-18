@@ -70,9 +70,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		//g.setColor(Color.blue);
 		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 		g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
-		System.out.println("Screen: "+screenPos+", View: "+viewport+", Obj: "+pos+" screensize: "+screen);
-		//g.setColor(Color.red);
-		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
+		//System.out.println("Screen: "+screenPos+", View: "+viewport+", Obj: "+pos+" screensize: "+screen);
 	}
 	private void drawStarfield(Graphics2D g,Star so)
 	{
@@ -97,8 +95,8 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	 **/
 	public Vector2 transformVector(Vector2 vec)
 	{
-		return new Vector2(transformSingleDimension(vec.x,viewport.left,viewport.right,viewport.width),
-			transformSingleDimension(vec.y,viewport.top,viewport.bottom,viewport.height));
+		return new Vector2(transformSingleDimension(vec.x,viewport.left,viewport.right,screen.width),
+			transformSingleDimension(vec.y,viewport.top,viewport.bottom,screen.height));
 	}
 	/** transform a single dimension based on viewport bounds and screen size
 	 *

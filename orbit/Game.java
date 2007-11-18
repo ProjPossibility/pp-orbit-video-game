@@ -35,8 +35,10 @@ public class Game extends JFrame {
 		//world.setSpaceship(so);
 		world.populate(1);
 
-		ResourceManager.addImageSequence("media/spaceship0.jpg",1,"spaceship");
+		ResourceManager.addImageSequence("media/rocketS.png",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
+		ResourceManager.addImageSequence("media/planet1.png",1,"planet1");
+		ResourceManager.addImageSequence("media/planet2.png",1,"planet2");
 		ResourceManager.addImageSequence("media/explosion.gif", 18, "explosion");
 
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
@@ -44,11 +46,15 @@ public class Game extends JFrame {
 		BinaryInput binIn=new BinaryInput();
 		scroll.setBinaryInput(binIn);
 		world.setBinaryInput(binIn);
+		
+		world.setViewport(viewport);
 
 		setContentPane(scroll);
 		pack();
 		validate();
 		repaint();
+		
+		scroll.requestFocus();
 
 		long start=System.currentTimeMillis();
 		while(true)
