@@ -73,7 +73,32 @@ public class Spaceship extends SpaceObject {
 		vel = vel.addVector(a.scale((double)timeElapsed*0.007));
 		System.out.println("Velocity: "+vel+" Position: "+pos);
 		pos = pos.addVector(vel.scale((double)timeElapsed*0.001));
-		accel=new Vector2();
+		accel.x = accel.y = 0;
+	}
+
+	public Vector2 predictAccel() {
+		Vector2 a = new Vector2(accel.x,accel.y);
+
+		if (thrusting) {
+			double angle = getAngle();
+			Vector2 thrust = new Vector2(Math.cos(angle),Math.sin(angle));
+			thrust = thrust.scale(thrustSize);
+
+			a=a.addVector(thrust);
+		}
+
+		return a;
+	}
+	public Vector2 predictVel(long timeElapsed,Vector2 a) {
+		Vector2 v = new Vector2(vel.x,vel.y);
+		v = v.addVector(a.scale((double)timeElapsed*0.007));
+		return v;
+	}
+
+	public Vector2 predictPos(long timeElapsed,Vector2 v) {
+		Vector2 p = new Vector2(pos.x,pos.y);
+		p = p.addVector(v.scale((double)timeElapsed*0.001));
+		return p;
 	}
 
 	public void setThrusting(boolean t) {

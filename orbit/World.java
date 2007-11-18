@@ -4,7 +4,7 @@ import java.util.*;
 
 public class World
 {
-	public final int WORLD_SIZE = 6000;
+	public final int WORLD_SIZE = 24000;
 	public final double MAX_SHIP_SPEED = 2500;
 
 	private ArrayList<SpaceObject> spaceObjects;
@@ -85,7 +85,11 @@ public class World
 			if (obj instanceof Planet) {
 				//check if the planet is within range
 				Planet p = (Planet) obj;
-				double dist = p.getPos().subVector(spaceship.getPos()).getLength();
+				Vector2 pos = spaceship.getPos();
+				double dist = p.getPos().subVector(pos).getLength();
+
+
+
 				if (dist < 10000) {
 					spaceship.interact(p);
 					System.out.println(dist + "," + p.getRadius());
@@ -101,15 +105,34 @@ public class World
 				}
 			}
 
+			if (obj instanceof Spaceship) {
+				Vector2 accel = spaceship.predictAccel();
+				Vector2 vel = spaceship.predictVel(timeElapsed, accel);
+				Vector2 pos = spaceship.predictPos(timeElapsed, vel);
+
+				if (pos.x < 0) {
+					vel.x = -vel.x;
+					accel.x = -accel.x;
+				}
+				if (pos.y < 0){
+					vel.y = -vel.y;
+					accel.y = -accel.y;
+				}
+				if (pos.x >= WORLD_SIZE) {
+					vel.x = -vel.x;
+					accel.x = -accel.x;
+				}
+				if (pos.y >= WORLD_SIZE) {
+					vel.y = -vel.y;
+					accel.y = -accel.y;
+				}
+
+				spaceship.setVel(vel);
+				spaceship.setAccel(accel);
+			}
+
 			obj.update(timeElapsed);
-			Vector2 pos = obj.getPos();
 
-			if (pos.x < 0)pos.x = WORLD_SIZE;
-			if (pos.y < 0) pos.y = WORLD_SIZE;
-			if (pos.x >= WORLD_SIZE) pos.x = 0;
-			if (pos.y >= WORLD_SIZE) pos.y = 0;
-
-			obj.setPos(pos);
 		}
 
 		//maximum speed for spaceship
