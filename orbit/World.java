@@ -90,7 +90,7 @@ public class World
 			if(particleTimer<=0&&spaceship.isThrusting())
 			{
 				particleSystem.addParticle(spaceship.getPos(),spaceship.getVel().scale(-0.2),"smoke",40);
-				particleTimer=100;
+				particleTimer=30;
 			}
 			else
 				particleTimer-=(int)timeElapsed;
