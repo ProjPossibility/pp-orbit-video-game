@@ -62,10 +62,6 @@ public class ScrollingScreen extends JPanel
 		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 		g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
 	}
-	private void drawStarfield(Graphics2D g,Starfield stars)
-	{
-		
-	}
 	public Vector2 transformScale(Vector2 vec)
 	{
 		return new Vector2(vec.x*screen.width/viewport.width,vec.y*screen.height/viewport.height);
