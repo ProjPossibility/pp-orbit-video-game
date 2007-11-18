@@ -22,6 +22,6 @@ public class MiniMap
 		if(overlay==null)
 			overlay=new ScreenOverlay(g,Color.blue,miniScreen);
 		
-		overlay.paint(g,1.0f);
+		overlay.paint(g,0.3f);
 	}
 }
