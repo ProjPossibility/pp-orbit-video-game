@@ -65,8 +65,7 @@ public class World
 		if(spaceship!=null)
 		{
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
-			if(viewport!=null)
-				viewport.setCenter(spaceship.getPos());
+			
 			//System.out.println(spaceship.getPos()+" , "+viewport);
 		}
 
@@ -93,6 +92,9 @@ public class World
 			}
 
 		} //end for
+		
+		if(viewport!=null)
+			viewport.setCenter(spaceship.getPos());
 
 		//go through the garbage can
 		for (SpaceObject obj : deadObjects) {
@@ -117,8 +119,9 @@ public class World
 		Random rand=new Random();
 		for(int i=0;i<4;i++)
 		{
+			int size=rand.nextInt(2)+1;
 			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500)-750,rand.nextInt(1500)-750),
-				new Vector2(0,0),new Vector2(0,0),"spaceship",600,30);
+				new Vector2(0,0),new Vector2(0,0),"planet"+size,600,50+size*2);
 			add(so);
 		}
 	}

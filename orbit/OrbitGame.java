@@ -27,6 +27,8 @@ public class OrbitGame
 
 		ResourceManager.addImageSequence("media/rocketS.png",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
+		ResourceManager.addImageSequence("media/planet1.png",1,"planet1");
+		ResourceManager.addImageSequence("media/planet2.png",1,"planet2");
 
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
 
