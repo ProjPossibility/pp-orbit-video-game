@@ -20,6 +20,7 @@ public class World
 	private BinaryInput binaryInput;
 	private Rect viewport;
 	private String explosionSprite;
+	private ParticleSystem particleSystem;
 
 	private Game game;
 
@@ -31,9 +32,14 @@ public class World
 		explosions = new ArrayList<Explosion>();
 		//create the starfield
 		starfield = new Starfield();
+		particleSystem=new ParticleSystem();
 		//create the spaceship
 		//spaceship = new Spaceship();
 
+	}
+	public ParticleSystem getParticleSystem()
+	{
+		return particleSystem;
 	}
 	public void setSpaceship(Spaceship ship)
 	{

@@ -44,7 +44,8 @@ public class SpaceObject {
 		alive = false;
 	}
 
-	public SpaceObject(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height) {
+	public SpaceObject(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height)
+	{
 		pos = p;
 		vel = v;
 		accel = a;
