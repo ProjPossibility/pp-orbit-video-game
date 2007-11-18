@@ -5,6 +5,7 @@ import java.util.*;
 public class World
 {
 	public final int WORLD_SIZE = 6000;
+	public final double MAX_SHIP_SPEED = 200;
 
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
@@ -27,6 +28,7 @@ public class World
 		starfield = new Starfield();
 		//create the spaceship
 		//spaceship = new Spaceship();
+
 	}
 	public void setSpaceship(Spaceship ship)
 	{
@@ -68,16 +70,21 @@ public class World
 		if(spaceship!=null)
 		{
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
-			
+
 			//System.out.println(spaceship.getPos()+" , "+viewport);
 		}
 
 		for (SpaceObject obj : spaceObjects) {
 			obj.update(timeElapsed);
-		}
+			Vector2 pos = obj.getPos();
 
-		//interact the spaceship with all the planets
-		for (SpaceObject obj : spaceObjects) {
+			if (pos.x < 0)pos.x = WORLD_SIZE;
+			if (pos.y < 0) pos.y = WORLD_SIZE;
+			if (pos.x >= WORLD_SIZE) pos.x = 0;
+			if (pos.y >= WORLD_SIZE) pos.y = 0;
+
+			obj.setPos(pos);
+
 			if (obj instanceof Planet) {
 				//check if the planet is within range
 				Planet p = (Planet) obj;
@@ -94,9 +101,15 @@ public class World
 					}
 				}
 			}
+		}
 
-		} //end for
-		
+		//maximum speed for spaceship
+		Vector2 v = spaceship.getVel();
+		if (v.getLength() > MAX_SHIP_SPEED) {
+			v = v.getNormalized().scale(MAX_SHIP_SPEED);
+			spaceship.setVel(v);
+		}
+
 		if(viewport!=null)
 			viewport.setCenter(spaceship.getPos());
 
@@ -116,6 +129,7 @@ public class World
 
 		if (deadObjects.size() > 0)
 			deadObjects.clear();
+
 
 	}
 	/** Populates the world with planets and spaceship based on difficulty.

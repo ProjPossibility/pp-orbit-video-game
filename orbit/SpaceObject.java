@@ -67,6 +67,10 @@ public class SpaceObject {
 	public double getHeight() { return height; }
 	public double getRadius() { return radius; }
 
+	public void setPos(Vector2 p) { pos = p; }
+	public void setVel(Vector2 v) { vel = v; }
+	public void setAccel(Vector2 a) { accel = a; }
+
 	public Image getFrame()
 	{
 		//return new ImageIcon("build/media/spaceship.jpg").getImage();
