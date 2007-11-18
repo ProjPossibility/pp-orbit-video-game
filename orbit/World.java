@@ -96,7 +96,7 @@ public class World
 	/** Populates the world with planets and spaceship based on difficulty.
 	 *
 	 **/
-	public void populate(int difficulty)
+	public void populate(int level)
 	{
 		//create the main ship, and add it
 		Spaceship ship=new Spaceship(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
@@ -107,8 +107,8 @@ public class World
 		Random rand=new Random();
 		for(int i=0;i<4;i++)
 		{
-			SpaceObject so=new SpaceObject(new Vector2(rand.nextInt(1500)-750,rand.nextInt(1500)-750),
-				new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
+			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500)-750,rand.nextInt(1500)-750),
+				new Vector2(0,0),new Vector2(0,0),"spaceship",50,30);
 			add(so);
 		}
 	}
