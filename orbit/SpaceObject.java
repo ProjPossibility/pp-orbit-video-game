@@ -127,10 +127,10 @@ public class SpaceObject {
     		currentFrame = f;
     }
 
-    public void update(long timeElapsed) {
-
+    public void update(long timeElapsed)
+    {
+    	
     }
-
 }
 
 

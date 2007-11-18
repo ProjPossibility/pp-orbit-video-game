@@ -153,7 +153,7 @@ public class World
 		{
 			int size=rand.nextInt(3)+1;
 			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500),rand.nextInt(1500)),
-				new Vector2(0,0),new Vector2(0,0),"planet"+(size==2?7:size),4800,50+size*1.2);
+				new Vector2(0,0),new Vector2(0,0),"planet"+(size==2?7:size),10000,50+size*1.2);
 			add(so);
 		}
 	}
