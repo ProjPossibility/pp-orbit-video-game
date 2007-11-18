@@ -43,13 +43,14 @@ public class PrintManager {
 		}
 
 		Font newfont = fonts.get(font);
-		FontMetrics fm = graphics.getFontMetrics(newfont);
-		Rectangle rect = fm.getStringBounds(text,graphics).getBounds();
+		graphics.setFont(newfont);
+		FontMetrics fm = graphics.getFontMetrics();
+		Rectangle2D rect = fm.getStringBounds(text,graphics);
 
 		if (alignment == CENTER) {
-			print(font,text,x-(rect.width/2),y,c);
+			print(font,text,(int)(x-(rect.getWidth()/2)),y,c);
 		} else if (alignment == RIGHT) {
-			print(font,text,x-(rect.width),y,c);
+			print(font,text,(int)(x-(rect.getWidth())),y,c);
 		}
 	}
 
