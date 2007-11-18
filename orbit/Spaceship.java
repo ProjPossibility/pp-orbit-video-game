@@ -11,13 +11,15 @@ import java.util.*;
 public class Spaceship extends SpaceObject {
 
 	private boolean thrusting;
-	private static final double thrustSize = 30;
+	private long thrustAnim;
+	private static final double thrustSize = 100;
 
 	public Spaceship() {
 		thrusting = false;
 	}
 	public Spaceship(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height) {
 		super(p,v,a,sprite,width,height);
+		thrustAnim = 0;
 	}
 
 	/**
@@ -43,9 +45,9 @@ public class Spaceship extends SpaceObject {
 		R = R.getNormalized();
 		Vector2 v;
 		double radius = p.getRadius();
-		double G=240;
+		double G=100;
 		if (dist > radius) {
-			v = R.scale(p.getMass()/(dist*dist*dist)*G);
+			v = R.scale(p.getMass()/(dist*dist)*G);
 		} else {
 			v = R.scale(p.getMass() * dist/(radius*radius*radius)*G);
 		}
@@ -63,12 +65,17 @@ public class Spaceship extends SpaceObject {
 		Vector2 a = accel;
 
 		if (thrusting) {
+			thrustAnim += timeElapsed;
+			if (thrustAnim > 200) {
+				thrustAnim = 0;
+			}
+
 			double angle = getAngle();
 			Vector2 thrust = new Vector2(Math.cos(angle),Math.sin(angle));
 			thrust = thrust.scale(thrustSize);
 
 			a=a.addVector(thrust);
-			sprite="spaceshipthrust";
+			sprite=thrustAnim<100?"spaceship":"spaceshipthrust";
 		}
 		else
 			sprite="spaceship";

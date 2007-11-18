@@ -186,7 +186,9 @@ public class World
 		Random rand=new Random();
 		rand.setSeed(game.getLevelSeed());
 
-		for(int i=0;i<550;i++)
+		int numPlanets = 300+(level*20);
+
+		for(int i=0;i<numPlanets;i++)
 		{
 			int type = rand.nextInt(3);
 			int size = 0;
