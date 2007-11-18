@@ -131,19 +131,6 @@ public class World
 				Vector2 pos = spaceship.getPos();
 				double dist = p.getPos().subVector(pos).getLength();
 
-				if (dist < 10000) {
-					spaceship.interact(p);
-					//System.out.println(dist + "," + p.getRadius());
-					//System.out.println(dist);
-					//see if they collide
-
-					if (dist < p.getRadius()) {
-						//collision!
-						//splode!
-						Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
-						explosions.add(e);
-					}
-				}
 				if (spaceship.getAlive()) {
 					if (dist < 10000) {
 						spaceship.interact(p);
