@@ -72,7 +72,7 @@ public class World
 		starfield.update(timeElapsed,spaceship.getVel());
 
 		//apply thrusters
-		if(spaceship!=null)
+		if(spaceship!=null&&game.getState()==game.GAME)
 		{
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
 
