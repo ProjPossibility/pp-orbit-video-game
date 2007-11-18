@@ -50,7 +50,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		
 		for(SpaceObject so:world.getExplosions())
 			drawSpaceObject(g,so);
-
+		
 	}
 	/** Draw an individual SpaceObject.
 	 *
