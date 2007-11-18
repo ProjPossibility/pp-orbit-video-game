@@ -5,7 +5,7 @@ import java.util.*;
 public class World
 {
 	public final int WORLD_SIZE = 6000;
-	public final double MAX_SHIP_SPEED = 200;
+	public final double MAX_SHIP_SPEED = 1000;
 
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
@@ -121,7 +121,7 @@ public class World
 				explosions.remove(e);
 			}
 		}
-		
+
 		//go through the garbage can
 		for (SpaceObject obj : deadObjects) {
 			spaceObjects.remove(obj);
