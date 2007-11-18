@@ -40,10 +40,10 @@ public class Star extends SpaceObject {
 	 * This is the update method for the stars. Merely checks if it went off the screen,
 	 * after adding the velocity to the position
 	 */
-	public void update(long timeElapsed,double dir) {
+	public void update(long timeElapsed,Vector2 dir) {
 
-		vel.x = -Math.cos(dir);
-		vel.y = -Math.sin(dir);
+		vel.x = -dir.x/900;
+		vel.y = -dir.y/900;
 		vel = vel.scale(speed);
 
 		pos.x += vel.x*timeElapsed*0.02;
