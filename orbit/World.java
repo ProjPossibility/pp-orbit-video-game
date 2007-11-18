@@ -80,15 +80,7 @@ public class World
 		}
 
 		for (SpaceObject obj : spaceObjects) {
-			obj.update(timeElapsed);
-			Vector2 pos = obj.getPos();
 			
-			if (pos.x < 0)pos.x = WORLD_SIZE;
-			if (pos.y < 0) pos.y = WORLD_SIZE;
-			if (pos.x >= WORLD_SIZE) pos.x = 0;
-			if (pos.y >= WORLD_SIZE) pos.y = 0;
-			
-			obj.setPos(pos);
 
 			if (obj instanceof Planet) {
 				//check if the planet is within range
@@ -106,6 +98,16 @@ public class World
 					}
 				}
 			}
+			
+			obj.update(timeElapsed);
+			Vector2 pos = obj.getPos();
+			
+			if (pos.x < 0)pos.x = WORLD_SIZE;
+			if (pos.y < 0) pos.y = WORLD_SIZE;
+			if (pos.x >= WORLD_SIZE) pos.x = 0;
+			if (pos.y >= WORLD_SIZE) pos.y = 0;
+			
+			obj.setPos(pos);
 		}
 
 		//maximum speed for spaceship
