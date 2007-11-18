@@ -22,6 +22,7 @@ public class World
 	private Rect viewport;
 	private String explosionSprite;
 	private ParticleSystem particleSystem;
+	private int particleTimer;
 	private Game game;
 
 	public World(Game g)
@@ -35,7 +36,7 @@ public class World
 		particleSystem=new ParticleSystem();
 		//create the spaceship
 		//spaceship = new Spaceship();
-
+		particleTimer=0;
 	}
 	public ParticleSystem getParticleSystem()
 	{
@@ -86,7 +87,13 @@ public class World
 		if(spaceship!=null&&game.getState()==game.GAME)
 		{
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
-
+			if(particleTimer<=0&&spaceship.isThrusting())
+			{
+				particleSystem.addParticle(spaceship.getPos(),spaceship.getVel().scale(-0.2),"smoke",40);
+				particleTimer=400;
+			}
+			else
+				particleTimer-=(int)timeElapsed;
 			//System.out.println(spaceship.getPos());
 		}
 
