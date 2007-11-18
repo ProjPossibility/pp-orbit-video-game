@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
+import java.awt.geom.*;
 
 public class ScrollingScreen extends JPanel implements MouseListener, KeyListener
 {
@@ -73,7 +74,17 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		//System.out.println("Drawing object - in view, has image");
 		//g.setColor(Color.blue);
 		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
-		g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
+		if(so instanceof Spaceship)
+		{
+			AffineTransform transform=AffineTransform.getScaleInstance(screenScale.x,screenScale.y);
+			transform=AffineTransform.getScaleInstance(1,1);
+			transform.concatenate(AffineTransform.getRotateInstance(((Spaceship)so).getAngle()+Math.PI/2));
+			transform.concatenate(AffineTransform.getTranslateInstance(screen.width/2,-screen.height/2));
+			g.drawImage(image,transform,null);
+		}
+		else
+			g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
+		
 		//System.out.println("Screen: "+screenPos+", View: "+viewport+", Obj: "+pos+" screensize: "+screen);
 	}
 	private void drawStarfield(Graphics2D g,Star so)
