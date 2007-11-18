@@ -39,9 +39,6 @@ public class Game extends JFrame {
 
 		binIn=new BinaryInput();
 
-		viewport=new Rect(0,0,1000,800);
-		scroll = new ScrollingScreen(screen,viewport,world);
-		scroll.setBinaryInput(binIn);
 
 
 		try {
@@ -62,18 +59,21 @@ public class Game extends JFrame {
 	public void setState(int state) {
 		this.state = state;
 		switch(state) {
-			case 1:
+			case INIT_GAME:
+				setInitGameState();
 				System.out.println("STATE:" + state);
+				break;
 			case GAME:
 
 				setGameState();
 
 				System.out.println("STATE:" + state);
-			case 3:
+				break;
+			case NEXT_LEVEL:
+				setNextLevelState();
 				System.out.println("STATE:" + state);
+				break;
 			case 4:
-				System.out.println("STATE:" + state);
-			case 5:
 				System.out.println("STATE:" + state);
 		}
 	}
@@ -98,10 +98,13 @@ public class Game extends JFrame {
 	private void setInitGameState() {
 		currentLevel = 0;
 		points = 0;
-		world = new World(this);
 
+		viewport=new Rect(0,0,1000,800);
+		world = new World(this);
 		world.setBinaryInput(binIn);
 		world.setViewport(viewport);
+		scroll = new ScrollingScreen(screen,viewport,world);
+		scroll.setBinaryInput(binIn);
 
 		setContentPane(scroll);
 		pack();
@@ -120,6 +123,7 @@ public class Game extends JFrame {
 
 		//clear the world of the extant objects, and repopulate
 		world.populate(currentLevel);
+		setState(GAME);
 	}
 
 	private void setGameState() {
