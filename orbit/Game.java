@@ -75,8 +75,10 @@ public class Game extends JFrame {
 				setNextLevelState();
 				System.out.println("STATE:" + state);
 				break;
-			case 4:
+			case DIED_SEQUENCE:
+				setDiedSequenceState();
 				System.out.println("STATE:" + state);
+				break;
 		}
 	}
 
@@ -98,6 +100,7 @@ public class Game extends JFrame {
 		PrintManager.getInstance().addFont("small", new Font("Comic Sans MS",Font.PLAIN,12));
 		PrintManager.getInstance().addFont("medium", new Font("Comic Sans MS",Font.PLAIN,16));
 		PrintManager.getInstance().addFont("large", new Font("Comic Sans MS",Font.PLAIN,24));
+		PrintManager.getInstance().addFont("huge", new Font("Comic Sans MS",Font.PLAIN,48));
 	}
 
 
@@ -119,7 +122,7 @@ public class Game extends JFrame {
 		world = new World(this);
 		world.setBinaryInput(binIn);
 		world.setViewport(viewport);
-		scroll = new ScrollingScreen(screen,viewport,world);
+		scroll = new ScrollingScreen(this,screen,viewport,world);
 		scroll.setBinaryInput(binIn);
 
 		setContentPane(scroll);
@@ -166,30 +169,15 @@ public class Game extends JFrame {
 
 	private void setDiedSequenceState() {
 		//decrement lives
+		/*
 		--lives;
 		if (lives < 0) {
 			setState(LOSS_SCREEN);
 			return;
 		}
+		*/
 
 		Graphics2D g2d = (Graphics2D)getGraphics();
-
-		TimedScreenOverlay tso =
-			new TimedScreenOverlay(
-					g2d,
-					Color.RED,
-					0,0,
-					(int)screen.width,
-					(int)screen.height,
-					3000,
-					TimedScreenOverlay.FADE_OUT);
-
-
-		FlashingText ft = new FlashingText(g2d,"PRESS TO CONTINUE");
-		ft.setColor(Color.WHITE);
-		ft.setLength(500);
-		ft.setPos(200, 200);
-		ft.setSize(15);
 
 		//run through the died sequence state
 		long start=System.currentTimeMillis();
@@ -197,7 +185,6 @@ public class Game extends JFrame {
 		{
 			//wait for the user to press the button
 			if (binIn.getButtonState() == 1) {
-
 				break;
 			}
 
@@ -205,17 +192,12 @@ public class Game extends JFrame {
 			long millis=curr-start;
 			start=curr;
 			world.update(millis);
-			tso.update(millis);
-			tso.paint();
-			ft.update(millis);
-			ft.paint();
 			repaint();
 			try{
 				Thread.sleep(15);
 			}catch(Exception e){}
 		}
 
-		//reset everything
 		world.populate(currentLevel);
 
 		setState(GAME);

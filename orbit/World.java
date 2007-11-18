@@ -91,6 +91,17 @@ public class World
 		//apply thrusters
 		if(spaceship!=null&&game.getState()==game.GAME)
 		{
+			//here we check if ze spaceship is dead
+			if (spaceship.getHealth() < 0) {
+				//oh no!
+				spaceship.setAlive(false);
+				deadObjects.add(spaceship);
+				game.setState(Game.DIED_SEQUENCE);
+
+				//add more explosions
+
+			}
+
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
 			if(particleTimer<=0&&spaceship.isThrusting())
 			{
@@ -101,6 +112,8 @@ public class World
 				particleTimer-=(int)timeElapsed;
 			//System.out.println(spaceship.getPos());
 		}
+
+
 		if(particleSystem!=null)
 			particleSystem.update((int)timeElapsed);
 
@@ -113,21 +126,24 @@ public class World
 				Vector2 pos = spaceship.getPos();
 				double dist = p.getPos().subVector(pos).getLength();
 
-				if (dist < 10000) {
-					spaceship.interact(p);
-					//System.out.println(dist + "," + p.getRadius());
-					//System.out.println(dist);
-					//see if they collide
-					if (dist < p.getRadius()) {
-						//collision!
-						//splode!
-							Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
-							explosions.add(e);
+				if (spaceship.getAlive()) {
+					if (dist < 10000) {
+						spaceship.interact(p);
+						//System.out.println(dist + "," + p.getRadius());
+						//System.out.println(dist);
+						//see if they collide
+						if (dist < p.getRadius()) {
+							//collision!
+							//splode!
+								Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
+								explosions.add(e);
+								spaceship.takeDamage(1);
+						}
 					}
 				}
 			}
 
-			if (obj instanceof Spaceship) {
+			if (obj instanceof Spaceship && spaceship.getAlive()) {
 				Vector2 accel = spaceship.predictAccel();
 				Vector2 vel = spaceship.predictVel(timeElapsed, accel);
 				Vector2 pos = spaceship.predictPos(timeElapsed, vel);
@@ -231,6 +247,7 @@ public class World
 		Spaceship ship=new Spaceship(new Vector2(750,750),new Vector2(0,0),new Vector2(0,0),"spaceship",50,135);
 		//set the ship
 		ship.setHealth(100);
+		ship.setAlive(true);
 		setSpaceship(ship);
 		add(ship);
 
@@ -280,14 +297,13 @@ public class World
 				for (SpaceObject o : spaceObjects) {
 					if (o instanceof Planet) {
 						Vector2 d = o.getPos().subVector(r);
-						if (d.getLength() < size + o.getRadius()) {
+						if (d.getLength() < size + o.getRadius() + 500) {
 							continue;
 						}
 					}
 				}
 			}
 
-			System.out.println(r);
 			SpaceObject so=new Planet(r,new Vector2(0,0),new Vector2(0,0),"planet"+rand.nextInt(3),mass,size);
 			add(so);
 		}

@@ -20,14 +20,12 @@ public class FlashingText {
 	int x,y;
 	int size;
 	Color color;
-	Graphics2D graphics;
 	boolean on;
 	boolean alive;
 
 
-	public FlashingText(Graphics2D g,String text) {
+	public FlashingText(String text) {
 		this.text = text;
-		this.graphics = g;
 		flashLength = 0;
 		life = 0;
 		overallCount = 0;
@@ -72,11 +70,10 @@ public class FlashingText {
 	}
 
 	public void paint() {
-		if (graphics == null) return;
 		if (on == false) return;
 		if (alive == false) return;
 
-		graphics.drawString(text, x, y);
+		PrintManager.getInstance().print("large", text, x, y, color);
 
 	}
 
