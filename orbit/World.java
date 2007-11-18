@@ -6,8 +6,10 @@ public class World
 {
 	public final int WORLD_SIZE = 24000;
 	public final double MAX_SHIP_SPEED = 2500;
-	public final int NUM_ASTEROIDS_IN_UNIVERSE = 1000;
-	public final int MAX_SPEED_ASTEROID = 1000;
+	public final int MIN_ASTEROIDS_IN_UNIVERSE = 200;
+	public final int NUM_ASTEROIDS_IN_UNIVERSE = 300;
+	public final int MIN_SPEED_ASTEROID = 300;
+	public final int MAX_SPEED_ASTEROID = 700;
 	public final int ASTEROID_MASS = 2000;
 
 	public static final int SMALL_PLANET = 0;
@@ -16,6 +18,7 @@ public class World
 
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
+	private ArrayList<Asteroid> asteroids;
 	private ArrayList<Explosion> explosions;
 	private int numAsteroids;
 	private Starfield starfield;
@@ -33,6 +36,7 @@ public class World
 		spaceObjects=new ArrayList<SpaceObject>();
 		deadObjects = new ArrayList<SpaceObject>();
 		explosions = new ArrayList<Explosion>();
+		asteroids = new ArrayList<Asteroid>();
 		//create the starfield
 		starfield = new Starfield();
 		particleSystem=new ParticleSystem();
@@ -80,6 +84,10 @@ public class World
 		spaceObjects.add(index,so);
 	}
 
+	public void addAsteroid(Asteroid a) {
+		asteroids.add(a);
+	}
+
 	public Starfield getStarfield() {
 		return starfield;
 	}
@@ -121,6 +129,14 @@ public class World
 		if(particleSystem!=null)
 			particleSystem.update((int)timeElapsed);
 
+
+		//THE ASTEROID GENERATOR////////////////////////////////////////////////////////////
+		//This ensures that there is a certain number of asteroids in the universe
+		////////////////////////////////////////////////////////////////////////////////////
+		if (asteroids.size() < numAsteroids) {
+			generateAsteroid(new Random(game.getLevelSeed()));
+		}
+
 		for (SpaceObject obj : spaceObjects) {
 
 			if (obj instanceof Planet) {
@@ -145,6 +161,13 @@ public class World
 						}
 					}
 				}
+
+				//check if the planet (namely, asteroid) is outside of the universe
+				pos = p.getPos();
+				if (pos.x < -WORLD_SIZE/2 || pos.y < -WORLD_SIZE/2 || pos.x >= WORLD_SIZE/2||pos.y >= WORLD_SIZE/2) {
+					deadObjects.add(p);
+				}
+
 			}
 			if (obj instanceof Spaceship && spaceship.getAlive())
 			{
@@ -175,33 +198,6 @@ public class World
 
 				spaceship.setAccel(accel);
 			}
-			/*
-			if (obj instanceof Spaceship) {
-				Vector2 accel = spaceship.predictAccel();
-				Vector2 vel = spaceship.predictVel(timeElapsed, accel);
-				Vector2 pos = spaceship.predictPos(timeElapsed, vel);
-
-				if (pos.x < 0) {
-					vel.x = -vel.x;
-					accel.x = -accel.x;
-				}
-				if (pos.y < 0){
-					vel.y = -vel.y;
-					accel.y = -accel.y;
-				}
-				if (pos.x >= WORLD_SIZE) {
-					vel.x = -vel.x;
-					accel.x = -accel.x;
-				}
-				if (pos.y >= WORLD_SIZE) {
-					vel.y = -vel.y;
-					accel.y = -accel.y;
-				}
-
-				spaceship.setVel(vel);
-				spaceship.setAccel(accel);
-			}
-			 */
 
 			obj.update(timeElapsed);
 		}
@@ -230,6 +226,8 @@ public class World
 			spaceObjects.remove(obj);
 			if(obj instanceof Explosion)
 				explosions.remove(obj);
+			if (obj instanceof Asteroid)
+				asteroids.remove(obj);
 		}
 		if (deadObjects.size() > 0)
 			deadObjects.clear();
@@ -307,14 +305,35 @@ public class World
 			add(0,so);
 		}
 
-		for(int x=0; x < NUM_ASTEROIDS_IN_UNIVERSE; x++) {
-			double randomTheta = rand.nextDouble()*6.18;
-			double velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
-			double velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
-			int half_world = WORLD_SIZE/2;
-			Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
-			Asteroid a = new Asteroid(r, new Vector2(velX, velY), new Vector2(0,0), "asteroid", ASTEROID_MASS, 25);
-			add(a);
+		numAsteroids = MIN_ASTEROIDS_IN_UNIVERSE+rand.nextInt(NUM_ASTEROIDS_IN_UNIVERSE);
+
+		for(int x=0; x < numAsteroids; x++) {
+			generateAsteroid(rand);
 		}
+	}
+
+	public void generateAsteroid(Random rand) {
+		double randomTheta = rand.nextDouble()*6.18;
+		double velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
+		double velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
+		int half_world = WORLD_SIZE/2;
+		Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+
+		do {
+
+			//check that it isn't near the spaceship
+			if (r.subVector(spaceship.getPos()).getLength() >= 500) break;
+
+			r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+			randomTheta = rand.nextDouble()*6.18;
+			velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
+			velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
+			half_world = WORLD_SIZE/2;
+		} while (true);
+
+		Asteroid a = new Asteroid(r, new Vector2(velX, velY), new Vector2(0,0), "asteroid", ASTEROID_MASS, 25);
+		add(a);
+		addAsteroid(a);
+
 	}
 }
