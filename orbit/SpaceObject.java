@@ -119,6 +119,22 @@ public class SpaceObject {
     	}
     }
 
+    public void nonLoopingAnimate(int msSinceLastTime) {
+    	elapsedTime+=msSinceLastTime;
+    	if(elapsedTime>timePerFrame)
+    	{
+    		//This code here loops the animation
+    		if(currentFrame==numFrames-1) {
+            	currentFrame = -1; //signifies end
+    		}
+    		else {
+    			currentFrame++;
+    		}
+    		elapsedTime=0; //start counting from 0
+    	}
+    }
+
+    
     public void setLooping(boolean loop) {
     	looping = loop;
     }
