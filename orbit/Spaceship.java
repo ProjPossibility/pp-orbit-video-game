@@ -70,7 +70,7 @@ public class Spaceship extends SpaceObject {
 		}
 
 		vel = vel.addVector(a.scale((double)timeElapsed*0.007));
-		System.out.println("Velocity: "+vel);
+		System.out.println("Velocity: "+vel+" Position: "+pos);
 		pos = pos.addVector(vel.scale((double)timeElapsed*0.001));
 		accel=new Vector2();
 	}

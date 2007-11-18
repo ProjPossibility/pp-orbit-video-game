@@ -82,12 +82,12 @@ public class World
 		for (SpaceObject obj : spaceObjects) {
 			obj.update(timeElapsed);
 			Vector2 pos = obj.getPos();
-
+			
 			if (pos.x < 0)pos.x = WORLD_SIZE;
 			if (pos.y < 0) pos.y = WORLD_SIZE;
 			if (pos.x >= WORLD_SIZE) pos.x = 0;
 			if (pos.y >= WORLD_SIZE) pos.y = 0;
-
+			
 			obj.setPos(pos);
 
 			if (obj instanceof Planet) {
@@ -152,8 +152,8 @@ public class World
 		for(int i=0;i<4;i++)
 		{
 			int size=rand.nextInt(3)+1;
-			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500)-750,rand.nextInt(1500)-750),
-				new Vector2(0,0),new Vector2(0,0),"planet"+(size==2?7:size),2800,50+size*1.2);
+			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500),rand.nextInt(1500)),
+				new Vector2(0,0),new Vector2(0,0),"planet"+(size==2?7:size),4800,50+size*1.2);
 			add(so);
 		}
 	}
