@@ -7,6 +7,11 @@ public class World
 	public final int WORLD_SIZE = 24000;
 	public final double MAX_SHIP_SPEED = 2500;
 
+
+	public static final int SMALL_PLANET = 0;
+	public static final int MEDIUM_PLANET = 1;
+	public static final int BIG_PLANET = 2;
+
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
 	private ArrayList<Explosion> explosions;
@@ -76,7 +81,7 @@ public class World
 		{
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
 
-			System.out.println(spaceship.getPos());
+			//System.out.println(spaceship.getPos());
 		}
 
 		for (SpaceObject obj : spaceObjects) {
@@ -87,8 +92,6 @@ public class World
 				Planet p = (Planet) obj;
 				Vector2 pos = spaceship.getPos();
 				double dist = p.getPos().subVector(pos).getLength();
-
-
 
 				if (dist < 10000) {
 					spaceship.interact(p);
@@ -105,6 +108,7 @@ public class World
 				}
 			}
 
+			/*
 			if (obj instanceof Spaceship) {
 				Vector2 accel = spaceship.predictAccel();
 				Vector2 vel = spaceship.predictVel(timeElapsed, accel);
@@ -130,6 +134,7 @@ public class World
 				spaceship.setVel(vel);
 				spaceship.setAccel(accel);
 			}
+			*/
 
 			obj.update(timeElapsed);
 
@@ -169,6 +174,9 @@ public class World
 	 **/
 	public void populate(int level)
 	{
+		//clear everything in the spaceObjects
+		spaceObjects.clear();
+
 		//create the main ship, and add it
 		Spaceship ship=new Spaceship(new Vector2(750,750),new Vector2(0,0),new Vector2(0,0),"spaceship",50,135);
 		//set the ship
@@ -176,11 +184,58 @@ public class World
 		add(ship);
 
 		Random rand=new Random();
+		rand.setSeed(game.getLevelSeed());
+
 		for(int i=0;i<550;i++)
 		{
-			int size=rand.nextInt(3)+1;
-			SpaceObject so=new Planet(new Vector2(rand.nextInt(WORLD_SIZE),rand.nextInt(WORLD_SIZE)),
-				new Vector2(0,0),new Vector2(0,0),"planet"+(size==2?7:size),10000,200+size*1.2);
+			int type = rand.nextInt(3);
+			int size = 0;
+			int mass = 0;
+
+			switch (type) {
+			case SMALL_PLANET: {
+				size = 50;
+				mass = 8000;
+				break;
+			}
+			case MEDIUM_PLANET: {
+				size = 100;
+				mass = 10000;
+				break;
+			}
+			case BIG_PLANET: {
+				mass = 15000;
+				size = 200;
+				break;
+			}
+			}
+
+			int loopCount = 0;
+			int half_world = WORLD_SIZE/2;
+			int maxLoops = 10;
+
+			Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+
+			while (true) {
+				if (loopCount > maxLoops) {
+					break;
+				}
+				++loopCount;
+
+				r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+
+				for (SpaceObject o : spaceObjects) {
+					if (o instanceof Planet) {
+						Vector2 d = o.getPos().subVector(r);
+						if (d.getLength() < size + o.getRadius()) {
+							continue;
+						}
+					}
+				}
+			}
+
+			System.out.println(r);
+			SpaceObject so=new Planet(r,new Vector2(0,0),new Vector2(0,0),"planet"+rand.nextInt(3),mass,size);
 			add(so);
 		}
 	}
