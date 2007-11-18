@@ -112,13 +112,13 @@ public class World
 
 		if(viewport!=null)
 			viewport.setCenter(spaceship.getPos());
-
+		
 		for(Explosion e : explosions) {
 			if(e.getAlive()) {
 				e.animate((int)timeElapsed);
 			}
 			else {
-				explosions.remove(e);
+				deadObjects.add(e);
 			}
 		}
 
