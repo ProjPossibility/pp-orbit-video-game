@@ -5,7 +5,7 @@ import java.util.*;
 public class World
 {
 	public final int WORLD_SIZE = 6000;
-	public final double MAX_SHIP_SPEED = 1000;
+	public final double MAX_SHIP_SPEED = 2500;
 
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
@@ -46,11 +46,11 @@ public class World
 	{
 		return spaceObjects;
 	}
-	
+
 	public ArrayList<Explosion> getExplosions() {
 		return explosions;
 	}
-	
+
 	/** Add a SpaceObject to the list
 	 *
 	 **/
@@ -76,19 +76,19 @@ public class World
 		{
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
 
-			//System.out.println(spaceship.getPos()+" , "+viewport);
+			System.out.println(spaceship.getPos());
 		}
 
 		for (SpaceObject obj : spaceObjects) {
-			
+
 
 			if (obj instanceof Planet) {
 				//check if the planet is within range
 				Planet p = (Planet) obj;
 				double dist = p.getPos().subVector(spaceship.getPos()).getLength();
-				if (dist < 800*2) {
+				if (dist < 10000) {
 					spaceship.interact(p);
-
+					System.out.println(dist);
 					//see if they collide
 					if (dist < p.getRadius()) {
 						//collision!
@@ -98,15 +98,15 @@ public class World
 					}
 				}
 			}
-			
+
 			obj.update(timeElapsed);
 			Vector2 pos = obj.getPos();
-			
+
 			if (pos.x < 0)pos.x = WORLD_SIZE;
 			if (pos.y < 0) pos.y = WORLD_SIZE;
 			if (pos.x >= WORLD_SIZE) pos.x = 0;
 			if (pos.y >= WORLD_SIZE) pos.y = 0;
-			
+
 			obj.setPos(pos);
 		}
 
@@ -119,7 +119,7 @@ public class World
 
 		if(viewport!=null)
 			viewport.setCenter(spaceship.getPos());
-		
+
 		for(Explosion e : explosions) {
 			if(e.getAlive()) {
 				e.animate((int)timeElapsed);
