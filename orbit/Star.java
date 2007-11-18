@@ -16,18 +16,18 @@ public class Star extends SpaceObject {
 		//based on the layer, calculate the speed at which it should be going
 		switch (layer) {
 		case 0: {	//this is the stationary layer
-			vel.y = 0;
+			vel.y = 0.001;
 			width = height = 2;
 			break;
 		}
 		case 1: {
 			vel.y = 0.01;
-			width = height = 8;
+			width = height = 6;
 			break;
 		}
 		case 2: {
 			vel.y = 0.02;
-			width = height = 16;
+			width = height = 8;
 			break;
 		}
 		}
