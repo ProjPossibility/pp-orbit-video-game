@@ -88,11 +88,13 @@ public class World
 				double dist = p.getPos().subVector(spaceship.getPos()).getLength();
 				if (dist < 10000) {
 					spaceship.interact(p);
+					System.out.println(dist + "," + p.getRadius());
 					System.out.println(dist);
 					//see if they collide
 					if (dist < p.getRadius()) {
 						//collision!
 						//splode!
+						System.out.println("EXPLOSION SHOULD OCCUR");
 						Explosion e = new Explosion(spaceship.getPos(), explosionSprite, p.getWidth(), p.getHeight());
 						explosions.add(e);
 					}
