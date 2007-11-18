@@ -7,7 +7,4 @@ public class Powerup extends SpaceObject {
 	public Powerup(String type) {
 		this.type = type;
 	}
-
-
-
 }
