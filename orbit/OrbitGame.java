@@ -24,7 +24,7 @@ public class OrbitGame
 		world.setViewport(viewport);
 		
 		
-		ResourceManager.addImageSequence("media/spaceship0.jpg",1,"spaceship");
+		ResourceManager.addImageSequence("media/rocketS.png",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
 		
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
@@ -33,11 +33,13 @@ public class OrbitGame
 		scroll.setBinaryInput(binIn);
 		world.setBinaryInput(binIn);
 		
+		
+		
 		frame.setContentPane(scroll);
 		frame.pack();
 		frame.validate();
 		frame.repaint();
-		
+		scroll.requestFocus();
 		long start=System.currentTimeMillis();
 		while(true)
 		{

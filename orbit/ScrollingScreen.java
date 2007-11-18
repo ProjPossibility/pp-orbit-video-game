@@ -67,9 +67,12 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		if(image==null)
 			return;
 		//System.out.println("Drawing object - in view, has image");
-		g.setColor(Color.blue);
+		//g.setColor(Color.blue);
 		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 		g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
+		System.out.println("Screen: "+screenPos);
+		//g.setColor(Color.red);
+		//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 	}
 	private void drawStarfield(Graphics2D g,Star so)
 	{
@@ -81,6 +84,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		g.drawImage(image,(int)(pos.x*screen.width-screenScale.x/2),
 			(int)(pos.y*screen.height-screenScale.y/2),
 			(int)screenScale.x,(int)screenScale.y,null);
+		
 	}
 	public Vector2 transformScale(Vector2 vec)
 	{

@@ -67,7 +67,7 @@ public class World
 			spaceship.setThrusting(binaryInput.getButtonState()==1);
 			if(viewport!=null)
 				viewport.setCenter(spaceship.getPos());
-			System.out.println(spaceship.getPos()+" , "+viewport);
+			//System.out.println(spaceship.getPos()+" , "+viewport);
 		}
 		
 		for (SpaceObject obj : spaceObjects) {
