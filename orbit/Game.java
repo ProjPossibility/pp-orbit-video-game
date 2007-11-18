@@ -2,38 +2,83 @@ package orbit;
 
 import javax.swing.*;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.util.*;
+
 public class Game extends JFrame {
 
 	public static final int START_SCREEN =0;
-	public static final int GAME_STARTED =1;
-	public static final int LOSS_SEQUENCE =3;
+	public static final int INIT_GAME = 1;
+	public static final int GAME  =2;
+	public static final int DIED_SEQUENCE =3;
 	public static final int LOSS_SCREEN =4;
-	public static final int NEXT_LEVEL_SCREEN =5;
+	public static final int NEXT_LEVEL =5;
 
 	private int state;
 	private int currentLevel;
 	private int points;
+	private int lives;
+
+	private long levelSeed;
 	private World world;
+	private BinaryInput binIn;
 
-	public Game() {
+	private ScrollingScreen scroll;
+	private Rect viewport;
+	private Rect screen;
 
-		state = START_SCREEN;
-		currentLevel =0;
-		points =0;
-		world = new World(this);
+	public Game() throws Exception {
 
-		Rect screen=new Rect(0,0,800,600);
+		screen=new Rect(0,0,800,600);
 		setSize((int)screen.width,(int)screen.height);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocation(200,100);
-		Rect viewport=new Rect(0,0,1500,1200);
-		World world=new World(this);
-		//Spaceship so=new Spaceship(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
-		//world.getSpaceObjects().add(so);
-		//world.setSpaceship(so);
-		world.populate(1);
+
+		binIn=new BinaryInput();
+
+		viewport=new Rect(0,0,1000,800);
+		scroll = new ScrollingScreen(screen,viewport,world);
+		scroll.setBinaryInput(binIn);
+
+
+		try {
+			loadResources();
+
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+
+		setState(INIT_GAME);
+
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+		switch(state) {
+			case 1:
+				System.out.println("STATE:" + state);
+			case GAME:
+
+				setGameState();
+
+				System.out.println("STATE:" + state);
+			case 3:
+				System.out.println("STATE:" + state);
+			case 4:
+				System.out.println("STATE:" + state);
+			case 5:
+				System.out.println("STATE:" + state);
+		}
+	}
+
+	private void loadResources() throws Exception {
 
 		ResourceManager.addImageSequence("media/rocketS.png",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
@@ -42,20 +87,42 @@ public class Game extends JFrame {
 		ResourceManager.addImageSequence("media/planet7.png",1,"planet7");
 		ResourceManager.addImageSequence("media/explosion.gif", 18, "explosion");
 
-		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
+	}
 
-		BinaryInput binIn=new BinaryInput();
-		scroll.setBinaryInput(binIn);
+
+	private void setStartScreenState() {
+
+
+	}
+
+	private void setInitGameState() {
+		currentLevel = 0;
+		points = 0;
+		world = new World(this);
+
 		world.setBinaryInput(binIn);
-		
 		world.setViewport(viewport);
 
 		setContentPane(scroll);
 		pack();
 		validate();
 		repaint();
-		
+
 		scroll.requestFocus();
+
+		setState(NEXT_LEVEL);
+	}
+
+	private void setNextLevelState() {
+		++currentLevel;
+
+		levelSeed=System.currentTimeMillis();
+
+		//clear the world of the extant objects, and repopulate
+		world.populate(currentLevel);
+	}
+
+	private void setGameState() {
 
 		long start=System.currentTimeMillis();
 		while(true)
@@ -72,23 +139,59 @@ public class Game extends JFrame {
 
 	}
 
-	public int getState() {
-		return state;
-	}
-	
-	public void setState(int state) {
-		this.state = state;
-		switch(state) {
-			case 1:
-				System.out.println("STATE:" + state);
-			case 2:
-				System.out.println("STATE:" + state);
-			case 3:
-				System.out.println("STATE:" + state);
-			case 4:
-				System.out.println("STATE:" + state);
-			case 5:
-				System.out.println("STATE:" + state);
+	private void setDiedSequenceState() {
+		//decrement lives
+		--lives;
+		if (lives < 0) {
+			setState(LOSS_SCREEN);
+			return;
 		}
+
+		Graphics2D g2d = (Graphics2D)getGraphics();
+
+		TimedScreenOverlay tso =
+			new TimedScreenOverlay(
+					g2d,
+					Color.RED,
+					(int)screen.width,
+					(int)screen.height,
+					3000,
+					TimedScreenOverlay.FADE_OUT);
+
+
+		FlashingText ft = new FlashingText(g2d,"PRESS TO CONTINUE");
+		ft.setColor(Color.WHITE);
+		ft.setLength(500);
+		ft.setPos(200, 200);
+		ft.setSize(15);
+
+		//run through the died sequence state
+		long start=System.currentTimeMillis();
+		while(true)
+		{
+			//wait for the user to press the button
+			if (binIn.getButtonState() == 1) {
+
+				break;
+			}
+
+			long curr=System.currentTimeMillis();
+			long millis=curr-start;
+			start=curr;
+			world.update(millis);
+			tso.update(millis);
+			tso.paint();
+			ft.update(millis);
+			ft.paint();
+			repaint();
+			try{
+				Thread.sleep(15);
+			}catch(Exception e){}
+		}
+
+		//reset everything
+		world.populate(currentLevel);
+
+		setState(GAME);
 	}
 }
