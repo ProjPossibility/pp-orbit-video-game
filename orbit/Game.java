@@ -52,6 +52,10 @@ public class Game extends JFrame {
 
 	}
 
+	public long getLevelSeed() {
+		return levelSeed;
+	}
+
 	public int getState() {
 		return state;
 	}
