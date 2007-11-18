@@ -122,15 +122,15 @@ public class World
 			particleSystem.update((int)timeElapsed);
 
 		for (SpaceObject obj : spaceObjects) {
-			
+
 			if (obj instanceof Planet) {
-				
+
 				//check if the planet is within range
 				Planet p = (Planet) obj;
 				obj.animate((int) timeElapsed);
 				Vector2 pos = spaceship.getPos();
 				double dist = p.getPos().subVector(pos).getLength();
-				
+
 				if (dist < 10000) {
 					spaceship.interact(p);
 					//System.out.println(dist + "," + p.getRadius());
@@ -140,8 +140,10 @@ public class World
 					if (dist < p.getRadius()) {
 						//collision!
 						//splode!
-							Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
-							explosions.add(e);
+						Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
+						explosions.add(e);
+					}
+				}
 				if (spaceship.getAlive()) {
 					if (dist < 10000) {
 						spaceship.interact(p);
@@ -151,9 +153,9 @@ public class World
 						if (dist < p.getRadius()) {
 							//collision!
 							//splode!
-								Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
-								explosions.add(e);
-								spaceship.takeDamage(1);
+							Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
+							explosions.add(e);
+							spaceship.takeDamage(1);
 						}
 					}
 				}
@@ -213,10 +215,9 @@ public class World
 				spaceship.setVel(vel);
 				spaceship.setAccel(accel);
 			}
-			*/
+			 */
 
 			obj.update(timeElapsed);
-
 		}
 
 		//maximum speed for spaceship
@@ -228,9 +229,7 @@ public class World
 
 		if(viewport!=null)
 			viewport.setCenter(spaceship.getPos());
-
 		for(Explosion e1 : explosions) {
-//			System.out.println(e1);
 			if(e1.getAlive()) {
 				e1.animate((int)timeElapsed);
 			}
@@ -238,19 +237,16 @@ public class World
 				deadObjects.add(e1);
 			}
 		}
-
 		//go through the garbage can
 		for (SpaceObject obj : deadObjects) {
 			spaceObjects.remove(obj);
 			if(obj instanceof Explosion)
 				explosions.remove(obj);
 		}
-
 		if (deadObjects.size() > 0)
 			deadObjects.clear();
-
-
 	}
+
 	/** Populates the world with planets and spaceship based on difficulty.
 	 *
 	 **/
@@ -319,7 +315,6 @@ public class World
 					}
 				}
 			}
-
 			SpaceObject so=new Planet(r,new Vector2(0,0),new Vector2(0,0),"planet"+rand.nextInt(3),mass,size);
 			add(0,so);
 		}
@@ -332,10 +327,6 @@ public class World
 			Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
 			Asteroid a = new Asteroid(r, new Vector2(velX, velY), new Vector2(0,0), "asteroid", ASTEROID_MASS, 25);
 			add(a);
-			Asteroid a = new Asteroid(new Vector2(rand.nextInt(WORLD_SIZE), rand.nextInt(WORLD_SIZE)), new Vector2(velX, velY), new Vector(0,0), ASTERIOD_MASS)
-
-			Asteroid a = new Asteroid(new Vector2(rand.nextInt(WORLD_SIZE), rand.nextInt(WORLD_SIZE)), new Vector2(velX, velY), new Vector2(0,0), "asteroid", 64, ASTEROID_MASS);
-			spaceObjects.add(a);
 		}
 	}
 }
