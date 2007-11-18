@@ -117,7 +117,6 @@ public class World
 						//collision!
 						//splode!
 						if(explosions.size()==0) {
-							System.out.println("EXPLOSION SHOULD OCCUR");
 							Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
 							explosions.add(e);
 						}
@@ -171,7 +170,6 @@ public class World
 			System.out.println(e1);
 			if(e1.getAlive()) {
 				e1.animate((int)timeElapsed);
-				System.out.println("STEP");
 			}
 			else {
 				deadObjects.add(e1);
