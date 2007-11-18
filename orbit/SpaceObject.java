@@ -16,9 +16,9 @@ public class SpaceObject {
 	//for mechanics
 	protected Vector2 pos;
 	protected Vector2 vel;
-	protected  Vector2 accel;
+	protected Vector2 accel;
 
-	protected  String sprite;
+	protected String sprite;
 
 	//this is used for image drawing and collision detection
 	protected  double width;
@@ -61,7 +61,7 @@ public class SpaceObject {
 
 	public Vector2 getPos() { return pos; }
 	public Vector2 getVel() { return vel; }
-	public Vector2 getAccel() { return vel; }
+	public Vector2 getAccel() { return accel; }
 	public String getSprite() { return sprite; }
 	public double getWidth() { return width; }
 	public double getHeight() { return height; }
