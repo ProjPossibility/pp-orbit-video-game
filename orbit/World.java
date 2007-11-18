@@ -123,6 +123,34 @@ public class World
 				}
 			}
 
+			if (obj instanceof Spaceship) {
+				Vector2 accel = spaceship.predictAccel();
+				Vector2 vel = spaceship.predictVel(timeElapsed, accel);
+				Vector2 pos = spaceship.predictPos(timeElapsed, vel);
+
+				Vector2 r = new Vector2(-pos.x,-pos.y);
+
+				double blackhole = 100*r.getLength()/(WORLD_SIZE);
+
+				//magnitude of the acceleration
+				r = r.getNormalized();
+				r = r.scale(blackhole);
+
+				if (pos.x < -WORLD_SIZE/2) {
+					accel = r;
+				}
+				if (pos.y < -WORLD_SIZE/2){
+					accel = r;
+				}
+				if (pos.x >= WORLD_SIZE/2) {
+					accel = r;
+				}
+				if (pos.y >= WORLD_SIZE/2) {
+					accel = r;
+				}
+
+				spaceship.setAccel(accel);
+			}
 			/*
 			if (obj instanceof Spaceship) {
 				Vector2 accel = spaceship.predictAccel();
@@ -207,7 +235,7 @@ public class World
 		int numPlanets = 300+(level*20);
 
 		for(int i=0;i<numPlanets;i++)
-		{			
+		{
 			int type = rand.nextInt(3);
 			int size = 0;
 			int mass = 0;
@@ -258,13 +286,13 @@ public class World
 			SpaceObject so=new Planet(r,new Vector2(0,0),new Vector2(0,0),"planet"+rand.nextInt(3),mass,size);
 			add(so);
 		}
-		
+
 		
 		
 /*		for(int x=0; x < NUM_ASTEROIDS_IN_UNIVERSE; x++) {
 			Asteroid a = new Asteroid(new Vector2(rand.nextInt(WORLD_SIZE), rand.nextInt(WORLD_SIZE)), new Vector2())
 			
 		}*/
-		
+
 	}
 }
