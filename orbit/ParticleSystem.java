@@ -43,7 +43,7 @@ class ParticleEffect extends SpaceObject
 	}
 	public void update(int millis)
 	{
-		pos=pos.addVector(vel.scale(millis*0.001));
+		//pos=pos.addVector(vel.scale(millis*0.001));
 		animate(millis);
 	}
 	public boolean isAlive()
