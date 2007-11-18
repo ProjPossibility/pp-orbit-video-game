@@ -43,7 +43,7 @@ public class Spaceship extends SpaceObject {
 		R = R.getNormalized();
 		Vector2 v;
 		double radius = p.getRadius();
-		double G=100;
+		double G=140;
 		if (dist > radius) {
 			v = R.scale(p.getMass()/(dist*dist)*G);
 		} else {
