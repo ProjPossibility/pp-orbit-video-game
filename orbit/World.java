@@ -46,6 +46,11 @@ public class World
 	{
 		return spaceObjects;
 	}
+	
+	public ArrayList<Explosion> getExplosions() {
+		return explosions;
+	}
+	
 	/** Add a SpaceObject to the list
 	 *
 	 **/
