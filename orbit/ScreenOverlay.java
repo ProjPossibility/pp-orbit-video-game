@@ -7,24 +7,34 @@ public class ScreenOverlay {
 
 	Color color;
 	int width,height;
+	Rect area;
 	Graphics2D graphics;
 
 	public ScreenOverlay(Graphics2D g,Color c,int width,int height) {
 		graphics = g;
 		color = c;
-		this.width = width;
-		this.height = height;
+		this.width = (int)width;
+		this.height = (int)height;
+		area=new Rect(0,0,width,height);
+	}
+	public ScreenOverlay(Graphics2D g,Color c,Rect area) {
+		graphics = g;
+		color = c;
+		this.area=area;
+		this.width=(int)area.width;
+		this.height=(int)area.height;
 	}
 
 	public void paint(float alpha) {
-		Composite comp = graphics.getComposite();
-		graphics.setComposite(
-				AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha));
-
+		//Composite comp = graphics.getComposite();
+		//graphics.setComposite(
+		//		AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha));
+		
 		graphics.setColor(color);
-		graphics.fillRect(0,0,width,height);
-		graphics.setComposite(comp);
-
+		graphics.fillRect((int)area.left,(int)area.top,(int)area.width,(int)area.height);
+		//graphics.setComposite(comp);
+		System.out.println("Paint minimap");
 	}
+	
 
 }

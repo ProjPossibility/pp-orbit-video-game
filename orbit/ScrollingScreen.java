@@ -12,6 +12,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	private Rect viewport;//in world space
 	private World world;
 	private BinaryInput binaryInput;
+	private MiniMap miniMap;
 
 	/**	Make a rendering scroll screen.
 	 *	@param screen The Rect representing the actual screen's width,height
@@ -24,6 +25,8 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		this.viewport=view;
 		this.world=world;
 		setPreferredSize(new Dimension((int)screen.width,(int)screen.height));
+		Rect miniScreen=new Rect(screen.right-screen.width/5,screen.top,screen.right,screen.height/5+screen.top);
+		miniMap=new MiniMap(miniScreen,view,world);
 		addMouseListener(this);
 		addKeyListener(this);
 	}
@@ -56,14 +59,15 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 
 		for(SpaceObject so:world.getSpaceObjects())
 			drawSpaceObject(g,so);
-
-		try {
-			for(SpaceObject so:world.getExplosions())
+			
+		
+		ArrayList<Explosion> expls=world.getExplosions();
+		synchronized(expls) {
+			for(SpaceObject so:expls)
 				drawSpaceObject(g,so);
 		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		
+		miniMap.paintComponent(g);
 
 	}
 	/** Draw an individual SpaceObject.
