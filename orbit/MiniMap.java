@@ -40,7 +40,14 @@ public class MiniMap
 				drawObject(g,so);
 			}
 		}
-		//Vector2 corner0=worldToScreen(playerView.),corner1,corner2,corner3;
+		Vector2 corner0=worldToScreen(playerView.left,playerView.top),corner1=worldToScreen(playerView.right,playerView.top),
+			corner3=worldToScreen(playerView.left,playerView.bottom),corner2=worldToScreen(playerView.right,playerView.bottom);
+		
+		g.setColor(Color.green);
+		g.drawLine((int)corner0.x,(int)corner0.y,(int)corner1.x,(int)corner1.y);
+		g.drawLine((int)corner2.x,(int)corner2.y,(int)corner1.x,(int)corner1.y);
+		g.drawLine((int)corner2.x,(int)corner2.y,(int)corner3.x,(int)corner3.y);
+		g.drawLine((int)corner0.x,(int)corner0.y,(int)corner3.x,(int)corner3.y);
 		
 		g.setComposite(comp);
 	}
@@ -51,22 +58,26 @@ public class MiniMap
 	private void drawObject(Graphics2D g,SpaceObject so)
 	{
 		g.setColor(Color.red);
-		double diameter=2;
+		double diameter=so.getRadius()*0.09;
 		if(so instanceof Spaceship)
 		{
 			g.setColor(Color.green);
 			diameter=4;
 		}
 		Vector2 screenPos=worldToScreen(so.getPos());
-		if(screenPos.x+diameter/2<miniScreen.left||screenPos.x-diameter/2>miniScreen.right)
+		if(screenPos.x-diameter/2<miniScreen.left||screenPos.x+diameter/2>miniScreen.right)
 			return;
-		if(screenPos.y+diameter/2<miniScreen.top||screenPos.y-diameter/2>miniScreen.bottom)
+		if(screenPos.y-diameter/2<miniScreen.top||screenPos.y+diameter/2>miniScreen.bottom)
 			return;
-		g.fillRect((int)(screenPos.x-diameter/2),(int)(screenPos.y-diameter/2),(int)diameter,(int)diameter);
+		g.fillOval((int)(screenPos.x-diameter/2),(int)(screenPos.y-diameter/2),(int)diameter,(int)diameter);
 	}
 	private Vector2 worldToScreen(Vector2 pos)
 	{
 		return new Vector2(ScrollingScreen.transformSingleDimension(pos.x,viewport.left,viewport.right,miniScreen.left,miniScreen.right),
 			ScrollingScreen.transformSingleDimension(pos.y,viewport.top,viewport.bottom,miniScreen.top,miniScreen.bottom));
+	}
+	private Vector2 worldToScreen(double x,double y)
+	{
+		return worldToScreen(new Vector2(x,y));
 	}
 }
