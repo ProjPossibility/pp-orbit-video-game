@@ -4,12 +4,17 @@ import java.util.ArrayList;
 
 public class World
 {
+	public final int WORLD_SIZE = 6000;
+
 	private ArrayList<SpaceObject> spaceObjects;
 	private Starfield starfield;
 	private Spaceship spaceship;
 
-	public World()
+	private Game game;
+
+	public World(Game g)
 	{
+		game = g;
 		spaceObjects=new ArrayList<SpaceObject>();
 		//create the starfield
 		starfield = new Starfield();
@@ -49,6 +54,7 @@ public class World
 					//see if they collide
 					if (dist < p.getRadius()) {
 						//collision!
+						//splode!
 
 					}
 				}
