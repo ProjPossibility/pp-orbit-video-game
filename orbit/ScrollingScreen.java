@@ -26,7 +26,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		this.world=world;
 		setPreferredSize(new Dimension((int)screen.width,(int)screen.height));
 		Rect miniScreen=new Rect(screen.right-screen.width/5,screen.top,screen.right,screen.height/5+screen.top);
-		miniMap=new MiniMap(miniScreen,new Rect(0,0,3000,2000),world);
+		miniMap=new MiniMap(miniScreen,new Rect(0,0,3000,2000),view,world);
 		addMouseListener(this);
 		addKeyListener(this);
 	}
