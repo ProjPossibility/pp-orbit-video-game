@@ -170,7 +170,7 @@ public class World
 	public void populate(int level)
 	{
 		//create the main ship, and add it
-		Spaceship ship=new Spaceship(new Vector2(750,750),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
+		Spaceship ship=new Spaceship(new Vector2(750,750),new Vector2(0,0),new Vector2(0,0),"spaceship",50,135);
 		//set the ship
 		setSpaceship(ship);
 		add(ship);

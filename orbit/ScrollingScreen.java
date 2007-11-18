@@ -49,8 +49,8 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		for(SpaceObject so:world.getSpaceObjects())
 			drawSpaceObject(g,so);
 		
-//		for(SpaceObject so:world.getExplosions())
-	//		drawSpaceObject(g,so);
+		for(SpaceObject so:world.getExplosions())
+			drawSpaceObject(g,so);
 		
 	}
 	/** Draw an individual SpaceObject.
@@ -74,12 +74,12 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		
 		if(so instanceof Spaceship)
 		{
-			g.setColor(Color.blue);
-			g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
+			//g.setColor(Color.blue);
+			//g.fillOval((int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y);
 			AffineTransform transform=AffineTransform.getScaleInstance(screenScale.x,screenScale.y);
 			transform=AffineTransform.getScaleInstance(1,1);
 			transform=AffineTransform.getTranslateInstance(screenPos.x-screenScale.x/2,screenPos.y-screenScale.y/2);
-			transform.concatenate(AffineTransform.getRotateInstance(((Spaceship)so).getAngle()+Math.PI/2,screenScale.x/2,screenScale.y/2));
+			transform.concatenate(AffineTransform.getRotateInstance(((Spaceship)so).getAngle()+Math.PI/2,screenScale.x/2,screenScale.y/4));
 			transform.concatenate(AffineTransform.getScaleInstance(screenScale.x/image.getWidth(null),screenScale.y/image.getHeight(null)));
 			
 			
@@ -87,8 +87,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			g.drawImage(image,transform,null);
 		}
 		else
+		{
 			g.drawImage(image,(int)(screenPos.x-screenScale.x/2),(int)(screenPos.y-screenScale.y/2),(int)screenScale.x,(int)screenScale.y,null);
-		
+		}
 	}
 	private void drawStarfield(Graphics2D g,Star so)
 	{
