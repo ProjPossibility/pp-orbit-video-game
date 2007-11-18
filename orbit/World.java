@@ -8,10 +8,12 @@ public class World
 
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
+	private ArrayList<Explosion> explosions;
 	private Starfield starfield;
 	private Spaceship spaceship;
 	private BinaryInput binaryInput;
 	private Rect viewport;
+	private String explosionSprite;
 
 	private Game game;
 
@@ -20,6 +22,7 @@ public class World
 		game = g;
 		spaceObjects=new ArrayList<SpaceObject>();
 		deadObjects = new ArrayList<SpaceObject>();
+		explosions = new ArrayList<Explosion>();
 		//create the starfield
 		starfield = new Starfield();
 		//create the spaceship
@@ -86,7 +89,8 @@ public class World
 					if (dist < p.getRadius()) {
 						//collision!
 						//splode!
-
+						Explosion e = new Explosion(spaceship.getPos(), explosionSprite, p.getWidth(), p.getHeight());
+						explosions.add(e);
 					}
 				}
 			}
@@ -96,6 +100,15 @@ public class World
 		if(viewport!=null)
 			viewport.setCenter(spaceship.getPos());
 
+		for(Explosion e : explosions) {
+			if(e.getAlive()) {
+				e.animate((int)timeElapsed);
+			}
+			else {
+				explosions.remove(e);
+			}
+		}
+		
 		//go through the garbage can
 		for (SpaceObject obj : deadObjects) {
 			spaceObjects.remove(obj);
@@ -125,5 +138,4 @@ public class World
 			add(so);
 		}
 	}
-
 }
