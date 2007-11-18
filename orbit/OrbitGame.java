@@ -17,9 +17,10 @@ public class OrbitGame
 		Rect viewport=new Rect(0,0,1000,800);
 		Game game=new Game();
 		World world=new World(game);
-		Spaceship so=new Spaceship(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
-		world.getSpaceObjects().add(so);
-		world.setSpaceship(so);
+		//Spaceship so=new Spaceship(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
+		//world.getSpaceObjects().add(so);
+		//world.setSpaceship(so);
+		world.populate(1);
 		
 		ResourceManager.addImageSequence("media/spaceship0.jpg",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");

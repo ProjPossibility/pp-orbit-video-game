@@ -1,6 +1,6 @@
 package orbit;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class World
 {
@@ -35,6 +35,13 @@ public class World
 	public ArrayList<SpaceObject> getSpaceObjects()
 	{
 		return spaceObjects;
+	}
+	/** Add a SpaceObject to the list
+	 *
+	 **/
+	public void add(SpaceObject so)
+	{
+		spaceObjects.add(so);
 	}
 
 	public Starfield getStarfield() {
@@ -85,6 +92,25 @@ public class World
 		if (deadObjects.size() > 0)
 			deadObjects.clear();
 
+	}
+	/** Populates the world with planets and spaceship based on difficulty.
+	 *
+	 **/
+	public void populate(int difficulty)
+	{
+		//create the main ship, and add it
+		Spaceship ship=new Spaceship(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
+		//set the ship
+		setSpaceship(ship);
+		add(ship);
+		
+		Random rand=new Random();
+		for(int i=0;i<4;i++)
+		{
+			SpaceObject so=new SpaceObject(new Vector2(rand.nextInt(1500)-750,rand.nextInt(1500)-750),
+				new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
+			add(so);
+		}
 	}
 
 }
