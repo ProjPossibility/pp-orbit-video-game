@@ -37,6 +37,7 @@ public class Game extends JFrame {
 
 		ResourceManager.addImageSequence("media/spaceship0.jpg",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
+		ResourceManager.addImageSequence("media/explosion.gif", 18, "explosion");
 
 		ScrollingScreen scroll=new ScrollingScreen(screen,viewport,world);
 
@@ -67,7 +68,7 @@ public class Game extends JFrame {
 	public int getState() {
 		return state;
 	}
-
+	
 	public void setState(int state) {
 		this.state = state;
 		switch(state) {
