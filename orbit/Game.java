@@ -1,9 +1,7 @@
 package orbit;
 
 import javax.swing.*;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.*;
 
 public class Game extends JFrame {
@@ -84,6 +82,8 @@ public class Game extends JFrame {
 
 	private void loadResources() throws Exception {
 
+		PrintManager.getInstance().setGraphics((Graphics2D)getGraphics());
+
 		ResourceManager.addImageSequence("media/rocketS.png",1,"spaceship");
 		ResourceManager.addImageSequence("media/star.gif",4,"star");
 		ResourceManager.addImageSequence("media/planet1.png",1,"planet0");
@@ -92,10 +92,20 @@ public class Game extends JFrame {
 		ResourceManager.addImageSequence("media/explosion.gif", 18, "explosion");
 		ResourceManager.addImageSequence("media/smoke.gif", 6, "smoke");
 		ResourceManager.addImageSequence("media/rocketSthrust.png",1,"spaceshipthrust");
+
+		//add the fonts of the game
+		PrintManager.getInstance().addFont("small", new Font("Comic Sans MS",Font.PLAIN,12));
+		PrintManager.getInstance().addFont("medium", new Font("Comic Sans MS",Font.PLAIN,16));
+		PrintManager.getInstance().addFont("large", new Font("Comic Sans MS",Font.PLAIN,24));
 	}
 
 
 	private void setStartScreenState() {
+
+
+	}
+
+	private void setLossScreenState() {
 
 
 	}
@@ -133,6 +143,10 @@ public class Game extends JFrame {
 
 	private void setGameState() {
 
+
+		Graphics2D g2d = (Graphics2D)getGraphics();
+
+
 		long start=System.currentTimeMillis();
 		while(true)
 		{
@@ -140,6 +154,7 @@ public class Game extends JFrame {
 			long millis=curr-start;
 			start=curr;
 			world.update(millis);
+
 			repaint();
 			try{
 				Thread.sleep(15);

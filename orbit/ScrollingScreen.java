@@ -39,23 +39,24 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		super.paintComponent(g1);
 		//System.out.println("Drawing everything");
 		Graphics2D g=(Graphics2D)g1;
+		PrintManager.getInstance().setGraphics(g);
 		g.setColor(Color.black);
 		g.fillRect(0,0,(int)screen.width,(int)screen.height);
 
 		for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
 			for(Star star:starfield)
 				drawStarfield(g,star);
-		
+
 		ArrayList<ParticleEffect> parts=world.getParticleSystem().getParticles();
 		synchronized(parts)
 		{
 			for(SpaceObject so:parts)
 				drawSpaceObject(g,so);
 		}
-		
+
 		for(SpaceObject so:world.getSpaceObjects())
 			drawSpaceObject(g,so);
-		
+
 		try {
 			for(SpaceObject so:world.getExplosions())
 				drawSpaceObject(g,so);
@@ -63,7 +64,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 	}
 	/** Draw an individual SpaceObject.
 	 *
@@ -83,7 +84,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		Image image=so.getFrame();
 		if(image==null)
 			return;
-		
+
 		if(so instanceof Spaceship)
 		{
 			//g.setColor(Color.blue);
@@ -93,9 +94,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			transform=AffineTransform.getTranslateInstance(screenPos.x-screenScale.x*.455,screenPos.y-screenScale.y*.255);
 			transform.concatenate(AffineTransform.getRotateInstance(((Spaceship)so).getAngle()+Math.PI/2,screenScale.x/2,screenScale.y/4));
 			transform.concatenate(AffineTransform.getScaleInstance(screenScale.x/image.getWidth(null),screenScale.y/image.getHeight(null)));
-			
-			
-			
+
+
+
 			g.drawImage(image,transform,null);
 		}
 		else if(so instanceof ParticleEffect)
@@ -117,7 +118,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		g.drawImage(image,(int)(pos.x*screen.width-screenScale.x/2),
 			(int)(pos.y*screen.height-screenScale.y/2),
 			(int)screenScale.x,(int)screenScale.y,null);
-		
+
 	}
 	public Vector2 transformScale(Vector2 vec)
 	{
@@ -140,9 +141,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	{
 		return (value-viewRangeFrom)*(screenLength)/(viewRangeTo-viewRangeFrom);
 	}
-	
+
 	///Whenever an event happens, update the binary input
-	
+
 	public void mousePressed(MouseEvent e)
 	{
 		if(binaryInput!=null)
@@ -161,12 +162,12 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		if(binaryInput!=null)
 			binaryInput.buttonChanged(false);
 	}
-	
+
 	public void keyPressed(KeyEvent e)
 	{
 		if(e.getKeyCode()==27)///27=esc, 32=space
 			System.exit(0);
-		
+
 		if(binaryInput!=null)
 			binaryInput.buttonChanged(true);
 	}
@@ -176,4 +177,5 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			binaryInput.buttonChanged(false);
 	}
 	public void keyTyped(KeyEvent e){}
+
 }
