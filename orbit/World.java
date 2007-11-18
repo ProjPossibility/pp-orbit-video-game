@@ -111,7 +111,7 @@ public class World
 	public void populate(int level)
 	{
 		//create the main ship, and add it
-		Spaceship ship=new Spaceship(new Vector2(200,300),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
+		Spaceship ship=new Spaceship(new Vector2(750,750),new Vector2(0,0),new Vector2(0,0),"spaceship",50,50);
 		//set the ship
 		setSpaceship(ship);
 		add(ship);
@@ -121,7 +121,7 @@ public class World
 		{
 			int size=rand.nextInt(2)+1;
 			SpaceObject so=new Planet(new Vector2(rand.nextInt(1500)-750,rand.nextInt(1500)-750),
-				new Vector2(0,0),new Vector2(0,0),"planet"+size,600,50+size*2);
+				new Vector2(0,0),new Vector2(0,0),"planet"+size,1900,50+size*2);
 			add(so);
 		}
 	}
