@@ -32,6 +32,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		addMouseListener(this);
 		addKeyListener(this);
 	}
+	/** Set a binary input, so that this class can update it on keypresses and clicks
+	 *
+	 **/
 	public void setBinaryInput(BinaryInput binIn)
 	{
 		binaryInput=binIn;
@@ -190,6 +193,14 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	{
 		return (value-viewRangeFrom)*(screenLength)/(viewRangeTo-viewRangeFrom);
 	}
+	/**	Transform a coordinate 'value' into a screen space coordinate
+	 *	@param value The coordinate (single dimension)
+	 *	@param viewRangeFrom Left side of the viewport
+	 *	@param viewRangeTo Right side of the viewport
+	 *	@param screenLeft Left side of the screen space
+	 *	@param screenRight Right side of screen space
+	 *	@return The transformed coordinate, now in screen space
+	 **/
 	public static double transformSingleDimension(double value,double viewRangeFrom,double viewRangeTo,double screenLeft,double screenRight)
 	{
 		return (value-viewRangeFrom)*(screenRight-screenLeft)/(viewRangeTo-viewRangeFrom)+screenLeft;
