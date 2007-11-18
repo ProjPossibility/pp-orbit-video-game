@@ -8,6 +8,7 @@ public class Asteroid extends SpaceObject {
 		super(pos,vel,acc,sprite,radius*2,radius*2);
 		this.mass = mass;
 		this.radius = radius;
+		setAnimationProperties(20, 25, true);
 	}
 
 	public double getMass() {
