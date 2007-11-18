@@ -39,13 +39,13 @@ public class Spaceship extends SpaceObject {
 		//do the gravity calculations
 		//get the distance
 		Vector2 R = p.getPos().subVector(pos);
-		double dist = R.getLength();
+		double dist = R.getLength()-p.getRadius();
 		R = R.getNormalized();
 		Vector2 v;
 		double radius = p.getRadius();
-		double G=140;
+		double G=240;
 		if (dist > radius) {
-			v = R.scale(p.getMass()/(dist*dist)*G);
+			v = R.scale(p.getMass()/(dist*dist*dist)*G);
 		} else {
 			v = R.scale(p.getMass() * dist/(radius*radius*radius)*G);
 		}

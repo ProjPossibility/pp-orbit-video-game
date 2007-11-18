@@ -81,7 +81,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			transform=AffineTransform.getScaleInstance(1,1);
 			//transform.concatenate(AffineTransform.getRotateInstance(((Spaceship)so).getAngle()+Math.PI/2));
 			//transform.concatenate(AffineTransform.getTranslateInstance(screen.width/2,-screen.height/2));
-			transform=AffineTransform.getTranslateInstance(screenPos.x-screenScale.x/10,screenPos.y-screenScale.y/10);
+			transform=AffineTransform.getTranslateInstance(screenPos.x-screenScale.x/2,screenPos.y-screenScale.y/2);
 			//transform.concatenate(AffineTransform.getTranslateInstance(-200,-200));
 			transform.concatenate(AffineTransform.getRotateInstance(((Spaceship)so).getAngle()+Math.PI/2,screenScale.x/2,screenScale.y/2));
 			transform.concatenate(AffineTransform.getScaleInstance(screenScale.x/image.getWidth(null),screenScale.y/image.getHeight(null)));
