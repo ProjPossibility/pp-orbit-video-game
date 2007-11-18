@@ -28,7 +28,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		this.world=world;
 		setPreferredSize(new Dimension((int)screen.width,(int)screen.height));
 		Rect miniScreen=new Rect(screen.right-screen.width/5,screen.top,screen.right,screen.height/5+screen.top);
-		miniMap=new MiniMap(miniScreen,new Rect(0,0,3000,2000),view,world);
+		miniMap=new MiniMap(miniScreen,new Rect(0,0,8000,6000),view,world);
 		addMouseListener(this);
 		addKeyListener(this);
 	}
@@ -47,24 +47,32 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		PrintManager.getInstance().setGraphics(g);
 		g.setColor(Color.black);
 		g.fillRect(0,0,(int)screen.width,(int)screen.height);
-
-		for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
-			for(Star star:starfield)
-				drawStarfield(g,star);
-
-		ArrayList<ParticleEffect> parts=world.getParticleSystem().getParticles();
-		synchronized(parts)
+		
+		try
 		{
-			for(SpaceObject so:parts)
-				drawSpaceObject(g,so);
-		}
-
-		ArrayList<SpaceObject> objs=world.getSpaceObjects();
-		synchronized(objs)
+			for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
+				for(Star star:starfield)
+					drawStarfield(g,star);
+		}catch(ConcurrentModificationException e){}
+		try
 		{
-			for(SpaceObject so:objs)
-				drawSpaceObject(g,so);
+			ArrayList<ParticleEffect> parts=world.getParticleSystem().getParticles();
+			synchronized(parts)
+			{
+				for(SpaceObject so:parts)
+					drawSpaceObject(g,so);
+			}
 		}
+		catch(ConcurrentModificationException e){}
+		try
+		{
+			ArrayList<SpaceObject> objs=world.getSpaceObjects();
+			synchronized(objs)
+			{
+				for(SpaceObject so:objs)
+					drawSpaceObject(g,so);
+			}
+		}catch(ConcurrentModificationException e){}
 
 		try
 		{

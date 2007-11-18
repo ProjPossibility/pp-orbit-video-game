@@ -75,6 +75,10 @@ public class World
 	{
 		spaceObjects.add(so);
 	}
+	public void add(int index,SpaceObject so)
+	{
+		spaceObjects.add(index,so);
+	}
 
 	public Starfield getStarfield() {
 		return starfield;
@@ -317,7 +321,7 @@ public class World
 			}
 
 			SpaceObject so=new Planet(r,new Vector2(0,0),new Vector2(0,0),"planet"+rand.nextInt(3),mass,size);
-			add(so);
+			add(0,so);
 		}
 
 		for(int x=0; x < NUM_ASTEROIDS_IN_UNIVERSE; x++) {

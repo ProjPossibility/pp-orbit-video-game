@@ -32,14 +32,17 @@ public class MiniMap
 		g.setColor(Color.blue);
 		g.fillRect((int)miniScreen.left,(int)miniScreen.top,(int)miniScreen.width,(int)miniScreen.height);
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,.90f));
-		ArrayList<SpaceObject> objs=world.getSpaceObjects();
-		synchronized(objs)
-		{
-			for(SpaceObject so:objs)
+		try
+		{	
+			ArrayList<SpaceObject> objs=world.getSpaceObjects();
+			synchronized(objs)
 			{
-				drawObject(g,so);
+				for(SpaceObject so:objs)
+				{
+					drawObject(g,so);
+				}
 			}
-		}
+		}catch(ConcurrentModificationException e){}
 		Vector2 corner0=worldToScreen(playerView.left,playerView.top),corner1=worldToScreen(playerView.right,playerView.top),
 			corner3=worldToScreen(playerView.left,playerView.bottom),corner2=worldToScreen(playerView.right,playerView.bottom);
 		
@@ -58,7 +61,7 @@ public class MiniMap
 	private void drawObject(Graphics2D g,SpaceObject so)
 	{
 		g.setColor(Color.red);
-		double diameter=so.getRadius()*0.09;
+		double diameter=so.getRadius()*0.02;
 		if(so instanceof Spaceship)
 		{
 			g.setColor(Color.green);
