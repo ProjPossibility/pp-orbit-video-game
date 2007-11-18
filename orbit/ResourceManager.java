@@ -1,5 +1,4 @@
 package orbit;
-
 import java.util.*;
 import java.awt.*;
 import java.awt.image.*;
@@ -11,7 +10,7 @@ public class ResourceManager {
 	private static HashMap<String, BufferedImage> imageMap;
 	private static ResourceManager instance = new ResourceManager();
 
-	public ResourceManager() {
+	private ResourceManager() {
 		imageMap = new HashMap<String, BufferedImage>();
 	}
 
@@ -62,6 +61,4 @@ public class ResourceManager {
 		String hashKey = key + frame;
 		return imageMap.get(hashKey);
 	}
-
-
 }
