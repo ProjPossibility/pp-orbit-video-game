@@ -14,12 +14,16 @@ public class Spaceship extends SpaceObject {
 	private long thrustAnim;
 	private static final double thrustSize = 100;
 
+	private double health;
+	private long healthWait;
+
 	public Spaceship() {
 		thrusting = false;
 	}
 	public Spaceship(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height) {
 		super(p,v,a,sprite,width,height);
 		thrustAnim = 0;
+		healthWait = 0;
 	}
 
 	/**
@@ -85,6 +89,28 @@ public class Spaceship extends SpaceObject {
 		pos = pos.addVector(vel.scale((double)timeElapsed*0.001));
 		vel=vel.scale(0.995);
 		accel.x = accel.y = 0;
+
+		//update the health
+		if (health < 100.0) {
+			healthWait += timeElapsed;
+			if (healthWait > 100) {
+				health += 0.1;
+				healthWait = 0;
+			}
+		}
+
+	}
+
+	public double getHealth() {
+		return health;
+	}
+
+	public void takeDamage(double damage) {
+		health -= damage;
+	}
+
+	public void setHealth(double h) {
+		health = h;
 	}
 
 	public Vector2 predictAccel() {

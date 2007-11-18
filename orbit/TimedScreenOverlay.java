@@ -12,8 +12,8 @@ public class TimedScreenOverlay extends ScreenOverlay {
 	long count;
 	int mode;
 
-	public TimedScreenOverlay(Graphics2D g,Color c,int width,int height,long duration,int mode) {
-		super(g,c,width,height);
+	public TimedScreenOverlay(Graphics2D g,Color c,int x,int y,int width,int height,long duration,int mode) {
+		super(g,c,new Rect(x,y,width,height));
 		count = 0;
 		this.duration = duration;
 		this.mode = mode;
@@ -38,7 +38,7 @@ public class TimedScreenOverlay extends ScreenOverlay {
 
 		alpha *= 255;
 
-		this.paint(alpha);
+		super.paint(alpha);
 	}
 
 

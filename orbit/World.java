@@ -48,6 +48,9 @@ public class World
 	{
 		spaceship=ship;
 	}
+	public Spaceship getSpaceship() {
+		return spaceship;
+	}
 	public void setViewport(Rect view)
 	{
 		viewport=view;
@@ -227,6 +230,7 @@ public class World
 		//create the main ship, and add it
 		Spaceship ship=new Spaceship(new Vector2(750,750),new Vector2(0,0),new Vector2(0,0),"spaceship",50,135);
 		//set the ship
+		ship.setHealth(100);
 		setSpaceship(ship);
 		add(ship);
 
@@ -288,12 +292,22 @@ public class World
 			add(so);
 		}
 
+/*
+=======
+>>>>>>> .r133
 		for(int x=0; x < NUM_ASTEROIDS_IN_UNIVERSE; x++) {
 			double randomTheta = rand.nextDouble()*6.18;
 			double velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
 			double velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
+<<<<<<< .mine
+			Asteroid a = new Asteroid(new Vector2(rand.nextInt(WORLD_SIZE), rand.nextInt(WORLD_SIZE)), new Vector2(velX, velY), new Vector(0,0), ASTERIOD_MASS)
+
+=======
 			Asteroid a = new Asteroid(new Vector2(rand.nextInt(WORLD_SIZE), rand.nextInt(WORLD_SIZE)), new Vector2(velX, velY), new Vector2(0,0), "asteroid", 64, ASTEROID_MASS);
 			spaceObjects.add(a);
+>>>>>>> .r133
 		}
+<<<<<<< .mine
+*/
 	}
 }
