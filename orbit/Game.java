@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
+/**
+ * This is the main game class the
+ * @author Shivani Srivastava, Prateek Tandon, Aadarsh Patel, Candice Zimmerman, Henry Yuen
+ *
+ */
 public class Game implements Runnable{
 
 	public static final int START_SCREEN =0;
@@ -141,8 +146,8 @@ public class Game implements Runnable{
 
 	private void setLossScreenState() {
 	}
-	/**	
-	 *	
+	/**
+	 *
 	 **/
 	private void updateInitGameState() {
 		//System.out.println("GAME INITING: ");
@@ -212,7 +217,7 @@ public class Game implements Runnable{
 		setState(GAME);
 	}
 	/** State machine, will continuously run (until esc/windowclose) and update whatever state its in.  States change the game's state by themselves
-	 * 
+	 *
 	 **/
 	public void run()
 	{
