@@ -18,12 +18,16 @@ public class SpecialPlanet extends Planet {
 		tagged = false;
 		numFrames=2;
 	}
-	
+
 	public void setTagged(){
 		//System.out.println("\nTAGGED PLANET, YAY!!!!!\n");
 		tagged = true;
 		// set new image
 		setFrame(1);
+	}
+
+	public boolean getTagged() {
+		 return tagged;
 	}
 
 	public double getMass() {

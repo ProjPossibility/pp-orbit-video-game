@@ -207,17 +207,29 @@ public class World
 							// check boundaries for special planet
 							//set planet to be tagged
 							SpecialPlanet specP = (SpecialPlanet) obj;
-							specP.setTagged();
-							numToBeTagged=numToBeTagged-1;
+
+							if (!specP.getTagged()) {
+								specP.setTagged();
+								numToBeTagged=numToBeTagged-1;
+
+								FlashingText ft = new FlashingText("" + numToBeTagged + " Targets Left");
+								ft.setColor(Color.BLUE);
+								ft.setLife(3000);
+								ft.setPos(370, 200);
+								NotificationManager.getInstance().addFlashingText(ft);
+							}
 						}
 
 						if (dist < p.getRadius()) {
-							//collision!
-							//splode!
-							Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
 
-							explosions.add(e);
-							spaceship.takeDamage(1);
+							if (!(p instanceof SpecialPlanet)) {
+								//collision!
+								//splode!
+								Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
+
+								explosions.add(e);
+								spaceship.takeDamage(1);
+							}
 						}
 					}
 				}
@@ -336,12 +348,12 @@ public class World
 
 			switch (type) {
 			case SMALL_PLANET: {
-				size = 50;
+				size = 150;
 				mass = 16000;
 				break;
 			}
 			case MEDIUM_PLANET: {
-				size = 100;
+				size = 175;
 				mass = 20000;
 				break;
 			}
@@ -477,5 +489,9 @@ public class World
 		add(a);
 		addAsteroid(a);
 
+	}
+
+	public int getNumTargetsLeft() {
+		return this.numToBeTagged;
 	}
 }

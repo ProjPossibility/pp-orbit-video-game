@@ -69,7 +69,9 @@ public class Game implements Runnable{
 	public long getLevelSeed() {
 		return levelSeed;
 	}
-
+	public int getNumToBeTagged() {
+		return world.getNumTargetsLeft();
+	}
 	public int getLives() {
 		return lives;
 	}
