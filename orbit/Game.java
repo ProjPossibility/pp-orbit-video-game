@@ -83,7 +83,7 @@ public class Game implements Runnable{
 	}
 	public void setState(int state) {
 		this.state = state;
-		System.out.println("STATE:" + state);
+		//System.out.println("STATE:" + state);
 		/*
 		switch(state) {
 			case START_SCREEN:
@@ -141,7 +141,7 @@ public class Game implements Runnable{
 	}
 
 	private void setInitGameState() {
-		System.out.println("GAME INITING: ");
+		//System.out.println("GAME INITING: ");
 
 		currentLevel = 0;
 		points = 0;
@@ -193,7 +193,7 @@ public class Game implements Runnable{
 	}
 
 	private void setNextLevelState() {
-		System.out.println("next level state");
+		//System.out.println("next level state");
 
 		++currentLevel;
 		levelSeed=System.currentTimeMillis();
@@ -232,7 +232,7 @@ public class Game implements Runnable{
 					setDiedSequenceState();
 					break;
 			}
-			System.out.println("State: "+state);
+			//System.out.println("State: "+state);
 			try{
 				Thread.sleep(15);
 			}catch(Exception e){}
