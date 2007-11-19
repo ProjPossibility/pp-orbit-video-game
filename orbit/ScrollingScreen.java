@@ -22,6 +22,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	 **/
 	public ScrollingScreen(Game game,Rect screen,Rect view,World world)
 	{
+		super(true);
 		this.game=game;
 		this.screen=screen;
 		this.viewport=view;
@@ -31,6 +32,8 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		miniMap=new MiniMap(miniScreen,new Rect(0,0,8000,6000),view,world);
 		addMouseListener(this);
 		addKeyListener(this);
+		System.out.println("Scrolling screen constructed");
+
 	}
 	/** Set a binary input, so that this class can update it on keypresses and clicks
 	 *
@@ -44,8 +47,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	 **/
 	public void paintComponent(Graphics g1)
 	{
+		System.out.println("Drawing everything");
 		super.paintComponent(g1);
-		//System.out.println("Drawing everything");
+		
 		Graphics2D g=(Graphics2D)g1;
 		PrintManager.getInstance().setGraphics(g);
 		g.setColor(Color.black);
@@ -98,11 +102,11 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 					drawArrowTo(g,so);
 			}
 		}catch(ConcurrentModificationException e){}
-
+		
 
 		//print the headsup display
 		drawHUD(g);
-
+		System.out.println("Drawing done");
 	}
 	/**
 	 * draws the headsup display

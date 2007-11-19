@@ -12,12 +12,14 @@ public class WinPage extends JPanel implements MouseListener, KeyListener
 	ImageIcon blackB3 = new ImageIcon("media/blackB3.jpg");
 	ImageIcon blackB4 = new ImageIcon("media/blackB4.jpg");
 	ImageIcon blackB5 = new ImageIcon("media/blackB5.jpg");
+	Game game;
 	
 	BinaryInput binaryInput=new BinaryInput();
 	int prompt = 1; // set prompt for first page
 	
-	public WinPage()
+	public WinPage(Game  game)
 	{
+		this.game = game;
 		addMouseListener(this);
 		addKeyListener(this);
 	}
