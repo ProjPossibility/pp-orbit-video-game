@@ -14,7 +14,7 @@ public class World
 	public final int ASTEROID_MASS = 2000;
 
 	//powerups
-	public final int NUM_POWERUPS = 50;
+	public final int NUM_POWERUPS = 200;
 
 	public static final int SMALL_PLANET = 0;
 	public static final int MEDIUM_PLANET = 1;
@@ -161,7 +161,7 @@ public class World
 			if (obj instanceof Powerup) {
 				double dist = obj.getPos().subVector(playerpos).getLength();
 
-				if (dist < obj.getRadius()) {
+				if (dist < obj.getRadius()*3) {
 					//acquire the powerup
 					Powerup pup = (Powerup)obj;
 
