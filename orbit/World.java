@@ -29,9 +29,12 @@ public class World
 	private ParticleSystem particleSystem;
 	private int particleTimer;
 	private Game game;
+	
+	//private SoundManager sM;
 
 	public World(Game g)
 	{
+		//sM = new SoundManager();
 		game = g;
 		spaceObjects=new ArrayList<SpaceObject>();
 		deadObjects = new ArrayList<SpaceObject>();
@@ -107,7 +110,7 @@ public class World
 
 		//update the starfield
 		starfield.update(timeElapsed,spaceship.getVel());
-
+		//sM.play();
 		//apply thrusters
 		if(spaceship!=null&&game.getState()==game.GAME)
 		{
