@@ -117,7 +117,7 @@ public class World
 		//update the starfield
 		starfield.update(timeElapsed,spaceship.getVel());
 
-		if (numToBeTagged < 5) {
+		if (numToBeTagged <= 0) {
 			FlashingText ft = new FlashingText("NEXT LEVEL");
 			ft.setColor(Color.CYAN);
 			ft.setLife(7000);
@@ -324,7 +324,7 @@ public class World
 	 **/
 	public void populate(int level)
 	{
-		int numSpecialPlanets = level+2;
+		int numSpecialPlanets = level;
 		numToBeTagged = numSpecialPlanets;
 
 		//clear everything in asteroids
