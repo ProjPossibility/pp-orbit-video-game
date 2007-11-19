@@ -140,6 +140,7 @@ public class SpaceObject {
     }
 
     public void setFrame(int f) {
+    	System.out.println("\nFRAME: "+f+"\n");
     	if (f < numFrames && f >= 0)
     		currentFrame = f;
     }
