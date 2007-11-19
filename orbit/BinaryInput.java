@@ -1,9 +1,25 @@
 package orbit;
 
+/*
+ * BinaryInput models a single button and whether it is on or off. The framework that this class provides encapsulates
+ * the logic of handling an on/off button. When our software is industrialized, the input for that "button" can be hooked up to any hardware
+ * input device -  whether its an eye blink detector, a foot pedal, or some other device for people with disabilities. 
+ */
 public class BinaryInput
 {
+	/*
+	 * Whether the button is on or off.
+	 */
 	private boolean buttonOn;
+	
+	/*
+	 * An integer that also stores the state of the button.
+	 */
 	private int buttonState;
+	
+	/*
+	 * Handles double clicks (future feature).
+	 */
 	private long timeMark;
 	
 	public BinaryInput()
