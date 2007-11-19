@@ -108,6 +108,9 @@ public class Game implements Runnable{
 			case DIED_SEQUENCE:
 				setDiedSequenceState();
 				return;
+			case LOSS_SCREEN
+				setDiedSequenceState();
+				return;
 		}*/
 
 	}
@@ -245,12 +248,22 @@ public class Game implements Runnable{
 				case DIED_SEQUENCE:
 					updateDiedSequenceState();
 					break;
+				case LOSS_SCREEN:
+					updateLossScreen();
+					break;
 			}
 			//System.out.println("State: "+state);
 			try{
 				Thread.sleep(15);
 			}catch(Exception e){}
 		}
+	}
+	private void updateLossScreen()
+	{
+		
+		setState(START_SCREEN);
+		gameFrame.setContentPane(startScreen);
+		
 	}
 	/** Main game loop - updates world and draws it
 	 *
@@ -292,7 +305,8 @@ public class Game implements Runnable{
 	 *
 	 **/
 	private void updateDiedSequenceState() {
-		//decrement lives
+		
+	//decrement lives
 
 		--lives;
 		if (lives < 0) {
