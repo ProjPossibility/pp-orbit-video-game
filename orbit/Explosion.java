@@ -1,5 +1,9 @@
 package orbit;
 
+/*
+ * Models an explosion. An explosion is a space object that can animate but dies after it ends
+ * its animation life.
+ */
 public class Explosion extends SpaceObject{
 
 	public Explosion(Vector2 p, String sprite, double width, double height) {
