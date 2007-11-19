@@ -77,6 +77,11 @@ public class MiniMap
 			g.setColor(Color.green);
 			diameter=5;
 		}
+		if(so instanceof SpecialPlanet)
+		{
+			g.setColor(Color.yellow);
+			diameter=12;
+		}
 		Vector2 screenPos=worldToScreen(so.getPos());
 		if(screenPos.x-diameter/2<miniScreen.left||screenPos.x+diameter/2>miniScreen.right)
 			return;

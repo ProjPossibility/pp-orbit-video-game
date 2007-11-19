@@ -139,7 +139,9 @@ public class Game implements Runnable{
 
 	private void setLossScreenState() {
 	}
-
+	/**	
+	 *	
+	 **/
 	private void updateInitGameState() {
 		//System.out.println("GAME INITING: ");
 
@@ -191,7 +193,9 @@ public class Game implements Runnable{
 
 		setState(NEXT_LEVEL);*/
 	}
-
+	/** Intermediate state that populates world and prepares game for the next level
+	 *
+	 **/
 	private void updateNextLevelState() {
 		//System.out.println("next level state");
 
@@ -205,6 +209,9 @@ public class Game implements Runnable{
 		//scroll.requestFocus();
 		setState(GAME);
 	}
+	/** State machine, will continuously run (until esc/windowclose) and update whatever state its in.  States change the game's state by themselves
+	 * 
+	 **/
 	public void run()
 	{
 		long start=System.currentTimeMillis();
@@ -238,6 +245,9 @@ public class Game implements Runnable{
 			}catch(Exception e){}
 		}
 	}
+	/** Main game loop - updates world and draws it
+	 *
+	 **/
 	private void updateGameState(long millis) {
 		//System.out.println("GAME HERE: ");
 		world.update(millis);
@@ -271,7 +281,9 @@ public class Game implements Runnable{
 	public void incrementLife() {
 		++lives;
 	}
-
+	/** When you die, this state will update
+	 *
+	 **/
 	private void updateDiedSequenceState() {
 		//decrement lives
 
