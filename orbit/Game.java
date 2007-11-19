@@ -25,8 +25,8 @@ public class Game extends JFrame {
 	private ScrollingScreen scroll;
 	private Rect viewport;
 	private Rect screen;
-	
-	
+
+
 
 	public Game() throws Exception {
 
@@ -124,6 +124,7 @@ public class Game extends JFrame {
 	private void setInitGameState() {
 		currentLevel = 0;
 		points = 0;
+		lives = 10;
 
 		viewport=new Rect(0,0,1000,800);
 		world = new World(this);
@@ -137,17 +138,17 @@ public class Game extends JFrame {
 		//WinPage winP = new WinPage();
 
 		//BinaryInput binIn = new BinaryInput();
-		
-		//mainP.setBinaryInput(binIn);		
+
+		//mainP.setBinaryInput(binIn);
 		//winP.setBinaryInput(binIn);
-		
+
 		//scroll.setBinaryInput(binIn);
-		
+
 		setContentPane(scroll);
-		pack();	
+		pack();
 		validate();
 		repaint();
-		
+
 		scroll.requestFocus();
 		setState(NEXT_LEVEL);
 	/*
@@ -205,13 +206,12 @@ public class Game extends JFrame {
 
 	private void setDiedSequenceState() {
 		//decrement lives
-		/*
+
 		--lives;
 		if (lives < 0) {
 			setState(LOSS_SCREEN);
 			return;
 		}
-		*/
 
 		Graphics2D g2d = (Graphics2D)getGraphics();
 
