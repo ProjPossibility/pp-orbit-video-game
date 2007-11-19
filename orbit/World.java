@@ -35,6 +35,7 @@ public class World
 	private int particleTimer;
 	private int numToBeTagged;
 	private Game game;
+	private SoundManager soundManager;
 
 	public World(Game g)
 	{
@@ -47,9 +48,11 @@ public class World
 		//create the starfield
 		starfield = new Starfield();
 		particleSystem=new ParticleSystem();
+		soundManager = new SoundManager();
 		//create the spaceship
 		//spaceship = new Spaceship();
 		particleTimer=0;
+
 		numToBeTagged = 0;
 	}
 	public ParticleSystem getParticleSystem()
