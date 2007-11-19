@@ -50,7 +50,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		PrintManager.getInstance().setGraphics(g);
 		g.setColor(Color.black);
 		g.fillRect(0,0,(int)screen.width,(int)screen.height);
-		
+
 		try
 		{
 			for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
@@ -86,7 +86,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 					drawSpaceObject(g,so);
 			}
 		}catch(ConcurrentModificationException e){}
-		
+
 		/////draw arrows to special planets
 		try
 		{
@@ -98,8 +98,6 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			}
 		}catch(ConcurrentModificationException e){}
 
-		miniMap.centerViewportAbout(world.getSpaceship().getPos());
-		miniMap.paintComponent(g);
 
 		//print the headsup display
 		drawHUD(g);
@@ -129,6 +127,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 
 			PrintManager.getInstance().print("medium","Press button to restart",400,500,Color.WHITE,PrintManager.CENTER);
 		}
+
+		miniMap.centerViewportAbout(world.getSpaceship().getPos());
+		miniMap.paintComponent(graphics);
 	}
 
 	/** Draw an individual SpaceObject.
@@ -180,8 +181,8 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			return;
 		Vector2 centerScreen=new Vector2((screen.left+screen.right)/2,(screen.top+screen.bottom)/2);
 		Vector2 vector=screenPos.subVector(centerScreen);
-		
-		
+
+
 	}
 	private void drawStarfield(Graphics2D g,Star so)
 	{
