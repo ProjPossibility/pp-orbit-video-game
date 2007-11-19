@@ -9,7 +9,7 @@ public class Powerup extends SpaceObject {
 	private int type;
 
 	public Powerup(int type,Vector2 pos) {
-		super(pos,new Vector2(),new Vector2(),null,32,32);
+		super(pos,new Vector2(),new Vector2(),null,64,64);
 
 		alive = true;
 		this.type = type;
