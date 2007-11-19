@@ -50,7 +50,8 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		PrintManager.getInstance().setGraphics(g);
 		g.setColor(Color.black);
 		g.fillRect(0,0,(int)screen.width,(int)screen.height);
-
+		
+		/////try catch for concurrent modifications. Sometimes, the JFrame updates while in middle of game world update.
 		try
 		{
 			for(ArrayList<Star> starfield: world.getStarfield().getStarLayers())
@@ -90,11 +91,11 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		/////draw arrows to special planets
 		try
 		{
-			ArrayList<SpaceObject> objs=world.getSpaceObjects();
+			ArrayList<SpecialPlanet> objs=world.getSpecialPlanets();
 			synchronized(objs)
 			{
-				for(int i=1;i<5;i++)
-					drawArrowTo(g,objs.get(i));
+				for(SpecialPlanet so:objs)
+					drawArrowTo(g,so);
 			}
 		}catch(ConcurrentModificationException e){}
 
@@ -199,8 +200,8 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			factor=(screen.left-centerScreen.x)/vector.x;
 			inter3=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
 		}
-		g.setColor(Color.blue);
-		g.drawLine((int)centerScreen.x,(int)centerScreen.y,(int)screenPos.x,(int)screenPos.y);
+		//g.setColor(Color.blue);
+		//g.drawLine((int)centerScreen.x,(int)centerScreen.y,(int)screenPos.x,(int)screenPos.y);
 		Vector2 chosen=inter3;
 		if(inter0.x>=screen.left&&inter0.x<=screen.right&&vector.y<0)
 			chosen=inter0;

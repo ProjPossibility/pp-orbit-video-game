@@ -48,10 +48,14 @@ public class World
 		particleTimer=0;
 		numToBeTagged = 0;
 	}
+	/** Get the particle system
+	 **/
 	public ParticleSystem getParticleSystem()
 	{
 		return particleSystem;
 	}
+	/** get the main spaceship
+	 **/
 	public void setSpaceship(Spaceship ship)
 	{
 		spaceship=ship;
@@ -70,6 +74,10 @@ public class World
 	public ArrayList<SpaceObject> getSpaceObjects()
 	{
 		return spaceObjects;
+	}
+	public ArrayList<SpecialPlanet> getSpecialPlanets()
+	{
+		return specialPlanets;
 	}
 
 	public ArrayList<Explosion> getExplosions() {
