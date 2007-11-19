@@ -117,6 +117,15 @@ public class World
 		//update the starfield
 		starfield.update(timeElapsed,spaceship.getVel());
 
+		if (numToBeTagged < 5) {
+			FlashingText ft = new FlashingText("NEXT LEVEL");
+			ft.setColor(Color.CYAN);
+			ft.setLife(7000);
+			ft.setPos(380, 300);
+			NotificationManager.getInstance().addFlashingText(ft);
+			game.setState(Game.NEXT_LEVEL);
+			return;
+		}
 		//apply thrusters
 		if(spaceship!=null&&game.getState()==game.GAME)
 		{
@@ -126,7 +135,7 @@ public class World
 				spaceship.setAlive(false);
 				deadObjects.add(spaceship);
 				game.setState(Game.DIED_SEQUENCE);
-
+				return;
 				//add more explosions
 
 			}
@@ -388,7 +397,7 @@ public class World
 				}
 			}
 
-			System.out.println(r);
+			//System.out.println(r);
 			SpaceObject so=new SpecialPlanet(r,new Vector2(0,0),new Vector2(0,0),"planetTarget2",mass,size);
 			add(so);
 			addSpecial(so);
