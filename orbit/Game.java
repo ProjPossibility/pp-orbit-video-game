@@ -25,10 +25,16 @@ public class Game extends JFrame {
 	private ScrollingScreen scroll;
 	private Rect viewport;
 	private Rect screen;
+	
+	
 
 	public Game() throws Exception {
 
+		//Rect screen=new Rect(0,0,800,620);
+		//Rect screen=new Rect(0,0,400,385);
+
 		screen=new Rect(0,0,800,600);
+
 		setSize((int)screen.width,(int)screen.height);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,6 +97,7 @@ public class Game extends JFrame {
 		ResourceManager.addImageSequence("media/planet1.png",1,"planet0");
 		ResourceManager.addImageSequence("media/planet2.png",1,"planet1");
 		ResourceManager.addImageSequence("media/planet7.2.png",1,"planet2");
+		ResourceManager.addImageSequence("media/planet7.split.png",2,"planetTarget2");
 		ResourceManager.addImageSequence("media/explosion.gif", 18, "explosion");
 		ResourceManager.addImageSequence("media/smoke.gif", 6, "smoke");
 		ResourceManager.addImageSequence("media/rocketSthrust.png",1,"spaceshipthrust");
@@ -120,19 +127,48 @@ public class Game extends JFrame {
 
 		viewport=new Rect(0,0,1000,800);
 		world = new World(this);
+
 		world.setBinaryInput(binIn);
 		world.setViewport(viewport);
 		scroll = new ScrollingScreen(this,screen,viewport,world);
 		scroll.setBinaryInput(binIn);
 
+		//MainPage mainP = new MainPage();
+		//WinPage winP = new WinPage();
+
+		//BinaryInput binIn = new BinaryInput();
+		
+		//mainP.setBinaryInput(binIn);		
+		//winP.setBinaryInput(binIn);
+		
+		//scroll.setBinaryInput(binIn);
+		
 		setContentPane(scroll);
+		pack();	
+		validate();
+		repaint();
+		
+		scroll.requestFocus();
+		setState(NEXT_LEVEL);
+	/*
+		for (int i = 0; i<10000; i++){
+				for (int j = 0; j<100000; j++){} // busy loop
+		}
+		while(true){
+			setContentPane(mainP);
+			repaint();
+			validate();
+			try {
+				Thread.sleep(230);}
+			catch(Exception e){	}
+		}
 		pack();
 		validate();
 		repaint();
 
 		scroll.requestFocus();
 
-		setState(NEXT_LEVEL);
+		setState(NEXT_LEVEL);*/
 	}
 
 	private void setNextLevelState() {
