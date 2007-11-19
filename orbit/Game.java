@@ -40,19 +40,10 @@ public class Game implements Runnable{
 		//Rect screen=new Rect(0,0,400,385);
 
 		screen=new Rect(0,0,800,600);
-<<<<<<< .mine
 		gameFrame.setSize((int)screen.width,(int)screen.height);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setLocation(200,100);
-=======
 
-		setSize((int)screen.width,(int)screen.height);
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
-		setLocation(200,100);
-
->>>>>>> .r159
 		binIn=new BinaryInput();
 		startScreen = new MainPage(this);
 		startScreen.setBinaryInput(binIn);
@@ -142,12 +133,8 @@ public class Game implements Runnable{
 
 		currentLevel = 0;
 		points = 0;
-<<<<<<< .mine
-=======
 		lives = 10;
-
 		viewport=new Rect(0,0,1000,800);
->>>>>>> .r159
 		world = new World(this);
 
 		world.setBinaryInput(binIn);
@@ -155,10 +142,7 @@ public class Game implements Runnable{
 		//world.populate(currentLevel);
 		scroll = new ScrollingScreen(this,screen,viewport,world);
 		scroll.setBinaryInput(binIn);
-<<<<<<< .mine
 		gameFrame.setContentPane(scroll);
-=======
-
 		//MainPage mainP = new MainPage();
 		//WinPage winP = new WinPage();
 
@@ -169,12 +153,7 @@ public class Game implements Runnable{
 
 		//scroll.setBinaryInput(binIn);
 
-		setContentPane(scroll);
-		pack();
-		validate();
-		repaint();
 
-		scroll.requestFocus();
 		setState(NEXT_LEVEL);
 	/*
 		for (int i = 0; i<10000; i++){
