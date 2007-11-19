@@ -61,21 +61,21 @@ public class MiniMap
 	private void drawObject(Graphics2D g,SpaceObject so)
 	{
 		g.setColor(Color.red);
-		double diameter=so.getRadius()*0.02;
+		double diameter=so.getRadius()*0.06;
 		if(so instanceof Spaceship)
 		{
 			g.setColor(Color.green);
-			diameter=4;
+			diameter=7;
 		}
 		if(so instanceof Asteroid)
 		{
 			g.setColor(Color.magenta);
-			diameter=2;
+			diameter=5;
 		}
 		if(so instanceof Powerup)
 		{
 			g.setColor(Color.green);
-			diameter=2;
+			diameter=5;
 		}
 		Vector2 screenPos=worldToScreen(so.getPos());
 		if(screenPos.x-diameter/2<miniScreen.left||screenPos.x+diameter/2>miniScreen.right)
