@@ -131,7 +131,7 @@ public class Game implements Runnable{
 		PrintManager.getInstance().addFont("huge", new Font("Comic Sans MS",Font.PLAIN,48));
 	}
 
-	private void setStartScreenState() {
+	private void updateStartScreenState() {
 		//gameFrame.setContentPane(startScreen);
 		gameFrame.repaint();
 		gameFrame.validate();
@@ -140,7 +140,7 @@ public class Game implements Runnable{
 	private void setLossScreenState() {
 	}
 
-	private void setInitGameState() {
+	private void updateInitGameState() {
 		//System.out.println("GAME INITING: ");
 
 		currentLevel = 0;
@@ -192,7 +192,7 @@ public class Game implements Runnable{
 		setState(NEXT_LEVEL);*/
 	}
 
-	private void setNextLevelState() {
+	private void updateNextLevelState() {
 		//System.out.println("next level state");
 
 		++currentLevel;
@@ -217,19 +217,19 @@ public class Game implements Runnable{
 			start=curr;
 			switch(state) {
 				case START_SCREEN:
-					setStartScreenState();
+					updateStartScreenState();
 					break;
 				case INIT_GAME:
-					setInitGameState();
+					updateInitGameState();
 					break;
 				case GAME:
-					setGameState(millis);
+					updateGameState(millis);
 					break;
 				case NEXT_LEVEL:
-					setNextLevelState();
+					updateNextLevelState();
 					break;
 				case DIED_SEQUENCE:
-					setDiedSequenceState();
+					updateDiedSequenceState();
 					break;
 			}
 			//System.out.println("State: "+state);
@@ -238,7 +238,7 @@ public class Game implements Runnable{
 			}catch(Exception e){}
 		}
 	}
-	private void setGameState(long millis) {
+	private void updateGameState(long millis) {
 		//System.out.println("GAME HERE: ");
 		world.update(millis);
 		//gameFrame.repaint();
@@ -272,7 +272,7 @@ public class Game implements Runnable{
 		++lives;
 	}
 
-	private void setDiedSequenceState() {
+	private void updateDiedSequenceState() {
 		//decrement lives
 
 		--lives;
