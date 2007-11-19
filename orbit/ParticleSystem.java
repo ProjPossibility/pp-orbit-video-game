@@ -41,6 +41,9 @@ class ParticleEffect extends SpaceObject
 		super(p,v,a,sprite,width,height);
 		setAnimationProperties(90,6,true);
 	}
+	/** Updates the animation
+	 *
+	 **/
 	public void update(int millis)
 	{
 		//pos=pos.addVector(vel.scale(millis*0.001));
