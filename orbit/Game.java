@@ -27,7 +27,7 @@ public class Game implements Runnable{
 	private ScrollingScreen scroll;
 	private Rect viewport;
 	private Rect screen;
-	
+
 	private MainPage startScreen;
 	private WinPage winScreen;
 
@@ -40,6 +40,7 @@ public class Game implements Runnable{
 		//Rect screen=new Rect(0,0,400,385);
 
 		screen=new Rect(0,0,800,600);
+
 		gameFrame.setSize((int)screen.width,(int)screen.height);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setLocation(200,100);
@@ -50,21 +51,27 @@ public class Game implements Runnable{
 		winScreen = new WinPage(this);
 		winScreen.setBinaryInput(binIn);
 		viewport=new Rect(0,0,1000,800);
-		
+
 		try {
 			loadResources();
 
 		} catch (Exception e) {
 			throw new Exception(e);
-		}		
+		}
+		gameFrame.setSize(800,600);
 		gameFrame.setResizable(false);
 		gameFrame.setVisible(true);
 		setState(START_SCREEN);
 		gameFrame.setContentPane(startScreen);
+
 	}
 
 	public long getLevelSeed() {
 		return levelSeed;
+	}
+
+	public int getLives() {
+		return lives;
 	}
 
 	public int getState() {
@@ -95,7 +102,7 @@ public class Game implements Runnable{
 				setDiedSequenceState();
 				return;
 		}*/
-		
+
 	}
 
 	private void loadResources() throws Exception {
@@ -110,7 +117,12 @@ public class Game implements Runnable{
 		ResourceManager.addImageSequence("media/smoke.gif", 6, "smoke");
 		ResourceManager.addImageSequence("media/rocketSthrust.png",1,"spaceshipthrust");
 		ResourceManager.addImageSequence("media/FinalAsteroid.png", 25, "asteroid");
+
+		ResourceManager.addImageSequence("media/speedboost.png",1,"speedboost");
+		ResourceManager.addImageSequence("media/extralife.png",1,"extralife");
+
 		ResourceManager.addImageSequence("media/arrow.gif", 1, "pointer");
+
 
 		//add the fonts of the game
 		PrintManager.getInstance().addFont("small", new Font("Comic Sans MS",Font.PLAIN,12));
@@ -135,6 +147,7 @@ public class Game implements Runnable{
 		points = 0;
 		lives = 10;
 		viewport=new Rect(0,0,1000,800);
+
 		world = new World(this);
 
 		world.setBinaryInput(binIn);
@@ -143,6 +156,8 @@ public class Game implements Runnable{
 		scroll = new ScrollingScreen(this,screen,viewport,world);
 		scroll.setBinaryInput(binIn);
 		gameFrame.setContentPane(scroll);
+		//gameFrame.setSize(800,600);
+
 		//MainPage mainP = new MainPage();
 		//WinPage winP = new WinPage();
 
@@ -251,6 +266,10 @@ public class Game implements Runnable{
 			}catch(Exception e){}
 		}
 		*/
+	}
+
+	public void incrementLife() {
+		++lives;
 	}
 
 	private void setDiedSequenceState() {
