@@ -199,7 +199,8 @@ public class World
 
 				if (spaceship.getAlive()) {
 					if (dist < 10000) {
-						spaceship.interact(p);
+						if (!(obj instanceof Asteroid))
+							spaceship.interact(p);
 						//System.out.println(dist + "," + p.getRadius());
 						//System.out.println(dist);
 						//see if they collide
