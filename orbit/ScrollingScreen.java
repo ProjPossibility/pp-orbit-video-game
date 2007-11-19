@@ -131,6 +131,9 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		//DRAW THE NUMBER OF LIVES//////////////////////////////////////////////////////////
 		drawLives(graphics,game.getLives());
 
+		//DRAW NUMBER OF PLANETS LEFT
+		drawTargets(graphics,game.getNumToBeTagged());
+
 		if (game.getState() == Game.DIED_SEQUENCE) {
 			PrintManager.getInstance().print("huge","HAHAHA",400,300,Color.RED,PrintManager.CENTER);
 
@@ -244,6 +247,11 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		PrintManager.getInstance().print("medium", "" + num + " lives", 32, 32,Color.WHITE);
 
 	}
+	private void drawTargets(Graphics2D g,int num) {
+		PrintManager.getInstance().print("medium", "" + num + " targets left", 400, 32,Color.WHITE);
+
+	}
+
 	private void drawStarfield(Graphics2D g,Star so)
 	{
 		Image image=so.getFrame();
