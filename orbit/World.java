@@ -4,7 +4,7 @@ import java.util.*;
 
 public class World
 {
-	public final int WORLD_SIZE = 36000;
+	public final int WORLD_SIZE = 24000;
 	public final double MAX_SHIP_SPEED = 2500;
 	public final int MIN_ASTEROIDS_IN_UNIVERSE = 200;
 	public final int NUM_ASTEROIDS_IN_UNIVERSE = 300;
@@ -18,7 +18,6 @@ public class World
 
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
-	private ArrayList<SpecialPlanet> specialPlanets;
 	private ArrayList<Asteroid> asteroids;
 	private ArrayList<Explosion> explosions;
 	private int numAsteroids;
@@ -29,7 +28,6 @@ public class World
 	private String explosionSprite;
 	private ParticleSystem particleSystem;
 	private int particleTimer;
-	private int numToBeTagged;
 	private Game game;
 
 	public World(Game g)
@@ -37,7 +35,6 @@ public class World
 		game = g;
 		spaceObjects=new ArrayList<SpaceObject>();
 		deadObjects = new ArrayList<SpaceObject>();
-		specialPlanets = new ArrayList<SpecialPlanet>();
 		explosions = new ArrayList<Explosion>();
 		asteroids = new ArrayList<Asteroid>();
 		//create the starfield
@@ -46,7 +43,6 @@ public class World
 		//create the spaceship
 		//spaceship = new Spaceship();
 		particleTimer=0;
-		numToBeTagged = 0;
 	}
 	/** Get the particle system
 	 **/
@@ -94,11 +90,6 @@ public class World
 	public void add(int index,SpaceObject so)
 	{
 		spaceObjects.add(index,so);
-	}
-	
-	public void addSpecial(SpaceObject so)
-	{
-		specialPlanets.add((SpecialPlanet)so);
 	}
 
 	public void addAsteroid(Asteroid a) {
@@ -162,21 +153,13 @@ public class World
 				obj.animate((int) timeElapsed);
 				Vector2 pos = spaceship.getPos();
 				double dist = p.getPos().subVector(pos).getLength();
-
+				
 				if (spaceship.getAlive()) {
 					if (dist < 10000) {
 						spaceship.interact(p);
 						//System.out.println(dist + "," + p.getRadius());
 						//System.out.println(dist);
 						//see if they collide
-						if ((dist < p.getRadius()+50)&&(obj instanceof SpecialPlanet)) { 
-							// check boundaries for special planet
-							//set planet to be tagged
-							SpecialPlanet specP = (SpecialPlanet) obj;
-							specP.setTagged();
-							numToBeTagged=numToBeTagged-1;
-						}
-						
 						if (dist < p.getRadius()) {
 							//collision!
 							//splode!
@@ -202,7 +185,7 @@ public class World
 
 				Vector2 r = new Vector2(-pos.x,-pos.y);
 
-				double blackhole = 160*r.getLength()/(WORLD_SIZE);
+				double blackhole = 100*r.getLength()/(WORLD_SIZE);
 
 				//magnitude of the acceleration
 				r = r.getNormalized();
@@ -256,6 +239,7 @@ public class World
 		}
 		if (deadObjects.size() > 0)
 			deadObjects.clear();
+		//System.out.println("world updated");
 	}
 
 	/** Populates the world with planets and spaceship based on difficulty.
@@ -263,9 +247,6 @@ public class World
 	 **/
 	public void populate(int level)
 	{
-		int numSpecialPlanets = level+2;
-		numToBeTagged = numSpecialPlanets;
-		
 		//clear everything in the spaceObjects
 		spaceObjects.clear();
 
@@ -280,61 +261,7 @@ public class World
 		Random rand=new Random();
 		rand.setSeed(game.getLevelSeed());
 
-		for(int i=0;i<numSpecialPlanets;i++)
-		{			
-			int type = rand.nextInt(3);
-			int size = 0;
-			int mass = 0;
-
-			switch (type) {
-			case SMALL_PLANET: {
-				size = 50;
-				mass = 8000;
-				break;
-			}
-			case MEDIUM_PLANET: {
-				size = 100;
-				mass = 10000;
-				break;
-			}
-			case BIG_PLANET: {
-				mass = 15000;
-				size = 200;
-				break;
-			}
-			} // end switch
-
-			int loopCount = 0;
-			int half_world = WORLD_SIZE/2;
-			int maxLoops = 10;
-
-			Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
-
-			while (true) {
-				if (loopCount > maxLoops) {
-					break;
-				}
-				++loopCount;
-
-				r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
-
-				for (SpaceObject o : spaceObjects) {
-					if (o instanceof Planet) {
-						Vector2 d = o.getPos().subVector(r);
-						if (d.getLength() < size + o.getRadius()) {
-							continue;
-						}
-					}
-				}
-			}
-
-			System.out.println(r);
-			SpaceObject so=new SpecialPlanet(r,new Vector2(0,0),new Vector2(0,0),"planetTarget2",mass,size);
-			add(so);
-			addSpecial(so);
-		} // end special planets loop
-		
-		int numPlanets = 200+(level*20);
+		int numPlanets = 300+(level*20);
 
 		for(int i=0;i<numPlanets;i++)
 		{
@@ -396,25 +323,25 @@ public class World
 
 	public void generateAsteroid(Random rand)
 	{
-		double randomTheta = Math.random()*6.18;
+		if(rand==null)
+			rand=new Random((int)(Math.random()*500));
+		double randomTheta = rand.nextDouble()*6.18;
 		double velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
 		double velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
 		int half_world = WORLD_SIZE/2;
-		Vector2 r = new Vector2(-half_world+Math.random()*WORLD_SIZE,-half_world+Math.random()*WORLD_SIZE);
+		Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
 
 		do {
 
 			//check that it isn't near the spaceship
 			if (r.subVector(spaceship.getPos()).getLength() >= 500) break;
 
-			r = new Vector2(-half_world+Math.random()*WORLD_SIZE,-half_world+Math.random()*WORLD_SIZE);
-			randomTheta = Math.random()*6.18;
+			r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+			randomTheta = rand.nextDouble()*6.18;
 			velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
 			velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
+			half_world = WORLD_SIZE/2;
 		} while (true);
-
-		Vector2 v = new Vector2(velX,velY);
-
 
 		Asteroid a = new Asteroid(r, new Vector2(velX, velY), new Vector2(0,0), "asteroid", ASTEROID_MASS, 25);
 		add(a);

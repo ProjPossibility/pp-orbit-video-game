@@ -9,5 +9,6 @@ public class OrbitGame
 	{
 
 		Game game = new Game();
+		game.start();
 	}
 }
