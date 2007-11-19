@@ -18,6 +18,7 @@ public class World
 
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
+	private ArrayList<SpecialPlanet> specialPlanets;
 	private ArrayList<Asteroid> asteroids;
 	private ArrayList<Explosion> explosions;
 	private int numAsteroids;
@@ -28,6 +29,7 @@ public class World
 	private String explosionSprite;
 	private ParticleSystem particleSystem;
 	private int particleTimer;
+	private int numToBeTagged;
 	private Game game;
 
 	public World(Game g)
@@ -35,6 +37,7 @@ public class World
 		game = g;
 		spaceObjects=new ArrayList<SpaceObject>();
 		deadObjects = new ArrayList<SpaceObject>();
+		specialPlanets = new ArrayList<SpecialPlanet>();
 		explosions = new ArrayList<Explosion>();
 		asteroids = new ArrayList<Asteroid>();
 		//create the starfield
@@ -43,6 +46,7 @@ public class World
 		//create the spaceship
 		//spaceship = new Spaceship();
 		particleTimer=0;
+		numToBeTagged = 0;
 	}
 	public ParticleSystem getParticleSystem()
 	{
@@ -82,6 +86,11 @@ public class World
 	public void add(int index,SpaceObject so)
 	{
 		spaceObjects.add(index,so);
+	}
+	
+	public void addSpecial(SpaceObject so)
+	{
+		specialPlanets.add((SpecialPlanet)so);
 	}
 
 	public void addAsteroid(Asteroid a) {
@@ -152,6 +161,14 @@ public class World
 						//System.out.println(dist + "," + p.getRadius());
 						//System.out.println(dist);
 						//see if they collide
+						if ((dist < p.getRadius()+50)&&(obj instanceof SpecialPlanet)) { 
+							// check boundaries for special planet
+							//set planet to be tagged
+							SpecialPlanet specP = (SpecialPlanet) obj;
+							specP.setTagged();
+							numToBeTagged=numToBeTagged-1;
+						}
+						
 						if (dist < p.getRadius()) {
 							//collision!
 							//splode!
@@ -238,6 +255,9 @@ public class World
 	 **/
 	public void populate(int level)
 	{
+		int numSpecialPlanets = level+2;
+		numToBeTagged = numSpecialPlanets;
+		
 		//clear everything in the spaceObjects
 		spaceObjects.clear();
 
@@ -252,6 +272,60 @@ public class World
 		Random rand=new Random();
 		rand.setSeed(game.getLevelSeed());
 
+		for(int i=0;i<numSpecialPlanets;i++)
+		{			
+			int type = rand.nextInt(3);
+			int size = 0;
+			int mass = 0;
+
+			switch (type) {
+			case SMALL_PLANET: {
+				size = 50;
+				mass = 8000;
+				break;
+			}
+			case MEDIUM_PLANET: {
+				size = 100;
+				mass = 10000;
+				break;
+			}
+			case BIG_PLANET: {
+				mass = 15000;
+				size = 200;
+				break;
+			}
+			} // end switch
+
+			int loopCount = 0;
+			int half_world = WORLD_SIZE/2;
+			int maxLoops = 10;
+
+			Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+
+			while (true) {
+				if (loopCount > maxLoops) {
+					break;
+				}
+				++loopCount;
+
+				r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+
+				for (SpaceObject o : spaceObjects) {
+					if (o instanceof Planet) {
+						Vector2 d = o.getPos().subVector(r);
+						if (d.getLength() < size + o.getRadius()) {
+							continue;
+						}
+					}
+				}
+			}
+
+			System.out.println(r);
+			SpaceObject so=new SpecialPlanet(r,new Vector2(0,0),new Vector2(0,0),"planetTarget2",mass,size);
+			add(so);
+			addSpecial(so);
+		} // end special planets loop
+		
 		int numPlanets = 200+(level*20);
 
 		for(int i=0;i<numPlanets;i++)
