@@ -36,8 +36,12 @@ public class FlashingText {
 		alive = true;
 	}
 
-	public void setLength(long length) {
+	public void setFlashLength(long length) {
 		flashLength = length;
+	}
+
+	public void setLife(long life) {
+		this.life = life;
 	}
 
 	public void setPos(int x,int y) {
@@ -62,11 +66,13 @@ public class FlashingText {
 		if (overallCount >= life) {
 			alive = false;
 		}
+		/*
 		count += timeElapsed;
 		if (count >= flashLength) {
 			count = 0;
 			on = on ? false : true;
 		}
+		*/
 	}
 
 	public void paint() {

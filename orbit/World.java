@@ -1,10 +1,11 @@
 package orbit;
 
 import java.util.*;
+import java.awt.*;
 
 public class World
 {
-	public final int WORLD_SIZE = 24000;
+	public final int WORLD_SIZE = 36000;
 	public final double MAX_SHIP_SPEED = 2500;
 	public final int MIN_ASTEROIDS_IN_UNIVERSE = 200;
 	public final int NUM_ASTEROIDS_IN_UNIVERSE = 300;
@@ -12,12 +13,16 @@ public class World
 	public final int MAX_SPEED_ASTEROID = 700;
 	public final int ASTEROID_MASS = 2000;
 
+	//powerups
+	public final int NUM_POWERUPS = 50;
+
 	public static final int SMALL_PLANET = 0;
 	public static final int MEDIUM_PLANET = 1;
 	public static final int BIG_PLANET = 2;
 
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
+	private ArrayList<SpecialPlanet> specialPlanets;
 	private ArrayList<Asteroid> asteroids;
 	private ArrayList<Explosion> explosions;
 	private int numAsteroids;
@@ -28,16 +33,15 @@ public class World
 	private String explosionSprite;
 	private ParticleSystem particleSystem;
 	private int particleTimer;
+	private int numToBeTagged;
 	private Game game;
-	
-	//private SoundManager sM;
 
 	public World(Game g)
 	{
-		//sM = new SoundManager();
 		game = g;
 		spaceObjects=new ArrayList<SpaceObject>();
 		deadObjects = new ArrayList<SpaceObject>();
+		specialPlanets = new ArrayList<SpecialPlanet>();
 		explosions = new ArrayList<Explosion>();
 		asteroids = new ArrayList<Asteroid>();
 		//create the starfield
@@ -46,15 +50,12 @@ public class World
 		//create the spaceship
 		//spaceship = new Spaceship();
 		particleTimer=0;
+		numToBeTagged = 0;
 	}
-	/** Get the particle system
-	 **/
 	public ParticleSystem getParticleSystem()
 	{
 		return particleSystem;
 	}
-	/** get the main spaceship
-	 **/
 	public void setSpaceship(Spaceship ship)
 	{
 		spaceship=ship;
@@ -74,8 +75,8 @@ public class World
 	{
 		return spaceObjects;
 	}
-	public ArrayList<SpecialPlanet> getSpecialPlanets()
-	{
+
+	public ArrayList<SpecialPlanet> getSpecialPlanets() {
 		return specialPlanets;
 	}
 
@@ -95,6 +96,11 @@ public class World
 		spaceObjects.add(index,so);
 	}
 
+	public void addSpecial(SpaceObject so)
+	{
+		specialPlanets.add((SpecialPlanet)so);
+	}
+
 	public void addAsteroid(Asteroid a) {
 		asteroids.add(a);
 	}
@@ -110,7 +116,7 @@ public class World
 
 		//update the starfield
 		starfield.update(timeElapsed,spaceship.getVel());
-		//sM.play();
+
 		//apply thrusters
 		if(spaceship!=null&&game.getState()==game.GAME)
 		{
@@ -150,23 +156,66 @@ public class World
 
 		for (SpaceObject obj : spaceObjects) {
 
+			Vector2 playerpos = spaceship.getPos();
+
+			if (obj instanceof Powerup) {
+				double dist = obj.getPos().subVector(playerpos).getLength();
+
+				if (dist < obj.getRadius()) {
+					//acquire the powerup
+					Powerup pup = (Powerup)obj;
+
+					switch (pup.getType()) {
+					case Powerup.EXTRA_LIFE: {
+						//increase the lives
+						FlashingText ft = new FlashingText("Got Extra Life!");
+						ft.setColor(Color.GREEN);
+						ft.setLife(3000);
+						ft.setPos(380, 300);
+						NotificationManager.getInstance().addFlashingText(ft);
+						game.incrementLife();
+						break;
+					}
+					case Powerup.SPEED_BOOST: {
+						FlashingText ft = new FlashingText("Got Speed Boost!");
+						ft.setColor(Color.GREEN);
+						ft.setLife(3000);
+						ft.setPos(380, 300);
+						NotificationManager.getInstance().addFlashingText(ft);
+						break;
+					}
+					}
+
+					deadObjects.add(pup);
+				}
+			}
+			//PLANET COLLISION DETECTION//////////////////////////////////////////////
 			if (obj instanceof Planet) {
 				//check if the planet is within range
 				Planet p = (Planet) obj;
 				obj.animate((int) timeElapsed);
-				Vector2 pos = spaceship.getPos();
-				double dist = p.getPos().subVector(pos).getLength();
-				
+
+				double dist = p.getPos().subVector(playerpos).getLength();
+
 				if (spaceship.getAlive()) {
 					if (dist < 10000) {
 						spaceship.interact(p);
 						//System.out.println(dist + "," + p.getRadius());
 						//System.out.println(dist);
 						//see if they collide
+						if ((dist < p.getRadius()+50)&&(obj instanceof SpecialPlanet)) {
+							// check boundaries for special planet
+							//set planet to be tagged
+							SpecialPlanet specP = (SpecialPlanet) obj;
+							specP.setTagged();
+							numToBeTagged=numToBeTagged-1;
+						}
+
 						if (dist < p.getRadius()) {
 							//collision!
 							//splode!
 							Explosion e = new Explosion(spaceship.getPos(), "explosion", spaceship.getWidth(), spaceship.getHeight());
+
 							explosions.add(e);
 							spaceship.takeDamage(1);
 						}
@@ -174,7 +223,7 @@ public class World
 				}
 
 				//check if the planet (namely, asteroid) is outside of the universe
-				pos = p.getPos();
+				Vector2 pos = p.getPos();
 				if (pos.x < -WORLD_SIZE/2 || pos.y < -WORLD_SIZE/2 || pos.x >= WORLD_SIZE/2||pos.y >= WORLD_SIZE/2) {
 					deadObjects.add(p);
 				}
@@ -188,7 +237,7 @@ public class World
 
 				Vector2 r = new Vector2(-pos.x,-pos.y);
 
-				double blackhole = 100*r.getLength()/(WORLD_SIZE);
+				double blackhole = 160*r.getLength()/(WORLD_SIZE);
 
 				//magnitude of the acceleration
 				r = r.getNormalized();
@@ -223,6 +272,7 @@ public class World
 
 		if(viewport!=null)
 			viewport.setCenter(spaceship.getPos());
+
 		for(Explosion e1 : explosions)
 		{
 			if(e1.getAlive()) {
@@ -242,7 +292,9 @@ public class World
 		}
 		if (deadObjects.size() > 0)
 			deadObjects.clear();
-		//System.out.println("world updated");
+
+		//update the notification manager
+		NotificationManager.getInstance().update(timeElapsed);
 	}
 
 	/** Populates the world with planets and spaceship based on difficulty.
@@ -250,6 +302,14 @@ public class World
 	 **/
 	public void populate(int level)
 	{
+		int numSpecialPlanets = level+2;
+		numToBeTagged = numSpecialPlanets;
+
+		//clear everything in asteroids
+		asteroids.clear();
+		explosions.clear();
+		specialPlanets.clear();
+
 		//clear everything in the spaceObjects
 		spaceObjects.clear();
 
@@ -264,7 +324,65 @@ public class World
 		Random rand=new Random();
 		rand.setSeed(game.getLevelSeed());
 
-		int numPlanets = 300+(level*20);
+		int half_world = WORLD_SIZE/2;
+
+		//GENERATE THE SPECIAL PLANETS//////////////////////////////////////////////////////////////
+
+		for(int i=0;i<numSpecialPlanets;i++)
+		{
+			int type = rand.nextInt(3);
+			int size = 0;
+			int mass = 0;
+
+			switch (type) {
+			case SMALL_PLANET: {
+				size = 50;
+				mass = 16000;
+				break;
+			}
+			case MEDIUM_PLANET: {
+				size = 100;
+				mass = 20000;
+				break;
+			}
+			case BIG_PLANET: {
+				mass = 30000;
+				size = 200;
+				break;
+			}
+			} // end switch
+
+			int loopCount = 0;
+			int maxLoops = 10;
+
+			Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+
+			while (true) {
+				if (loopCount > maxLoops) {
+					break;
+				}
+				++loopCount;
+
+				r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+
+				for (SpaceObject o : spaceObjects) {
+					if (o instanceof Planet) {
+						Vector2 d = o.getPos().subVector(r);
+						if (d.getLength() < size + o.getRadius()) {
+							continue;
+						}
+					}
+				}
+			}
+
+			System.out.println(r);
+			SpaceObject so=new SpecialPlanet(r,new Vector2(0,0),new Vector2(0,0),"planetTarget2",mass,size);
+			add(so);
+			addSpecial(so);
+		} // end special planets loop
+
+		//GENERATE THE PLANETS///////////////////////////////////////////////////////////////////
+		int numPlanets = 200+(level*20);
 
 		for(int i=0;i<numPlanets;i++)
 		{
@@ -291,7 +409,6 @@ public class World
 			}
 
 			int loopCount = 0;
-			int half_world = WORLD_SIZE/2;
 			int maxLoops = 10;
 
 			Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
@@ -322,29 +439,39 @@ public class World
 		for(int x=0; x < numAsteroids; x++) {
 			generateAsteroid(rand);
 		}
+
+		///GENERATE POWERUPS /////////////////////////////////////////////////////
+		for (int i=0;i<NUM_POWERUPS;i++) {
+			int type = rand.nextInt(Powerup.NUM_TYPE_POWERUPS);
+
+			Vector2 r = new Vector2(-half_world+Math.random()*WORLD_SIZE,-half_world+Math.random()*WORLD_SIZE);
+			Powerup pup = new Powerup(type,r);
+
+			add(pup);
+		}
 	}
 
 	public void generateAsteroid(Random rand)
 	{
-		if(rand==null)
-			rand=new Random((int)(Math.random()*500));
-		double randomTheta = rand.nextDouble()*6.18;
+		double randomTheta = Math.random()*6.18;
 		double velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
 		double velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
 		int half_world = WORLD_SIZE/2;
-		Vector2 r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
+		Vector2 r = new Vector2(-half_world+Math.random()*WORLD_SIZE,-half_world+Math.random()*WORLD_SIZE);
 
 		do {
 
 			//check that it isn't near the spaceship
 			if (r.subVector(spaceship.getPos()).getLength() >= 500) break;
 
-			r = new Vector2(-half_world+rand.nextInt(WORLD_SIZE),-half_world+rand.nextInt(WORLD_SIZE));
-			randomTheta = rand.nextDouble()*6.18;
+			r = new Vector2(-half_world+Math.random()*WORLD_SIZE,-half_world+Math.random()*WORLD_SIZE);
+			randomTheta = Math.random()*6.18;
 			velX = MAX_SPEED_ASTEROID * Math.cos(randomTheta);
 			velY = MAX_SPEED_ASTEROID * Math.sin(randomTheta);
-			half_world = WORLD_SIZE/2;
 		} while (true);
+
+		Vector2 v = new Vector2(velX,velY);
+
 
 		Asteroid a = new Asteroid(r, new Vector2(velX, velY), new Vector2(0,0), "asteroid", ASTEROID_MASS, 25);
 		add(a);

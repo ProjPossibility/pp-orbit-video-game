@@ -12,7 +12,7 @@ public class Spaceship extends SpaceObject {
 
 	private boolean thrusting;
 	private long thrustAnim;
-	private static final double thrustSize = 100;
+	private static final double thrustSize = 80;
 
 	private double health;
 	private long healthWait;
@@ -49,7 +49,7 @@ public class Spaceship extends SpaceObject {
 		R = R.getNormalized();
 		Vector2 v;
 		double radius = p.getRadius();
-		double G=180;
+		double G=240;
 		if (dist > radius) {
 			v = R.scale(p.getMass()/(dist*dist)*G);
 		} else {

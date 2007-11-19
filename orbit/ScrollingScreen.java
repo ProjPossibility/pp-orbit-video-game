@@ -15,6 +15,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	private MiniMap miniMap;
 	private Game game;
 
+
 	/**	Make a rendering scroll screen.
 	 *	@param screen The Rect representing the actual screen's width,height
 	 *	@param view The Rect representing the portal through which the player sees the world
@@ -49,12 +50,12 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	{
 		System.out.println("Drawing everything");
 		super.paintComponent(g1);
-		
+
 		Graphics2D g=(Graphics2D)g1;
 		PrintManager.getInstance().setGraphics(g);
 		g.setColor(Color.black);
 		g.fillRect(0,0,(int)screen.width,(int)screen.height);
-		
+
 		/////try catch for concurrent modifications. Sometimes, the JFrame updates while in middle of game world update.
 		try
 		{
@@ -102,7 +103,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 					drawArrowTo(g,so);
 			}
 		}catch(ConcurrentModificationException e){}
-		
+
 
 		//print the headsup display
 		drawHUD(g);
@@ -124,8 +125,11 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		graphics.setColor(Color.RED);
 		int width = (int)(800*ship.getHealth()/100.0);
 
-		graphics.fillRect(0,580,width,20);
+		graphics.fillRect(0,560,width,20);
 		graphics.setComposite(comp);
+
+		//DRAW THE NUMBER OF LIVES//////////////////////////////////////////////////////////
+		drawLives(graphics,game.getLives());
 
 		if (game.getState() == Game.DIED_SEQUENCE) {
 			PrintManager.getInstance().print("huge","HAHAHA",400,300,Color.RED,PrintManager.CENTER);
@@ -135,6 +139,10 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 
 		miniMap.centerViewportAbout(world.getSpaceship().getPos());
 		miniMap.paintComponent(graphics);
+
+		//draw the notifications
+		NotificationManager.getInstance().paint();
+
 	}
 
 	/** Draw an individual SpaceObject.
@@ -193,14 +201,14 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		if(vector.y!=0){
 			factor=(screen.top-centerScreen.y)/vector.y;
 			inter0=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
-			
+
 			factor=(screen.bottom-centerScreen.y)/vector.y;
 			inter2=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
 		}
 		if(vector.x!=0){
 			factor=(screen.right-centerScreen.x)/vector.x;
 			inter1=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
-			
+
 			factor=(screen.left-centerScreen.x)/vector.x;
 			inter3=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
 		}
@@ -220,6 +228,21 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 		double angle=Math.atan2(vector.y, vector.x);
 		transform.concatenate(AffineTransform.getRotateInstance(angle+Math.PI/2));
 		g.drawImage(im,transform,null);
+	}
+	private void drawLives(Graphics2D g,int num) {
+		/*
+		Image image = ResourceManager.getImage("lives",0);
+		if (image == null) return;
+
+		Vector2 screenScale=transformScale(new Vector2(32,86));
+
+		for (int c=0;c<num;c++) {
+			int pos = 32+c*16;
+			g.drawImage(image,pos, 32,pos+32,86, (int)screenScale.x,(int)screenScale.y, null);
+		}
+	*/
+		PrintManager.getInstance().print("medium", "" + num + " lives", 32, 32,Color.WHITE);
+
 	}
 	private void drawStarfield(Graphics2D g,Star so)
 	{
