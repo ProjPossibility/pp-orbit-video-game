@@ -93,8 +93,8 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 			ArrayList<SpaceObject> objs=world.getSpaceObjects();
 			synchronized(objs)
 			{
-				for(SpaceObject so:objs)
-					drawArrowTo(g,so);
+				for(int i=1;i<5;i++)
+					drawArrowTo(g,objs.get(i));
 			}
 		}catch(ConcurrentModificationException e){}
 
@@ -175,14 +175,46 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	private void drawArrowTo(Graphics2D g,SpaceObject so)
 	{
 		Vector2 screenPos=transformVector(so.getPos());
+		/*
 		if(screenPos.x>screen.left&&screenPos.x<screen.right)
 			return;
 		if(screenPos.y>screen.top&&screenPos.y<screen.bottom)
 			return;
+		*/
 		Vector2 centerScreen=new Vector2((screen.left+screen.right)/2,(screen.top+screen.bottom)/2);
 		Vector2 vector=screenPos.subVector(centerScreen);
-
-
+		Vector2 inter0=null,inter1=null,inter2=null,inter3=null;
+		double factor=0;
+		if(vector.y!=0){
+			factor=(screen.top-centerScreen.y)/vector.y;
+			inter0=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
+			
+			factor=(screen.bottom-centerScreen.y)/vector.y;
+			inter2=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
+		}
+		if(vector.x!=0){
+			factor=(screen.right-centerScreen.x)/vector.x;
+			inter1=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
+			
+			factor=(screen.left-centerScreen.x)/vector.x;
+			inter3=new Vector2(factor*vector.x+centerScreen.x,factor*vector.y+centerScreen.y);
+		}
+		g.setColor(Color.blue);
+		g.drawLine((int)centerScreen.x,(int)centerScreen.y,(int)screenPos.x,(int)screenPos.y);
+		Vector2 chosen=inter3;
+		if(inter0.x>=screen.left&&inter0.x<=screen.right&&vector.y<0)
+			chosen=inter0;
+		else if(inter2.x>=screen.left&&inter2.x<=screen.right&&vector.y>0)
+			chosen=inter2;
+		else if(vector.x>=0)
+			chosen=inter1;
+		Image im=ResourceManager.getImage("pointer",0);
+		if(im==null||chosen==null)
+			return;
+		AffineTransform transform=AffineTransform.getTranslateInstance(chosen.x,chosen.y);
+		double angle=Math.atan2(vector.y, vector.x);
+		transform.concatenate(AffineTransform.getRotateInstance(angle+Math.PI/2));
+		g.drawImage(im,transform,null);
 	}
 	private void drawStarfield(Graphics2D g,Star so)
 	{

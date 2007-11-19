@@ -102,6 +102,7 @@ public class Game extends JFrame {
 		ResourceManager.addImageSequence("media/smoke.gif", 6, "smoke");
 		ResourceManager.addImageSequence("media/rocketSthrust.png",1,"spaceshipthrust");
 		ResourceManager.addImageSequence("media/FinalAsteroid.png", 25, "asteroid");
+		ResourceManager.addImageSequence("media/arrow.gif", 1, "pointer");
 
 		//add the fonts of the game
 		PrintManager.getInstance().addFont("small", new Font("Comic Sans MS",Font.PLAIN,12));
