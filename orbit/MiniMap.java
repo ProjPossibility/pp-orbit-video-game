@@ -70,7 +70,12 @@ public class MiniMap
 		if(so instanceof Asteroid)
 		{
 			g.setColor(Color.magenta);
-			diameter=1;
+			diameter=2;
+		}
+		if(so instanceof Powerup)
+		{
+			g.setColor(Color.green);
+			diameter=2;
 		}
 		Vector2 screenPos=worldToScreen(so.getPos());
 		if(screenPos.x-diameter/2<miniScreen.left||screenPos.x+diameter/2>miniScreen.right)

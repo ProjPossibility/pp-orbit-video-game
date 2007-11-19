@@ -48,7 +48,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 	 **/
 	public void paintComponent(Graphics g1)
 	{
-		System.out.println("Drawing everything");
+		//System.out.println("Drawing everything");
 		super.paintComponent(g1);
 
 		Graphics2D g=(Graphics2D)g1;
@@ -107,7 +107,7 @@ public class ScrollingScreen extends JPanel implements MouseListener, KeyListene
 
 		//print the headsup display
 		drawHUD(g);
-		System.out.println("Drawing done");
+		//System.out.println("Drawing done");
 	}
 	/**
 	 * draws the headsup display
