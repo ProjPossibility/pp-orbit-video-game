@@ -1,3 +1,26 @@
+/*
+    This file is part of Orbit.
+
+    Orbit is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Orbit is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Orbit.  If not, see <http://www.gnu.org/licenses/>. 
+    
+    This software was developed by members of Project:Possibility, a software 
+    collaboration for the disabled.
+    
+    For more information, visit http://projectpossibility.org
+*/
+
+
 package orbit;
 
 import javax.swing.*;
@@ -117,21 +140,21 @@ public class Game implements Runnable{
 
 	private void loadResources() throws Exception {
 		PrintManager.getInstance().setGraphics((Graphics2D)gameFrame.getGraphics());
-		ResourceManager.addImageSequence("media/rocketS.png",1,"spaceship");
-		ResourceManager.addImageSequence("media/star.gif",4,"star");
-		ResourceManager.addImageSequence("media/planet1.png",1,"planet0");
-		ResourceManager.addImageSequence("media/planet2.png",1,"planet1");
-		ResourceManager.addImageSequence("media/planet7.2.png",1,"planet2");
-		ResourceManager.addImageSequence("media/planet7.split.png",2,"planetTarget2");
-		ResourceManager.addImageSequence("media/explosion.gif", 18, "explosion");
-		ResourceManager.addImageSequence("media/smoke.gif", 6, "smoke");
-		ResourceManager.addImageSequence("media/rocketSthrust.png",1,"spaceshipthrust");
-		ResourceManager.addImageSequence("media/FinalAsteroid.png", 25, "asteroid");
+		ResourceManager.addImageSequence("orbit/media/rocketS.png",1,"spaceship");
+		ResourceManager.addImageSequence("orbit/media/star.gif",4,"star");
+		ResourceManager.addImageSequence("orbit/media/planet1.png",1,"planet0");
+		ResourceManager.addImageSequence("orbit/media/planet2.png",1,"planet1");
+		ResourceManager.addImageSequence("orbit/media/planet7.2.png",1,"planet2");
+		ResourceManager.addImageSequence("orbit/media/planet7.split.png",2,"planetTarget2");
+		ResourceManager.addImageSequence("orbit/media/explosion.gif", 18, "explosion");
+		ResourceManager.addImageSequence("orbit/media/smoke.gif", 6, "smoke");
+		ResourceManager.addImageSequence("orbit/media/rocketSthrust.png",1,"spaceshipthrust");
+		ResourceManager.addImageSequence("orbit/media/FinalAsteroid.png", 25, "asteroid");
 
-		ResourceManager.addImageSequence("media/speedboost.png",1,"speedboost");
-		ResourceManager.addImageSequence("media/extralife.png",1,"extralife");
+		ResourceManager.addImageSequence("orbit/media/speedboost.png",1,"speedboost");
+		ResourceManager.addImageSequence("orbit/media/extralife.png",1,"extralife");
 
-		ResourceManager.addImageSequence("media/arrow.gif", 1, "pointer");
+		ResourceManager.addImageSequence("orbit/media/arrow.gif", 1, "pointer");
 
 
 		//add the fonts of the game
