@@ -1,3 +1,25 @@
+/*
+    This file is part of Orbit.
+
+    Orbit is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Orbit is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Orbit.  If not, see <http://www.gnu.org/licenses/>.
+
+    This software was developed by members of Project:Possibility, a software
+    collaboration for the disabled.
+
+    For more information, visit http://projectpossibility.org
+*/
+
 package orbit;
 
 import javax.swing.*;
@@ -11,45 +33,81 @@ import java.util.*;
  */
 public class Game implements Runnable{
 
+	//game state machine constants
 	public static final int START_SCREEN =0;
 	public static final int INIT_GAME = 1;
 	public static final int GAME  =2;
 	public static final int DIED_SEQUENCE =3;
 	public static final int LOSS_SCREEN =4;
 	public static final int NEXT_LEVEL =5;
-	private JFrame gameFrame;
-	private Thread thread;
 
+	//game stats
 	private int state;
 	private int currentLevel;
 	private int points;
 	private int lives;
-
 	private long levelSeed;
+
+	/**
+	 * The actual game frame.
+	 */
+	private JFrame gameFrame;
+
+	/**
+	 * The thread the  game runs in.
+	 */
+	private Thread thread;
+
+	/**
+	 * Container object for world objects
+	 */
 	private World world;
+
+	/**
+	 * Binary input interface used to get input
+	 */
 	private BinaryInput binIn;
 
+	/**
+	 * The scrolling screen
+	 */
 	private ScrollingScreen scroll;
+
+	/**
+	 * The size of the viewport.
+	 */
 	private Rect viewport;
+
+	/**
+	 * The size of the screen
+	 */
 	private Rect screen;
 
+	/**
+	 * The start screen page object
+	 */
 	private MainPage startScreen;
+
+	/**
+	 * The victory page object
+	 */
 	private WinPage winScreen;
 
-
-
+	/*
+	 * Constructor throws exception
+	 */
 	public Game() throws Exception {
+		//initialize game basic objects
 		gameFrame = new JFrame();
 		thread=new Thread(this);
-		//Rect screen=new Rect(0,0,800,620);
-		//Rect screen=new Rect(0,0,400,385);
-
 		screen=new Rect(0,0,800,600);
 
+		//prepare game frame
 		gameFrame.setSize((int)screen.width,(int)screen.height);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setLocation(200,100);
 
+		//prepare interface and screens
 		binIn=new BinaryInput();
 		startScreen = new MainPage(this);
 		startScreen.setBinaryInput(binIn);
@@ -57,13 +115,16 @@ public class Game implements Runnable{
 		winScreen.setBinaryInput(binIn);
 		viewport=new Rect(0,0,1000,800);
 
+		//ask resource manager to load resources
 		try {
 			loadResources();
 
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-		gameFrame.setSize(800,600);
+
+		//show start screen
+		gameFrame.setSize(400,400);
 		gameFrame.setResizable(false);
 		gameFrame.setVisible(true);
 		setState(START_SCREEN);
@@ -71,23 +132,50 @@ public class Game implements Runnable{
 
 	}
 
+	/**
+	 * Returns level player is on
+	 */
 	public long getLevelSeed() {
 		return levelSeed;
 	}
+
+	/**
+	 * Returns the number of target planets left to get
+	 * in the game.
+	 */
 	public int getNumToBeTagged() {
 		return world.getNumTargetsLeft();
 	}
+
+	/**
+	 *
+	 * @return The number of lives the current player has.
+	 */
 	public int getLives() {
 		return lives;
 	}
 
+	/**
+	 *
+	 * @return The state of the game
+	 */
 	public int getState() {
 		return state;
 	}
+
+	/**
+	 * Starts the game thread.
+	 */
 	public void start()
 	{
 		thread.start();
 	}
+
+	/**
+	 * Sets the state of the game
+	 *
+	 * @param state The state to set the game to
+	 */
 	public void setState(int state) {
 		this.state = state;
 		//System.out.println("STATE:" + state);
@@ -112,9 +200,12 @@ public class Game implements Runnable{
 				setDiedSequenceState();
 				return;
 		}*/
-
 	}
 
+	/**
+	 * Calls resource manager to loda necessary media
+	 * and other tidbits.
+	 */
 	private void loadResources() throws Exception {
 		PrintManager.getInstance().setGraphics((Graphics2D)gameFrame.getGraphics());
 		ResourceManager.addImageSequence("media/rocketS.png",1,"spaceship");
@@ -141,19 +232,23 @@ public class Game implements Runnable{
 		PrintManager.getInstance().addFont("huge", new Font("Comic Sans MS",Font.PLAIN,48));
 	}
 
+	/**
+	 * Refreshes the start screen.
+	 */
 	private void updateStartScreenState() {
 		//gameFrame.setContentPane(startScreen);
 		gameFrame.repaint();
 		gameFrame.validate();
 	}
 
-	private void setLossScreenState() {
-	}
 	/**
-	 *
+	 * Handles the init game  state.
 	 **/
 	private void updateInitGameState() {
 		//System.out.println("GAME INITING: ");
+		gameFrame.setVisible(false);
+		gameFrame.setSize(800,600);
+		gameFrame.setVisible(true);
 
 		currentLevel = 0;
 		points = 0;
@@ -203,6 +298,7 @@ public class Game implements Runnable{
 
 		setState(NEXT_LEVEL);*/
 	}
+
 	/** Intermediate state that populates world and prepares game for the next level
 	 *
 	 **/
@@ -219,6 +315,7 @@ public class Game implements Runnable{
 		//scroll.requestFocus();
 		setState(GAME);
 	}
+
 	/** State machine, will continuously run (until esc/windowclose) and update whatever state its in.  States change the game's state by themselves
 	 *
 	 **/
@@ -260,10 +357,10 @@ public class Game implements Runnable{
 	}
 	private void updateLossScreen()
 	{
-		
+
 		setState(START_SCREEN);
 		gameFrame.setContentPane(startScreen);
-		
+
 	}
 	/** Main game loop - updates world and draws it
 	 *
@@ -305,7 +402,7 @@ public class Game implements Runnable{
 	 *
 	 **/
 	private void updateDiedSequenceState() {
-		
+
 	//decrement lives
 
 		--lives;
