@@ -27,12 +27,20 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
 
+/**
+ * 
+ * Manages textual displays on the screen.
+ * 
+ * @author Henry Yuen
+ *
+ */
 public class PrintManager {
-
+	
+	//constants for text placement
 	public static final int LEFT = 0;
 	public static final int RIGHT = 0;
 	public static final int CENTER = 0;
-
+	
 	private HashMap<String,Font> fonts;
 	private String currentFont;
 	private Graphics2D graphics;
@@ -42,7 +50,11 @@ public class PrintManager {
 		fonts = new HashMap<String,Font>();
 		currentFont = null;
 	}
-
+	
+	/**
+	 * Singleton pattern
+	 * @return the singleton instance
+	 */
 	public static PrintManager getInstance() {
 		if (instance == null) instance = new PrintManager();
 		return instance;
@@ -56,6 +68,15 @@ public class PrintManager {
 		fonts.put(id,f);
 	}
 
+	/**
+	 * Prints text on the screen
+	 * @param font The font to use
+	 * @param text The text to print
+	 * @param x X coordinate to place text
+	 * @param y Y coordinate to place text
+	 * @param c The color to color the text
+	 * @param alignment The alignment of the text
+	 */
 	public void print(String font,String text,int x,int y,Color c,int alignment) {
 		if (!fonts.containsKey(font)) return;
 
@@ -77,7 +98,14 @@ public class PrintManager {
 		}
 	}
 
-
+	/**
+	 * Prints text on the screen
+	 * @param font The font to use
+	 * @param text The text to print
+	 * @param x X coordinate to place text
+	 * @param y Y coordinate to place text
+	 * @param c The color to color the text
+	 */
 	public void print(String font,String text,int x,int y,Color c) {
 		if (!fonts.containsKey(font)) return;
 
@@ -103,7 +131,4 @@ public class PrintManager {
 		//graphics.setFont(oldfont);
 
 	}
-
-
-
 }

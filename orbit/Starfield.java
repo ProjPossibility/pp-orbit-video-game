@@ -31,9 +31,16 @@ import java.util.*;
  *
  */
 public class Starfield {
-
+	
+	
+	/**
+	 * Number of stars per layer.
+	 */
 	private final int NUM_STARS = 50;	//per layer
-
+	
+	/**
+	 * Listing of star layers
+	 */
 	ArrayList<Star> starLayer[];
 
 	public Starfield() {

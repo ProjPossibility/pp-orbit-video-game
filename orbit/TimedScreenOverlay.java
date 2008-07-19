@@ -26,6 +26,12 @@ package orbit;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+/**
+ * Extension of screen overlay technology to include
+ * clocking.
+ * @author Aadarsh Patel
+ *
+ */
 public class TimedScreenOverlay extends ScreenOverlay {
 
 	public final static int FADE_IN = 0;

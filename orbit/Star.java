@@ -23,6 +23,9 @@
 
 package orbit;
 
+/**
+ * Stars for starfields.
+ */
 public class Star extends SpaceObject {
 
 	private double speed;

@@ -25,14 +25,29 @@ package orbit;
 
 import java.util.*;
 
+/**
+ * Our very own custom particle effects system.
+ */
 public class ParticleSystem
 {
+	/**
+	 * Listing of particle effects.
+	 */
 	private ArrayList<ParticleEffect> particles;
 	
+	/**
+	 * Constructor
+	 */
 	public ParticleSystem()
 	{
 		particles=new ArrayList<ParticleEffect>();
 	}
+	
+	/**
+	 * Update function
+	 * 
+	 * @param millis time elasped since update was last called.
+	 */
 	public void update(int millis)
 	{
 		for(int i=0;i<particles.size();i++)
@@ -47,6 +62,11 @@ public class ParticleSystem
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @return particle effects list
+	 */
 	public ArrayList<ParticleEffect> getParticles()
 	{
 		return particles;
@@ -57,6 +77,14 @@ public class ParticleSystem
 	}
 	
 }
+
+/**
+ * 
+ * A particle effect is a space object that dies really fast.
+ * 
+ * @author Aadarsh Patel
+ *
+ */
 class ParticleEffect extends SpaceObject
 {
 	public ParticleEffect(Vector2 p,Vector2 v,Vector2 a,String sprite,double width,double height)

@@ -26,6 +26,10 @@ package orbit;
 import javax.swing.*;
 import java.util.*;
 
+/**
+ * Main Runner File
+ * @author Prateek Tandon
+ */
 public class OrbitGame
 {
 	public static void main(String[] args) throws Exception

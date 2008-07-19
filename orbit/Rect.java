@@ -23,19 +23,33 @@
 
 package orbit;
 
+/**
+ * Our very own rectangle class. 
+ */
 public class Rect {
-
+	
+	//rectangle placement constants
 	public double left;
 	public double right;
 	public double top;
 	public double bottom;
 	public double width;
 	public double height;
-
+	
+	/**
+	 * Default constructor (0,0,0,0)
+	 */
 	public Rect() {
 		left = right = top = bottom = width = height = 0.0;
 	}
 
+	/**
+	 * Actual useful constructor
+	 * @param left
+	 * @param top
+	 * @param right
+	 * @param bottom
+	 */
 	public Rect(double left,double top,double right,double bottom) {
 		this.left = left;
 		this.right = right;
@@ -44,6 +58,11 @@ public class Rect {
 		this.width = right-left;
 		this.height = bottom-top;
 	}
+	
+	/**
+	 * Sets center of rectangle
+	 * @param center The new  center
+	 */
 	public void setCenter(Vector2 center)
 	{
 		double x=center.x,y=center.y;
@@ -52,6 +71,10 @@ public class Rect {
 		top=y-height/2;
 		bottom=y+height/2;
 	}
+	
+	/**
+	 * Debug function
+	 */
 	public String toString()
 	{
 		return "<"+(int)left+", "+(int)top+", "+(int)right+", "+(int)bottom+">";

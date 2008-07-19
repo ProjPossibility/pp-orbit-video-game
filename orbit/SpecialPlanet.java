@@ -23,9 +23,22 @@
 
 package orbit;
 
+/**
+ * 
+ * A special planet is a home planet that your spaceship
+ * is looking for. Once a planet is found, it can be
+ * tagged as such.
+ * 
+ * @author Candice Zimmerman
+ *
+ */
 public class SpecialPlanet extends Planet {
-
+	
 	private double mass;
+	
+	/*
+	 * Whether the planet has been tagged or not.
+	 */
 	private boolean tagged;
 
 	public SpecialPlanet() {
@@ -33,7 +46,7 @@ public class SpecialPlanet extends Planet {
 		tagged = false;
 		numFrames=2;
 	}
-
+	
 	public SpecialPlanet(Vector2 p,Vector2 v,Vector2 a,String sprite,double mass,double radius) {
 		super(p,v,a,sprite,radius*2,radius*2);
 		this.mass = mass;
@@ -41,7 +54,10 @@ public class SpecialPlanet extends Planet {
 		tagged = false;
 		numFrames=2;
 	}
-
+	
+	/**
+	 * Setter for tag
+	 */
 	public void setTagged(){
 		//System.out.println("\nTAGGED PLANET, YAY!!!!!\n");
 		tagged = true;

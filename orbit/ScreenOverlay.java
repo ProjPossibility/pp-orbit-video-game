@@ -26,8 +26,15 @@ package orbit;
 import java.awt.geom.*;
 import java.awt.*;
 
+/**
+ * 
+ * Models a screen overlay.
+ * @author Aadarsh Patel
+ *
+ */
 public class ScreenOverlay {
-
+	
+	//attributes
 	Color color;
 	int width,height;
 	Rect area;
@@ -67,6 +74,4 @@ public class ScreenOverlay {
 		//graphics.setComposite(comp);
 		System.out.println("Paint minimap "+area);
 	}
-	
-
 }

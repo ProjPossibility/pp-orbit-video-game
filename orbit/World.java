@@ -26,8 +26,18 @@ package orbit;
 import java.util.*;
 import java.awt.*;
 
+/**
+ * 
+ * The world is the main container object for the games.
+ * Contains all space objects and  helps facilitate their
+ * interactions.
+ * 
+ * @author Henry Yuen
+ *
+ */
 public class World
 {
+	//universe constants
 	public final int WORLD_SIZE = 36000;
 	public final double MAX_SHIP_SPEED = 2500;
 	public final int MIN_ASTEROIDS_IN_UNIVERSE = 200;
@@ -38,16 +48,20 @@ public class World
 
 	//powerups
 	public final int NUM_POWERUPS = 200;
-
+	
+	//planet constants
 	public static final int SMALL_PLANET = 0;
 	public static final int MEDIUM_PLANET = 1;
 	public static final int BIG_PLANET = 2;
-
+	
+	//lists of objects
 	private ArrayList<SpaceObject> spaceObjects;
 	private ArrayList<SpaceObject> deadObjects;
 	private ArrayList<SpecialPlanet> specialPlanets;
 	private ArrayList<Asteroid> asteroids;
 	private ArrayList<Explosion> explosions;
+
+	//Game state objects
 	private int numAsteroids;
 	private Starfield starfield;
 	private Spaceship spaceship;
@@ -57,9 +71,15 @@ public class World
 	private ParticleSystem particleSystem;
 	private int particleTimer;
 	private int numToBeTagged;
+	
+	//fundamental objects
 	private Game game;
 	private SoundManager soundManager;
 
+	/**
+	 * Constructor for world
+	 * @param g Associated game object
+	 */
 	public World(Game g)
 	{
 		game = g;
@@ -78,6 +98,9 @@ public class World
 
 		numToBeTagged = 0;
 	}
+	
+	//getters and setters
+	
 	public ParticleSystem getParticleSystem()
 	{
 		return particleSystem;
@@ -498,7 +521,11 @@ public class World
 			add(pup);
 		}
 	}
-
+	
+	/**
+	 * Generates random asteroids in the world
+	 * @param rand MathRandom object to use
+	 */
 	public void generateAsteroid(Random rand)
 	{
 		double randomTheta = Math.random()*6.18;
@@ -526,7 +553,12 @@ public class World
 		addAsteroid(a);
 
 	}
-
+	
+	/**
+	 * 
+	 * @return Number of special planets that are not yet
+	 * tagged.
+	 */
 	public int getNumTargetsLeft() {
 		return this.numToBeTagged;
 	}
