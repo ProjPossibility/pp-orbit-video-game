@@ -28,26 +28,53 @@ import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
 
+/**
+ * JPanel object for title screen.
+ */
 public class MainPage extends JPanel implements MouseListener, KeyListener
-{
-	//ImageIcon titlePrompt = new ImageIcon("media/titlePrompt.png");
+{	
+	//images
 	ImageIcon sceneT = new ImageIcon("media/sceneT.jpg");
 	ImageIcon sceneT2 = new ImageIcon("media/sceneT2.jpg");
+	
+	/**
+	 * Binary input object for main page.
+	 */
 	BinaryInput binaryInput=new BinaryInput();
+
+	/**
+	 * Prompt marker
+	 */
 	int prompt = 0; // set prompt for first page
+
+	/**
+	 * Reference to  the game
+	 */
 	Game game;
 
+	/**
+	 * Creates a main page object
+
+	 * @param game Game object associated with main page.
+	 */
 	public MainPage(Game game)
 	{
 		this.game = game;
 		addMouseListener(this);
 		addKeyListener(this);
 	}
+	
+	/**
+	 * Binary input object can be set.
+	 * 
+	 * @param binInput The binary input object
+	 */
 	public void setBinaryInput(BinaryInput binIn)
 	{
 		binaryInput=binIn;
 	}
-	/** Override the paint
+
+	/** Override the paint method
 	 *
 	 **/
 	public void paintComponent(Graphics g1)
@@ -72,12 +99,9 @@ public class MainPage extends JPanel implements MouseListener, KeyListener
 		}
 
 	}
-	/** Draw an individual SpaceObject.
-	 *
-	 **/
 
 	///Whenever an event happens, update the binary input
-
+	
 	public void mousePressed(MouseEvent e)
 	{
 		if(binaryInput!=null) {

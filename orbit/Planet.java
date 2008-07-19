@@ -23,6 +23,14 @@
 
 package orbit;
 
+/**
+ * 
+ * Models a planet. A place is a space object with mass so
+ * gravity affects it.
+ * 
+ * @author Henry Yuen
+ *
+ */
 public class Planet extends SpaceObject {
 
 	private double mass;

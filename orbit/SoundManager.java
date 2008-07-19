@@ -29,6 +29,10 @@ import java.util.*;
 public class SoundManager {
 private static HashMap<String, AudioStream> soundTrackVector;
 private java.applet.AudioClip winclip;
+
+/**
+ * Handles playing of background music.
+ */
 public SoundManager(){
 	// Open an input stream  to the audio file.
 	try{

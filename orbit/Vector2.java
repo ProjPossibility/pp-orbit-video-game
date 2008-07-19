@@ -29,6 +29,11 @@
 
 package orbit;
 
+/**
+ * Models a vectorized quantity.
+ * @author Henry Yuen
+ *
+ */
 public class Vector2 {
 
 	public double x;

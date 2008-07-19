@@ -34,18 +34,18 @@ import java.awt.*;
  *
  */
 public class FlashingText {
-
-	String text;
-	long flashLength;
-	long life;
-	long overallCount;
-	long count;
-	int x,y;
-	int size;
-	Color color;
-	boolean on;
-	boolean alive;
-
+	
+	//parameters of flashing text
+	private String text;
+	private long flashLength;
+	private long life;
+	private long overallCount;
+	private long count;
+	private int x,y;
+	private int size;
+	private Color color;
+	private boolean on;
+	private boolean alive;
 
 	public FlashingText(String text) {
 		this.text = text;
@@ -83,7 +83,14 @@ public class FlashingText {
 	public boolean getAlive() {
 		return alive;
 	}
-
+	
+	/*
+	 * Updates text object on screen based
+	 * on how much time has elapsed.
+	 * 
+	 * @param timeElapsed The time that has elapsed since
+	 * last update call
+	 */
 	public void update(long timeElapsed) {
 		overallCount += timeElapsed;
 		if (overallCount >= life) {
@@ -97,7 +104,10 @@ public class FlashingText {
 		}
 		*/
 	}
-
+	
+	/*
+	 * Calls print manager to pint the text on the  screen.
+	 */
 	public void paint() {
 		if (on == false) return;
 		if (alive == false) return;

@@ -29,6 +29,13 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.geom.*;
 
+/**
+ *
+ * Handles rendering of world onto screen.
+ * 
+ * @author Aadarsh Patel
+ *
+ */
 public class ScrollingScreen extends JPanel implements MouseListener, KeyListener
 {
 	private Rect screen;//in pixels of screen space

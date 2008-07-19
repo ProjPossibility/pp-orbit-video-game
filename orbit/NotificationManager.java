@@ -25,11 +25,26 @@ package orbit;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * Manages notifications for the screens. Basically,
+ * manages flashing texts on the screen.
+ * 
+ * @author Henry Yuen, Prateek Tandon
+ *
+ */
 public class NotificationManager {
 
+	/**
+	 * Container for flashing texts
+	 */
 	private ArrayList<FlashingText> flashingTexts;
 	private static NotificationManager instance = null;
-
+	
+	/**
+	 * Singleton pattern
+	 * @return singleton instance
+	 */
 	public static NotificationManager getInstance() {
 		if (instance == null) instance = new NotificationManager();
 		return instance;
@@ -38,11 +53,21 @@ public class NotificationManager {
 	private NotificationManager() {
 		flashingTexts = new ArrayList<FlashingText>();
 	}
-
+	
+	/**
+	 * Add flashing text to manager
+	 * @param ft flashing text object to add
+	 */
 	public void addFlashingText(FlashingText ft) {
 		flashingTexts.add(ft);
 	}
-
+	
+	/**
+	 * Update function for notification manager. Basically
+	 * kills flashing texts that have outlived their lifetime.
+	 * 
+	 * @param timeElapsed Time elapsed since update was last called.
+	 */
 	public void update(long timeElapsed) {
 		ArrayList<FlashingText> toRemove = new ArrayList<FlashingText>();
 
@@ -57,6 +82,9 @@ public class NotificationManager {
 		toRemove.clear();
 	}
 
+	/*
+	 * Paint function override
+	 */
 	public void paint() {
 		for (FlashingText ft : flashingTexts) {
 			ft.paint();

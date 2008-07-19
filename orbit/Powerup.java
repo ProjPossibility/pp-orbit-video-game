@@ -23,12 +23,21 @@
 
 package orbit;
 
+/**
+ * Models a powerup. A powerup is a space object
+ * that has type
+ * 
+ * @author Prateek Tandon
+ *
+ */
 public class Powerup extends SpaceObject {
 
+	//"types"
 	public static final int EXTRA_LIFE = 0;
 	public static final int SPEED_BOOST = 1;
 	public static final int NUM_TYPE_POWERUPS = 2;
 
+	//what type the power up is
 	private int type;
 
 	public Powerup(int type,Vector2 pos) {
@@ -49,7 +58,11 @@ public class Powerup extends SpaceObject {
 	public int getType() {
 		return type;
 	}
-
+	
+	/**
+	 * Message shown when powerup is acquired.
+	 * @return acquired message
+	 */
 	public String getAquiredMessage() {
 
 		switch (type) {

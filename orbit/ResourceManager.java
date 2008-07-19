@@ -28,15 +28,34 @@ import java.awt.image.*;
 
 import javax.swing.*;
 
+/** 
+ * 
+ * The resource manager does loading and presentation of media.
+ * Follows the singleton pattern.
+ * @author Henry Yuen
+ *
+ */
 public class ResourceManager {
-
+	
+	/**
+	 * The images in the system.
+	 */
 	private static HashMap<String, BufferedImage> imageMap;
+	
+	/**
+	 * Singleton instance
+	 */
 	private static ResourceManager instance = new ResourceManager();
 
 	private ResourceManager() {
 		imageMap = new HashMap<String, BufferedImage>();
 	}
-
+	
+	/**
+	 * Convert a image to a buffered image.
+	 * @param image original image
+	 * @return buffered image object
+	 */
 	private static BufferedImage toBufferedImage(Image image) {
         if (image instanceof BufferedImage) {
             return (BufferedImage)image;
@@ -68,7 +87,13 @@ public class ResourceManager {
         g.dispose();
         return bimage;
     }
-
+	
+	/**
+	 * Add an image sequence to the resource manager
+	 * @param imagePath The image file
+	 * @param numImages The number of images in the file
+	 * @param sequenceName The name of the sequence (for hashing purposes)
+	 */
 	public static void addImageSequence(String imagePath, int numImages, String sequenceName) {
 		Image loadedImage = Toolkit.getDefaultToolkit().getImage(imagePath);
 		BufferedImage globalImg = toBufferedImage(loadedImage);
@@ -79,7 +104,13 @@ public class ResourceManager {
 			imageMap.put(sequenceName+x, i);
 		}
 	}
-
+	
+	/**
+	 * Returns hashed image
+	 * @param key The key of the image
+	 * @param frame The frame of the image
+	 * @return
+	 */
 	public static Image getImage(String key, int frame) {
 		String hashKey = key + frame;
 		return imageMap.get(hashKey);

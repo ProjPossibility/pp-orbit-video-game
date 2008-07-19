@@ -28,15 +28,48 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
 
+/**
+ * Class that models minimap in game. Also contains methods to d
+ * draw minimap on screen.
+ */
 public class MiniMap
 {
+	/**
+	 * The world associated with the minimap.
+	 */ 
 	private World world;
+	
+	/**
+	 * The viewport associated with the minimap. 
+	 */
 	private Rect viewport;
+	
+	/**
+	 * Dimensions of minimap.
+	 */
 	private Rect miniScreen;
+	
+	/*
+	 * Dimensions of player view
+	 */
 	private Rect playerView;
+	
+	
 	private ScreenOverlay overlay;
+	
+	/**
+	 * Scale factor
+	 */
 	private double objectScale;
 	
+	/**
+	 * Constructor 
+	 * 
+	 * @param screen The dimensions of the screen
+	 * @param view The dimensions of the view
+	 * @param realView The dimensions of the world view
+	 * @param world The world object associated with the minimap
+	 */
 	public MiniMap(Rect screen,Rect view,Rect realView,World world)
 	{
 		this.world=world;
@@ -45,6 +78,11 @@ public class MiniMap
 		this.playerView=realView;
 		objectScale=2.0;
 	}
+	
+	/**
+	 * Overriden paint method.
+	 * @param g The graphics
+	 */
 	public void paintComponent(Graphics2D g)
 	{
 		Composite comp = g.getComposite();
@@ -77,10 +115,19 @@ public class MiniMap
 		
 		g.setComposite(comp);
 	}
+	
+	/**
+	 * Sets the viewpoint center point.
+	 * @param pos  The new viewpoint center
+	 */
 	public void centerViewportAbout(Vector2 pos)
 	{
 		viewport.setCenter(pos);
 	}
+	
+	/**
+	 * Draws object on minimap
+	 */
 	private void drawObject(Graphics2D g,SpaceObject so)
 	{
 		g.setColor(Color.red);
@@ -112,11 +159,26 @@ public class MiniMap
 			return;
 		g.fillOval((int)(screenPos.x-diameter/2),(int)(screenPos.y-diameter/2),(int)diameter,(int)diameter);
 	}
+	
+	/**
+	 * Converts from a world position to a screen position.
+	 * Coordinate scaling method.
+	 * 
+	 * @param pos The world pos
+	 * @return The scaled screen pos
+	 */
 	private Vector2 worldToScreen(Vector2 pos)
 	{
 		return new Vector2(ScrollingScreen.transformSingleDimension(pos.x,viewport.left,viewport.right,miniScreen.left,miniScreen.right),
 			ScrollingScreen.transformSingleDimension(pos.y,viewport.top,viewport.bottom,miniScreen.top,miniScreen.bottom));
 	}
+	
+	/**
+	 * Another scaling method
+	 * @param x The x world coordinate
+	 * @param y The y world coordinate
+	 * @return The screen coordinate
+	 */
 	private Vector2 worldToScreen(double x,double y)
 	{
 		return worldToScreen(new Vector2(x,y));
