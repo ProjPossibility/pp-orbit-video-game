@@ -1,4 +1,6 @@
 # pp-orbit-video-game
+A binary input video game.
+
 Overview
 In this binary input video game, you will navigate your spaceship through a world of asteroids, stars, and planets, using their gravity to guide you to your escape.
 
